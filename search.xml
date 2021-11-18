@@ -129,11 +129,11 @@
     
     
     <entry>
-      <title>linux启动程序报错：$&#39;r&#39;未找到命令</title>
-      <link href="/2021/11/18/Linux%E5%90%AF%E5%8A%A8%E7%A8%8B%E5%BA%8F%E6%8A%A5%E9%94%99%EF%BC%9A$&#39;r&#39;%E6%9C%AA%E6%89%BE%E5%88%B0%E5%91%BD%E4%BB%A4/"/>
-      <url>/2021/11/18/Linux%E5%90%AF%E5%8A%A8%E7%A8%8B%E5%BA%8F%E6%8A%A5%E9%94%99%EF%BC%9A$&#39;r&#39;%E6%9C%AA%E6%89%BE%E5%88%B0%E5%91%BD%E4%BB%A4/</url>
+      <title>Linux定义环境变量[export命令]</title>
+      <link href="/2021/11/18/Linux%E5%AE%9A%E4%B9%89%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"/>
+      <url>/2021/11/18/Linux%E5%AE%9A%E4%B9%89%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</url>
       
-        <content type="html"><![CDATA[<h1 id="linux启动程序报错：-’r’未找到命令"><a href="#linux启动程序报错：-’r’未找到命令" class="headerlink" title="linux启动程序报错：$’r’未找到命令"></a>linux启动程序报错：$’r’未找到命令</h1><p>因为在dos/window下按一次回车键实际上输入的是“回车（CR)”和“换行（LF）”，而Linux/unix下按一次回车键只输入“换行（LF）”，所以文件在每行都会多了一个CR，所以Linux下运行时就会报错找不到命令，所以，解决问题之道，就是把dos文件格式转换为unix格式</p><p><strong>方法1：使用dos2unix命令转换</strong></p><p>第一步：安装dos2unix命令，如果已经安装，跳过该步骤</p><pre><code class="shell"># centosyum install dos2unix# ubuntusudo apt-get install dos2unix</code></pre><p>第二步：转换格式</p><pre><code class="shell"> dos2unix /usr/apache-tomcat/bin/restart.sh #  dos2unix /usr/apache-tomcat/bin/restart.sh</code></pre><p><strong>方法2：使用notepad++</strong></p><p>在windows系统下使用notepad++编辑该sh文件，双击文件右下角编码区域选择”转换为UNIX格式”，如下图： </p>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux定义环境变量-export命令"><a href="#Linux定义环境变量-export命令" class="headerlink" title="Linux定义环境变量[export命令]"></a>Linux定义环境变量[export命令]</h1><p>修改/etc/profile文件</p><p><strong>基本语法：</strong>export [-fnp] [变量名称]=[变量设置值]</p><p><strong>参数说明：</strong></p><p>-f：代表[变量名称]中函数名称。</p><p>-n：删除指定的变量。变量实际上并未删除，只是不会输出到后续指令的执行环境中。</p><p>-p：列出所有的shell赋予程序的环境变量。</p><p><strong>实例：</strong></p><pre><code class="shell">cat &gt; /etc/profile.d/java.sh &lt;&lt; EOFJAVA_HOME=/opt/jdk1.8.0_192PATH=\$JAVA_HOME/bin:\$PATHexport JAVA_HOMEEOF</code></pre>]]></content>
       
       
       <categories>
@@ -154,11 +154,11 @@
     
     
     <entry>
-      <title>Linux定义环境变量[export命令]</title>
-      <link href="/2021/11/18/Linux%E5%AE%9A%E4%B9%89%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"/>
-      <url>/2021/11/18/Linux%E5%AE%9A%E4%B9%89%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</url>
+      <title>linux启动程序报错：$&#39;r&#39;未找到命令</title>
+      <link href="/2021/11/18/Linux%E5%90%AF%E5%8A%A8%E7%A8%8B%E5%BA%8F%E6%8A%A5%E9%94%99%EF%BC%9A$&#39;r&#39;%E6%9C%AA%E6%89%BE%E5%88%B0%E5%91%BD%E4%BB%A4/"/>
+      <url>/2021/11/18/Linux%E5%90%AF%E5%8A%A8%E7%A8%8B%E5%BA%8F%E6%8A%A5%E9%94%99%EF%BC%9A$&#39;r&#39;%E6%9C%AA%E6%89%BE%E5%88%B0%E5%91%BD%E4%BB%A4/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux定义环境变量-export命令"><a href="#Linux定义环境变量-export命令" class="headerlink" title="Linux定义环境变量[export命令]"></a>Linux定义环境变量[export命令]</h1><p>修改/etc/profile文件</p><p><strong>基本语法：</strong>export [-fnp] [变量名称]=[变量设置值]</p><p><strong>参数说明：</strong></p><p>-f：代表[变量名称]中函数名称。</p><p>-n：删除指定的变量。变量实际上并未删除，只是不会输出到后续指令的执行环境中。</p><p>-p：列出所有的shell赋予程序的环境变量。</p><p><strong>实例：</strong></p><pre><code class="shell">cat &gt; /etc/profile.d/java.sh &lt;&lt; EOFJAVA_HOME=/opt/jdk1.8.0_192PATH=\$JAVA_HOME/bin:\$PATHexport JAVA_HOMEEOF</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="linux启动程序报错：-’r’未找到命令"><a href="#linux启动程序报错：-’r’未找到命令" class="headerlink" title="linux启动程序报错：$’r’未找到命令"></a>linux启动程序报错：$’r’未找到命令</h1><p>因为在dos/window下按一次回车键实际上输入的是“回车（CR)”和“换行（LF）”，而Linux/unix下按一次回车键只输入“换行（LF）”，所以文件在每行都会多了一个CR，所以Linux下运行时就会报错找不到命令，所以，解决问题之道，就是把dos文件格式转换为unix格式</p><p><strong>方法1：使用dos2unix命令转换</strong></p><p>第一步：安装dos2unix命令，如果已经安装，跳过该步骤</p><pre><code class="shell"># centosyum install dos2unix# ubuntusudo apt-get install dos2unix</code></pre><p>第二步：转换格式</p><pre><code class="shell"> dos2unix /usr/apache-tomcat/bin/restart.sh #  dos2unix /usr/apache-tomcat/bin/restart.sh</code></pre><p><strong>方法2：使用notepad++</strong></p><p>在windows系统下使用notepad++编辑该sh文件，双击文件右下角编码区域选择”转换为UNIX格式”，如下图： </p>]]></content>
       
       
       <categories>
@@ -279,11 +279,11 @@
     
     
     <entry>
-      <title>Linux：awk 命令详解</title>
-      <link href="/2021/11/18/Linux%EF%BC%9Aawk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
-      <url>/2021/11/18/Linux%EF%BC%9Aawk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
+      <title>awk入门教程</title>
+      <link href="/2021/11/18/Linux%EF%BC%9Aawk%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/"/>
+      <url>/2021/11/18/Linux%EF%BC%9Aawk%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux：awk-命令详解"><a href="#Linux：awk-命令详解" class="headerlink" title="Linux：awk 命令详解"></a>Linux：awk 命令详解</h1><p>特点：取列，统计计算</p><p>场景：主要用来取列；对比，比较；统计，计算（awk 数组）</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="awk入门教程"><a href="#awk入门教程" class="headerlink" title="awk入门教程"></a>awk入门教程</h1><p>awk 是处理文本文件的一个应用程序，几乎所有 Linux 系统都自带这个程序。</p><p>它依次处理文件的每一行，并读取里面的每一个字段。对于<strong>日志</strong>、<strong>csv</strong> 这样的每行格式相同的文本文件，awk 可能是最方便的工具。</p><p>awk 其实不仅仅是工具软件，还是一种编程语言。不过，本文只介绍它的命令用法，对于大多数场合，应该足够了。</p><h2 id="一、基本用法"><a href="#一、基本用法" class="headerlink" title="一、基本用法"></a>一、基本用法</h2><p>awk的基本用法如下：</p><pre><code class="shell"># 格式awk 动作 文件名# 实例awk &#39;&#123;print $0&#125;&#39; demo.txt</code></pre><p>上面示例中，demo.txt是awk要处理的文本文件。前面单引号内部有一个大括号，里面就是每一行的处理动作<code>print $0</code>。其中，print是打印命令，<code>$0</code>代表当前行，因此上面命令的执行结果，就是把每一行原样打印出来。</p><p>下面，我们先用标准输入（stdin）演示上面这个例子。</p><pre><code class="shell">echo &#39;this is a test&#39; | awk &#39;&#123;print $0&#125;&#39;# 结果this is a test</code></pre><p>上面代码中，print $0就是把标准输入this is a test，重新打印了一遍。</p><p>awk会根据空格和制表符，将每一行分成若干段，一次用<code>$1</code>、<code>$2</code>、<code>$3</code>代表第一个字段、第二个字段、第三个字段等等。</p><pre><code class="shell">echo &#39;this is a test&#39; | awk &#39;&#123;print $3&#125;&#39;# 结果a</code></pre><p>上面代码中，<code>$3</code>代表this is a test的第三个字段a。</p><p>下面，为了便于举例，我们把/etc/passwd文件保存成demo.txt。</p><pre><code class="txt">root:x:0:0:root:/root:/usr/bin/zshdaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologinbin:x:2:2:bin:/bin:/usr/sbin/nologinsys:x:3:3:sys:/dev:/usr/sbin/nologinsync:x:4:65534:sync:/bin:/bin/sync</code></pre><p>这个文件的字段分隔符号是（：），所以要用-F参数指定分隔符为冒号。然后，才能提取到它的第一个字段。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123; print $1 &#125;&#39; demo.txt# 结果rootdaemonbinsyssync</code></pre><h2 id="二、变量"><a href="#二、变量" class="headerlink" title="二、变量"></a>二、变量</h2><p>除了<code>$</code>、<code>+</code>、<code>数字</code>表示某个字段，<code>awk</code>还提供其他一些变量。</p><p>变量NF表示当前有多少个字段，因此<code>$NF</code>就代表最后一个字段。</p><pre><code class="shell">echo &#39;this is a test&#39; | awk &#39;&#123;print $NF&#125;&#39;# 结果test</code></pre><p>$(NF-1)代表倒数第二个字段。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123;print $1, $(NF-1)&#125;&#39; demo.txt# 结果root /rootdaemon /usr/sbinbin /binsys /devsync /bin</code></pre><p>上面代码中，<code>print</code>命令里面的逗号，表示输出的时候，两个部分之间使用空格分隔。</p><p>变量<code>NR</code>表示当前处理的是第几行。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123;print NR &quot;) &quot; $1&#125;&#39; demo.txt# 结果1) root2) daemon3) bin4) sys5) sync</code></pre><p>上面代码中，<code>print</code>命令里面，如果原样输出字符，要放在双引号里面。</p><p>awk的其他内置变量如下。</p><ul><li><code>FILENAME</code>：当前文件名</li><li><code>FS</code>：字段分隔符，默认是空格和制表符。</li><li><code>RS</code>：行分隔符，用于分割每一行，默认是换行符。</li><li><code>OFS</code>：输出字段的分隔符，用于打印时分隔字段，默认为空格。</li><li><code>ORS</code>：输出记录的分隔符，用于打印时分隔记录，默认为换行符。</li><li><code>OFMT</code>：数字输出的格式，默认为<code>％.6g</code>。</li></ul><h2 id="三、函数"><a href="#三、函数" class="headerlink" title="三、函数"></a>三、函数</h2><p><code>awk</code>还提供了一些内置函数，方便对原始数据的处理。</p><p>函数<code>toupper()</code>用于将字符转换为大写。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123; print toupper($1) &#125;&#39; demo.txt# 结果ROOTDAEMONBINSYSSYNC</code></pre><p>上面代码中，第一个字段输出时都变成了大写。</p><p>其他常用函数如下：</p><ul><li><code>tolower()</code>：字符转为小写。</li><li><code>length()</code>：返回字符串长度。</li><li><code>substr()</code>：返回子字符串。</li><li><code>sin()</code>：正弦。</li><li><code>cos()</code>：余弦。</li><li><code>sqrt()</code>：平方根。</li><li><code>rand()</code>：随机数。</li></ul><p><code>awk</code>内置函数的完整列表，可以查看<a href="https://www.gnu.org/software/gawk/manual/html_node/Built_002din.html#Built_002din">手册</a>。</p><h2 id="四、条件"><a href="#四、条件" class="headerlink" title="四、条件"></a>四、条件</h2><p><code>awk</code>允许指定输出条件，只输出符合条件的行。</p><p>输出条件要写在动作的前面。</p><pre><code class="shell">awk &#39;条件 动作&#39; 文件名</code></pre><p>请看下面的例子。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;/usr/ &#123;print $1&#125;&#39; demo.txt# 结果rootdaemonbinsys</code></pre><p>上面代码中，<code>print</code>命令前面是一个正则表达式，只输出包含<code>usr</code>的行。</p><p>下面的例子只输出奇数行，以及输出第三行以后的行。</p><pre><code class="shell"># 输出奇数行$ awk -F &#39;:&#39; &#39;NR % 2 == 1 &#123;print $1&#125;&#39; demo.txt# 结果rootbinsync# 输出第三行以后的行$ awk -F &#39;:&#39; &#39;NR &gt;3 &#123;print $1&#125;&#39; demo.txt# 结果syssync</code></pre><p>下面的例子输出的第一个字段等于指定的行。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;$1 == &quot;root&quot; &#123;print $1&#125;&#39; demo.txt# 结果rootawk -F &#39;:&#39; &#39;$1 == &quot;root&quot; || $1 == &quot;bin&quot; &#123;print $1&#125;&#39; demo.txt# 结果rootbin</code></pre><h2 id="五、if语句"><a href="#五、if语句" class="headerlink" title="五、if语句"></a>五、if语句</h2><p><code>awk</code>提供了<code>if</code>结构，用于编写复杂的条件。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123;if ($1 &gt; &quot;m&quot;) print $1&#125;&#39; demo.txt# 结果rootsyssync</code></pre><p>上面代码输出第一个字段的第一个字符大于m的行。</p><p><code>if</code>结构还可以指定<code>else</code>部分。</p><pre><code class="shell">$ awk -F &#39;:&#39; &#39;&#123;if ($1 &gt; &quot;m&quot;) print $1; else print &quot;---&quot;&#125;&#39; demo.txt# 结果root------syssync</code></pre>]]></content>
       
       
       <categories>
@@ -304,11 +304,11 @@
     
     
     <entry>
-      <title>awk入门教程</title>
-      <link href="/2021/11/18/Linux%EF%BC%9Aawk%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/"/>
-      <url>/2021/11/18/Linux%EF%BC%9Aawk%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+      <title>Linux：awk 命令详解</title>
+      <link href="/2021/11/18/Linux%EF%BC%9Aawk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
+      <url>/2021/11/18/Linux%EF%BC%9Aawk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
       
-        <content type="html"><![CDATA[<h1 id="awk入门教程"><a href="#awk入门教程" class="headerlink" title="awk入门教程"></a>awk入门教程</h1><p>awk 是处理文本文件的一个应用程序，几乎所有 Linux 系统都自带这个程序。</p><p>它依次处理文件的每一行，并读取里面的每一个字段。对于<strong>日志</strong>、<strong>csv</strong> 这样的每行格式相同的文本文件，awk 可能是最方便的工具。</p><p>awk 其实不仅仅是工具软件，还是一种编程语言。不过，本文只介绍它的命令用法，对于大多数场合，应该足够了。</p><h2 id="一、基本用法"><a href="#一、基本用法" class="headerlink" title="一、基本用法"></a>一、基本用法</h2><p>awk的基本用法如下：</p><pre><code class="shell"># 格式awk 动作 文件名# 实例awk &#39;&#123;print $0&#125;&#39; demo.txt</code></pre><p>上面示例中，demo.txt是awk要处理的文本文件。前面单引号内部有一个大括号，里面就是每一行的处理动作<code>print $0</code>。其中，print是打印命令，<code>$0</code>代表当前行，因此上面命令的执行结果，就是把每一行原样打印出来。</p><p>下面，我们先用标准输入（stdin）演示上面这个例子。</p><pre><code class="shell">echo &#39;this is a test&#39; | awk &#39;&#123;print $0&#125;&#39;# 结果this is a test</code></pre><p>上面代码中，print $0就是把标准输入this is a test，重新打印了一遍。</p><p>awk会根据空格和制表符，将每一行分成若干段，一次用<code>$1</code>、<code>$2</code>、<code>$3</code>代表第一个字段、第二个字段、第三个字段等等。</p><pre><code class="shell">echo &#39;this is a test&#39; | awk &#39;&#123;print $3&#125;&#39;# 结果a</code></pre><p>上面代码中，<code>$3</code>代表this is a test的第三个字段a。</p><p>下面，为了便于举例，我们把/etc/passwd文件保存成demo.txt。</p><pre><code class="txt">root:x:0:0:root:/root:/usr/bin/zshdaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologinbin:x:2:2:bin:/bin:/usr/sbin/nologinsys:x:3:3:sys:/dev:/usr/sbin/nologinsync:x:4:65534:sync:/bin:/bin/sync</code></pre><p>这个文件的字段分隔符号是（：），所以要用-F参数指定分隔符为冒号。然后，才能提取到它的第一个字段。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123; print $1 &#125;&#39; demo.txt# 结果rootdaemonbinsyssync</code></pre><h2 id="二、变量"><a href="#二、变量" class="headerlink" title="二、变量"></a>二、变量</h2><p>除了<code>$</code>、<code>+</code>、<code>数字</code>表示某个字段，<code>awk</code>还提供其他一些变量。</p><p>变量NF表示当前有多少个字段，因此<code>$NF</code>就代表最后一个字段。</p><pre><code class="shell">echo &#39;this is a test&#39; | awk &#39;&#123;print $NF&#125;&#39;# 结果test</code></pre><p>$(NF-1)代表倒数第二个字段。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123;print $1, $(NF-1)&#125;&#39; demo.txt# 结果root /rootdaemon /usr/sbinbin /binsys /devsync /bin</code></pre><p>上面代码中，<code>print</code>命令里面的逗号，表示输出的时候，两个部分之间使用空格分隔。</p><p>变量<code>NR</code>表示当前处理的是第几行。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123;print NR &quot;) &quot; $1&#125;&#39; demo.txt# 结果1) root2) daemon3) bin4) sys5) sync</code></pre><p>上面代码中，<code>print</code>命令里面，如果原样输出字符，要放在双引号里面。</p><p>awk的其他内置变量如下。</p><ul><li><code>FILENAME</code>：当前文件名</li><li><code>FS</code>：字段分隔符，默认是空格和制表符。</li><li><code>RS</code>：行分隔符，用于分割每一行，默认是换行符。</li><li><code>OFS</code>：输出字段的分隔符，用于打印时分隔字段，默认为空格。</li><li><code>ORS</code>：输出记录的分隔符，用于打印时分隔记录，默认为换行符。</li><li><code>OFMT</code>：数字输出的格式，默认为<code>％.6g</code>。</li></ul><h2 id="三、函数"><a href="#三、函数" class="headerlink" title="三、函数"></a>三、函数</h2><p><code>awk</code>还提供了一些内置函数，方便对原始数据的处理。</p><p>函数<code>toupper()</code>用于将字符转换为大写。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123; print toupper($1) &#125;&#39; demo.txt# 结果ROOTDAEMONBINSYSSYNC</code></pre><p>上面代码中，第一个字段输出时都变成了大写。</p><p>其他常用函数如下：</p><ul><li><code>tolower()</code>：字符转为小写。</li><li><code>length()</code>：返回字符串长度。</li><li><code>substr()</code>：返回子字符串。</li><li><code>sin()</code>：正弦。</li><li><code>cos()</code>：余弦。</li><li><code>sqrt()</code>：平方根。</li><li><code>rand()</code>：随机数。</li></ul><p><code>awk</code>内置函数的完整列表，可以查看<a href="https://www.gnu.org/software/gawk/manual/html_node/Built_002din.html#Built_002din">手册</a>。</p><h2 id="四、条件"><a href="#四、条件" class="headerlink" title="四、条件"></a>四、条件</h2><p><code>awk</code>允许指定输出条件，只输出符合条件的行。</p><p>输出条件要写在动作的前面。</p><pre><code class="shell">awk &#39;条件 动作&#39; 文件名</code></pre><p>请看下面的例子。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;/usr/ &#123;print $1&#125;&#39; demo.txt# 结果rootdaemonbinsys</code></pre><p>上面代码中，<code>print</code>命令前面是一个正则表达式，只输出包含<code>usr</code>的行。</p><p>下面的例子只输出奇数行，以及输出第三行以后的行。</p><pre><code class="shell"># 输出奇数行$ awk -F &#39;:&#39; &#39;NR % 2 == 1 &#123;print $1&#125;&#39; demo.txt# 结果rootbinsync# 输出第三行以后的行$ awk -F &#39;:&#39; &#39;NR &gt;3 &#123;print $1&#125;&#39; demo.txt# 结果syssync</code></pre><p>下面的例子输出的第一个字段等于指定的行。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;$1 == &quot;root&quot; &#123;print $1&#125;&#39; demo.txt# 结果rootawk -F &#39;:&#39; &#39;$1 == &quot;root&quot; || $1 == &quot;bin&quot; &#123;print $1&#125;&#39; demo.txt# 结果rootbin</code></pre><h2 id="五、if语句"><a href="#五、if语句" class="headerlink" title="五、if语句"></a>五、if语句</h2><p><code>awk</code>提供了<code>if</code>结构，用于编写复杂的条件。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123;if ($1 &gt; &quot;m&quot;) print $1&#125;&#39; demo.txt# 结果rootsyssync</code></pre><p>上面代码输出第一个字段的第一个字符大于m的行。</p><p><code>if</code>结构还可以指定<code>else</code>部分。</p><pre><code class="shell">$ awk -F &#39;:&#39; &#39;&#123;if ($1 &gt; &quot;m&quot;) print $1; else print &quot;---&quot;&#125;&#39; demo.txt# 结果root------syssync</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux：awk-命令详解"><a href="#Linux：awk-命令详解" class="headerlink" title="Linux：awk 命令详解"></a>Linux：awk 命令详解</h1><p>特点：取列，统计计算</p><p>场景：主要用来取列；对比，比较；统计，计算（awk 数组）</p>]]></content>
       
       
       <categories>
@@ -504,6 +504,31 @@
     
     
     <entry>
+      <title>Linux：改变用户所属用户组</title>
+      <link href="/2021/11/18/Linux%EF%BC%9A%E6%94%B9%E5%8F%98%E6%96%87%E4%BB%B6%E6%89%80%E5%B1%9E%E7%94%A8%E6%88%B7%E7%BB%84/"/>
+      <url>/2021/11/18/Linux%EF%BC%9A%E6%94%B9%E5%8F%98%E6%96%87%E4%BB%B6%E6%89%80%E5%B1%9E%E7%94%A8%E6%88%B7%E7%BB%84/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Linux：改变用户所属用户组"><a href="#Linux：改变用户所属用户组" class="headerlink" title="Linux：改变用户所属用户组"></a>Linux：改变用户所属用户组</h1><p>基本语法：</p><pre><code class="shell"># 修改文件所属组群chgrp  用户名    文件名  -R#修改文件拥有者chown 用户名   文件名  -Rchown 用户名:用户名   文件名  -R</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux &amp;&amp; Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux：查看网</title>
       <link href="/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%8D%A1/"/>
       <url>/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%8D%A1/</url>
@@ -534,31 +559,6 @@
       <url>/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98/</url>
       
         <content type="html"><![CDATA[<h1 id="Linux：查看进程使用内存"><a href="#Linux：查看进程使用内存" class="headerlink" title="Linux：查看进程使用内存"></a>Linux：查看进程使用内存</h1><pre><code class="shell"># 方法一：使用 smaps，单位 KBcat /proc/73375/smaps | grep &#39;^Rss:&#39; | awk &#39;&#123;sum +=$2&#125; END&#123;print sum&#125;&#39;# 方法二：单位 G，输出时会显示单位top -bn 1 -p 73375|sed /^[[:space:]]*$/d|tail -1|awk -F &#39; &#39; &#39;&#123;print $6&#125;&#39;</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux &amp;&amp; Shell </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Linux：改变用户所属用户组</title>
-      <link href="/2021/11/18/Linux%EF%BC%9A%E6%94%B9%E5%8F%98%E6%96%87%E4%BB%B6%E6%89%80%E5%B1%9E%E7%94%A8%E6%88%B7%E7%BB%84/"/>
-      <url>/2021/11/18/Linux%EF%BC%9A%E6%94%B9%E5%8F%98%E6%96%87%E4%BB%B6%E6%89%80%E5%B1%9E%E7%94%A8%E6%88%B7%E7%BB%84/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Linux：改变用户所属用户组"><a href="#Linux：改变用户所属用户组" class="headerlink" title="Linux：改变用户所属用户组"></a>Linux：改变用户所属用户组</h1><p>基本语法：</p><pre><code class="shell"># 修改文件所属组群chgrp  用户名    文件名  -R#修改文件拥有者chown 用户名   文件名  -Rchown 用户名:用户名   文件名  -R</code></pre>]]></content>
       
       
       <categories>
@@ -654,11 +654,11 @@
     
     
     <entry>
-      <title>scp传输文件命令</title>
-      <link href="/2021/11/18/scp%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6%E5%91%BD%E4%BB%A4/"/>
-      <url>/2021/11/18/scp%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6%E5%91%BD%E4%BB%A4/</url>
+      <title>QuartZ Cron表达式 / QuartZ定时任务</title>
+      <link href="/2021/11/18/QuartZ-Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F-QuartZ%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/"/>
+      <url>/2021/11/18/QuartZ-Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F-QuartZ%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</url>
       
-        <content type="html"><![CDATA[<h1 id="scp-传输文件命令"><a href="#scp-传输文件命令" class="headerlink" title="scp 传输文件命令"></a>scp 传输文件命令</h1><pre><code class="shell">scp 文件名 用户名@ip:目标地址</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="QuartZ-Cron表达式-QuartZ定时任务（Spring-实现）"><a href="#QuartZ-Cron表达式-QuartZ定时任务（Spring-实现）" class="headerlink" title="QuartZ Cron表达式 / QuartZ定时任务（Spring 实现）"></a>QuartZ Cron表达式 / QuartZ定时任务（Spring 实现）</h1><h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>[TOC]</p><p>cron 表达式用于配置 cronTrigger 的实例。cron 表达式实际上是由七个子表达式组成。这些表达式之间用空格分隔。</p><ol><li>Seconds（秒）</li><li>Minutes（分）</li><li>Hours（小时）</li><li>Day-of-Month（天）</li><li>Month（月）</li><li>Day-of-Week（周）</li><li>Year（年）</li></ol><p>例：”0 0 12 ? * WED” 意思是：每个星期三的中午12点执行。</p><p>个别子表达式可以包含范围或者列表。例如：上面例子中的WED可以换成 “MON-FRI”，”MON,WED,FRI”，甚至 “MON-WED,SAT”。</p><p><strong>子表达式范围：</strong></p><ol><li>Seconds  (0~59)</li><li>Minutes  (0~59)</li><li>Hours  (0~23)</li><li>Day-of-Month (1~31，但是要注意有些月份没有31天)</li><li>Month  (0~11，或者 “ JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV,DEC “)</li><li>Day-of-Week  (1~7,1=SUN 或者 “ SUN, MON, TUE, WED, THU, FRI, SAT “)</li><li>Year  (1970~2099)</li></ol><p>Cron 表达式的格式：秒 分 时 日 月 周 年(可选)。</p><table><thead><tr><th>字段名</th><th>允许的值</th><th>允许的特殊字符</th></tr></thead><tbody><tr><td>秒</td><td>0 - 59</td><td>, - * /</td></tr><tr><td>分</td><td>0 - 59</td><td>, - * /</td></tr><tr><td>小时</td><td>0 - 23</td><td>, - * /</td></tr><tr><td>日</td><td>1 - 31</td><td>, - * ? / L W C</td></tr><tr><td>月</td><td>1 - 12 or JAN - DEC</td><td>, - * /</td></tr><tr><td>周几</td><td>1 - 7 or SUN - SAT</td><td>, - * ? / L C #</td></tr><tr><td>年（可选字段）</td><td>empty</td><td>1970 - 2099 , - * /</td></tr></tbody></table><p><strong>字符含义：</strong></p><p>***** ：代表所有可能的值。因此，“*” 在 Month 中表示每个月，在 Day-of-Month 中表示每天，在 Hours 表示每小时</p><p><strong>-</strong> ：表示指定范围。</p><p><strong>,</strong> ：表示列出枚举值。例如：在 Minutes 子表达式中，“5,20” 表示在 5 分钟和 20 分钟触发。</p><p><strong>/</strong> ：被用于指定增量。例如：在 Minutes 子表达式中，“0/15” 表示从0分钟开始，每 15 分钟执行一次。“3/20” 表示从第三分钟开始，每 20 分钟执行一次。和 “3,23,43” （表示第 3,23,43 分钟触发）的含义一样。</p><p><strong>?</strong> ：用在 Day-of-Month 和 Day-of-Week 中，指 “没有具体的值”。当两个字表达式其中一个指定了值以后，为了避免冲突，需要将另一个值设为 “?”。例如：想在每月 20 日触发调度，不管 20 号是星期几，只能用如下写法：0 0 0 20 * ?，其中最后只能用 “？”，而不能用 “*”。</p><p><strong>L</strong>：用在 day-of-month 和 day-of-week 子串中。它是单词 “last” 的缩写。它在两个子表达式中的含义是不同的。</p><p>​      在 day-of-week 中，“L” 表示一个月的最后一天，如：1月31号，3月30号。</p><p>​      在 day-of-week 中，“L” 表示一个星期的最后一天，也就是 “7” 或 ”SAT“</p><p>​      如果 ”L“ 前有具体内容，他就有其他的含义了。例如：”6L“ 表示这个月的倒数第六天。”FRIL“ 表示这个月的最后一个星期五。</p><p>​     注意：在使用 “L” 参数时，不要指定列表或者范围，这样会出现问题。</p><p><strong>W</strong>：“Weekday” 的缩写。只能用在 day-of-month 字段。用来描述最接近指定天的工作日（周一到周五）。例如：在 day-of-month 字段用 “15W”  指 “最接近这个月第 15 天的工作日”，即如果这个月第 15 天是周六，那么触发器将会在这个月第 14 天即周五触发；如果这个月第 15 天是周日，那么触发器将会在这个月第 16 天即周一触发；如果这个月第 15 天是周二，那么久在触发器这天触发。<strong>注意一点：</strong>这个用法只会在当前月计算值，不会越过当前月。“W” 字符仅能在 day-of-month 指明一天，不能是一个范围或列表。也可以用 “LW” 来指定这个月的最后一个工作日，即最后一个星期五。</p><p>**#**：只能用在 day-of-week 字段。用来描述最接近指定天的工作日（周一到周五）。例如：在 day-of-month 字段用 “6#3” or “FRI#3” 指定这个月第三个周五（6指周五，3指第三个）。如果指定的日期不存在，触发器就不会触发。</p><p><strong>表达式例子：</strong></p><p>0 * * * * ?    每 1 分钟触发一次</p><p>0 0 * * * ?    每天每 1 小时触发一次</p><p>0 0 10 * * ?    每天 10 点触发一次</p><p>0 * 14 * * ?    在每天下午2点到下午2:59期间的每1分钟触发 </p><p>0 30 9 1 * ?    每月1号上午9点半</p><p>0 15 10 15 * ?    每月15日上午10:15触发</p><p>*/5 * * * * ?    每隔5秒执行一次</p><p>0 */1 * * * ?    每隔1分钟执行一次</p><p>0 0 5-15 * * ?    每天5-15点整点触发</p><p>0 0/3 * * * ?    每三分钟触发一次</p><p>0 0-5 14 * * ?    在每天下午2点到下午2:05期间的每1分钟触发 </p><p>0 0/5 14 * * ?    在每天下午2点到下午2:55期间的每5分钟触发</p><p>0 0/5 14,18 * * ?    在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发</p><p>0 0/30 9-17 * * ?    朝九晚五工作时间内每半小时</p><p>0 0 10,14,16 * * ?    每天上午10点，下午2点，4点 </p><p>0 0 12 ? * WED    表示每个星期三中午12点</p><p>0 0 17 ? * TUES,THUR,SAT    每周二、四、六下午五点</p><p>0 10,44 14 ? 3 WED    每年三月的星期三的下午2:10和2:44触发 </p><p>0 15 10 ? * MON-FRI    周一至周五的上午10:15触发</p><p>0 0 23 L * ?    每月最后一天23点执行一次</p><p>0 15 10 L * ?    每月最后一日的上午10:15触发 </p><p>0 15 10 ? * 6L    每月的最后一个星期五上午10:15触发</p><p>0 15 10 * * ? 2005    2005年的每天上午10:15触发 </p><p>0 15 10 ? * 6L 2002-2005    2002年至2005年的每月的最后一个星期五上午10:15触发 </p><p>0 15 10 ? * 6#3    每月的第三个星期五上午10:15触发</p>]]></content>
       
       
       <categories>
@@ -679,11 +679,11 @@
     
     
     <entry>
-      <title>QuartZ Cron表达式 / QuartZ定时任务</title>
-      <link href="/2021/11/18/QuartZ-Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F-QuartZ%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/"/>
-      <url>/2021/11/18/QuartZ-Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F-QuartZ%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</url>
+      <title>scp传输文件命令</title>
+      <link href="/2021/11/18/scp%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6%E5%91%BD%E4%BB%A4/"/>
+      <url>/2021/11/18/scp%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6%E5%91%BD%E4%BB%A4/</url>
       
-        <content type="html"><![CDATA[<h1 id="QuartZ-Cron表达式-QuartZ定时任务（Spring-实现）"><a href="#QuartZ-Cron表达式-QuartZ定时任务（Spring-实现）" class="headerlink" title="QuartZ Cron表达式 / QuartZ定时任务（Spring 实现）"></a>QuartZ Cron表达式 / QuartZ定时任务（Spring 实现）</h1><h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>[TOC]</p><p>cron 表达式用于配置 cronTrigger 的实例。cron 表达式实际上是由七个子表达式组成。这些表达式之间用空格分隔。</p><ol><li>Seconds（秒）</li><li>Minutes（分）</li><li>Hours（小时）</li><li>Day-of-Month（天）</li><li>Month（月）</li><li>Day-of-Week（周）</li><li>Year（年）</li></ol><p>例：”0 0 12 ? * WED” 意思是：每个星期三的中午12点执行。</p><p>个别子表达式可以包含范围或者列表。例如：上面例子中的WED可以换成 “MON-FRI”，”MON,WED,FRI”，甚至 “MON-WED,SAT”。</p><p><strong>子表达式范围：</strong></p><ol><li>Seconds  (0~59)</li><li>Minutes  (0~59)</li><li>Hours  (0~23)</li><li>Day-of-Month (1~31，但是要注意有些月份没有31天)</li><li>Month  (0~11，或者 “ JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV,DEC “)</li><li>Day-of-Week  (1~7,1=SUN 或者 “ SUN, MON, TUE, WED, THU, FRI, SAT “)</li><li>Year  (1970~2099)</li></ol><p>Cron 表达式的格式：秒 分 时 日 月 周 年(可选)。</p><table><thead><tr><th>字段名</th><th>允许的值</th><th>允许的特殊字符</th></tr></thead><tbody><tr><td>秒</td><td>0 - 59</td><td>, - * /</td></tr><tr><td>分</td><td>0 - 59</td><td>, - * /</td></tr><tr><td>小时</td><td>0 - 23</td><td>, - * /</td></tr><tr><td>日</td><td>1 - 31</td><td>, - * ? / L W C</td></tr><tr><td>月</td><td>1 - 12 or JAN - DEC</td><td>, - * /</td></tr><tr><td>周几</td><td>1 - 7 or SUN - SAT</td><td>, - * ? / L C #</td></tr><tr><td>年（可选字段）</td><td>empty</td><td>1970 - 2099 , - * /</td></tr></tbody></table><p><strong>字符含义：</strong></p><p>***** ：代表所有可能的值。因此，“*” 在 Month 中表示每个月，在 Day-of-Month 中表示每天，在 Hours 表示每小时</p><p><strong>-</strong> ：表示指定范围。</p><p><strong>,</strong> ：表示列出枚举值。例如：在 Minutes 子表达式中，“5,20” 表示在 5 分钟和 20 分钟触发。</p><p><strong>/</strong> ：被用于指定增量。例如：在 Minutes 子表达式中，“0/15” 表示从0分钟开始，每 15 分钟执行一次。“3/20” 表示从第三分钟开始，每 20 分钟执行一次。和 “3,23,43” （表示第 3,23,43 分钟触发）的含义一样。</p><p><strong>?</strong> ：用在 Day-of-Month 和 Day-of-Week 中，指 “没有具体的值”。当两个字表达式其中一个指定了值以后，为了避免冲突，需要将另一个值设为 “?”。例如：想在每月 20 日触发调度，不管 20 号是星期几，只能用如下写法：0 0 0 20 * ?，其中最后只能用 “？”，而不能用 “*”。</p><p><strong>L</strong>：用在 day-of-month 和 day-of-week 子串中。它是单词 “last” 的缩写。它在两个子表达式中的含义是不同的。</p><p>​      在 day-of-week 中，“L” 表示一个月的最后一天，如：1月31号，3月30号。</p><p>​      在 day-of-week 中，“L” 表示一个星期的最后一天，也就是 “7” 或 ”SAT“</p><p>​      如果 ”L“ 前有具体内容，他就有其他的含义了。例如：”6L“ 表示这个月的倒数第六天。”FRIL“ 表示这个月的最后一个星期五。</p><p>​     注意：在使用 “L” 参数时，不要指定列表或者范围，这样会出现问题。</p><p><strong>W</strong>：“Weekday” 的缩写。只能用在 day-of-month 字段。用来描述最接近指定天的工作日（周一到周五）。例如：在 day-of-month 字段用 “15W”  指 “最接近这个月第 15 天的工作日”，即如果这个月第 15 天是周六，那么触发器将会在这个月第 14 天即周五触发；如果这个月第 15 天是周日，那么触发器将会在这个月第 16 天即周一触发；如果这个月第 15 天是周二，那么久在触发器这天触发。<strong>注意一点：</strong>这个用法只会在当前月计算值，不会越过当前月。“W” 字符仅能在 day-of-month 指明一天，不能是一个范围或列表。也可以用 “LW” 来指定这个月的最后一个工作日，即最后一个星期五。</p><p>**#**：只能用在 day-of-week 字段。用来描述最接近指定天的工作日（周一到周五）。例如：在 day-of-month 字段用 “6#3” or “FRI#3” 指定这个月第三个周五（6指周五，3指第三个）。如果指定的日期不存在，触发器就不会触发。</p><p><strong>表达式例子：</strong></p><p>0 * * * * ?    每 1 分钟触发一次</p><p>0 0 * * * ?    每天每 1 小时触发一次</p><p>0 0 10 * * ?    每天 10 点触发一次</p><p>0 * 14 * * ?    在每天下午2点到下午2:59期间的每1分钟触发 </p><p>0 30 9 1 * ?    每月1号上午9点半</p><p>0 15 10 15 * ?    每月15日上午10:15触发</p><p>*/5 * * * * ?    每隔5秒执行一次</p><p>0 */1 * * * ?    每隔1分钟执行一次</p><p>0 0 5-15 * * ?    每天5-15点整点触发</p><p>0 0/3 * * * ?    每三分钟触发一次</p><p>0 0-5 14 * * ?    在每天下午2点到下午2:05期间的每1分钟触发 </p><p>0 0/5 14 * * ?    在每天下午2点到下午2:55期间的每5分钟触发</p><p>0 0/5 14,18 * * ?    在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发</p><p>0 0/30 9-17 * * ?    朝九晚五工作时间内每半小时</p><p>0 0 10,14,16 * * ?    每天上午10点，下午2点，4点 </p><p>0 0 12 ? * WED    表示每个星期三中午12点</p><p>0 0 17 ? * TUES,THUR,SAT    每周二、四、六下午五点</p><p>0 10,44 14 ? 3 WED    每年三月的星期三的下午2:10和2:44触发 </p><p>0 15 10 ? * MON-FRI    周一至周五的上午10:15触发</p><p>0 0 23 L * ?    每月最后一天23点执行一次</p><p>0 15 10 L * ?    每月最后一日的上午10:15触发 </p><p>0 15 10 ? * 6L    每月的最后一个星期五上午10:15触发</p><p>0 15 10 * * ? 2005    2005年的每天上午10:15触发 </p><p>0 15 10 ? * 6L 2002-2005    2002年至2005年的每月的最后一个星期五上午10:15触发 </p><p>0 15 10 ? * 6#3    每月的第三个星期五上午10:15触发</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="scp-传输文件命令"><a href="#scp-传输文件命令" class="headerlink" title="scp 传输文件命令"></a>scp 传输文件命令</h1><pre><code class="shell">scp 文件名 用户名@ip:目标地址</code></pre>]]></content>
       
       
       <categories>
