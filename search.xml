@@ -4,11 +4,36 @@
   
     
     <entry>
-      <title>Linux：重定向符号</title>
-      <link href="/2021/11/18/Linux%EF%BC%9A%E9%87%8D%E5%AE%9A%E5%90%91%E7%AC%A6%E5%8F%B7/"/>
-      <url>/2021/11/18/Linux%EF%BC%9A%E9%87%8D%E5%AE%9A%E5%90%91%E7%AC%A6%E5%8F%B7/</url>
+      <title>基本操作命令</title>
+      <link href="/2021/11/21/%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/"/>
+      <url>/2021/11/21/%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux：重定向符号"><a href="#Linux：重定向符号" class="headerlink" title="Linux：重定向符号"></a>Linux：重定向符号</h1><pre><code class="shell">&lt; :输入重定向&gt; :输出重定向&gt;&gt; :输出重定向,追加,不覆盖之前内容&lt;&lt; :标准输入来自命令行的一对分隔号的中间内容</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="基本操作命令"><a href="#基本操作命令" class="headerlink" title="基本操作命令"></a>基本操作命令</h1><pre><code class="shell"># 查看所有 topic./bin/kafka-topics.sh --zookeeper 192.168.20.185:2181 --list# 查看指定 topic 的详细信息./bin/kafka-topics.sh --describe --zookeeper 192.168.20.185:2181 --topic METRIC_G1_TOPIC# 创建 topic./bin/kafka-topics.sh --create --zookeeper 192.168.20.185:2181 --replication-factor 1 --partitions 3 --topic METRIC_G1_TOPIC# 调用生产者./bin/kafka-console-producer.sh --broker-list 192.168.20.185:9092 --topic METRIC_G1_TOPIC# 调用消费者./bin/kafka-console-consumer.sh --bootstrap-server 192.168.20.185:9092 --topic  METRIC_G1_TOPIC  --from-beginning # 删除 topic./bin/kafka-topics.sh --zookeeper 192.168.20.185:2181 --delete --topic METRIC_G1_TOPIC</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Kafka </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Kafka </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>QuartZ Cron表达式 / QuartZ定时任务</title>
+      <link href="/2021/11/18/QuartZ-Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F-QuartZ%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/"/>
+      <url>/2021/11/18/QuartZ-Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F-QuartZ%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</url>
+      
+        <content type="html"><![CDATA[<h1 id="QuartZ-Cron表达式-QuartZ定时任务（Spring-实现）"><a href="#QuartZ-Cron表达式-QuartZ定时任务（Spring-实现）" class="headerlink" title="QuartZ Cron表达式 / QuartZ定时任务（Spring 实现）"></a>QuartZ Cron表达式 / QuartZ定时任务（Spring 实现）</h1><h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>[TOC]</p><p>cron 表达式用于配置 cronTrigger 的实例。cron 表达式实际上是由七个子表达式组成。这些表达式之间用空格分隔。</p><ol><li>Seconds（秒）</li><li>Minutes（分）</li><li>Hours（小时）</li><li>Day-of-Month（天）</li><li>Month（月）</li><li>Day-of-Week（周）</li><li>Year（年）</li></ol><p>例：”0 0 12 ? * WED” 意思是：每个星期三的中午12点执行。</p><p>个别子表达式可以包含范围或者列表。例如：上面例子中的WED可以换成 “MON-FRI”，”MON,WED,FRI”，甚至 “MON-WED,SAT”。</p><p><strong>子表达式范围：</strong></p><ol><li>Seconds  (0~59)</li><li>Minutes  (0~59)</li><li>Hours  (0~23)</li><li>Day-of-Month (1~31，但是要注意有些月份没有31天)</li><li>Month  (0~11，或者 “ JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV,DEC “)</li><li>Day-of-Week  (1~7,1=SUN 或者 “ SUN, MON, TUE, WED, THU, FRI, SAT “)</li><li>Year  (1970~2099)</li></ol><p>Cron 表达式的格式：秒 分 时 日 月 周 年(可选)。</p><table><thead><tr><th>字段名</th><th>允许的值</th><th>允许的特殊字符</th></tr></thead><tbody><tr><td>秒</td><td>0 - 59</td><td>, - * /</td></tr><tr><td>分</td><td>0 - 59</td><td>, - * /</td></tr><tr><td>小时</td><td>0 - 23</td><td>, - * /</td></tr><tr><td>日</td><td>1 - 31</td><td>, - * ? / L W C</td></tr><tr><td>月</td><td>1 - 12 or JAN - DEC</td><td>, - * /</td></tr><tr><td>周几</td><td>1 - 7 or SUN - SAT</td><td>, - * ? / L C #</td></tr><tr><td>年（可选字段）</td><td>empty</td><td>1970 - 2099 , - * /</td></tr></tbody></table><p><strong>字符含义：</strong></p><p>***** ：代表所有可能的值。因此，“*” 在 Month 中表示每个月，在 Day-of-Month 中表示每天，在 Hours 表示每小时</p><p><strong>-</strong> ：表示指定范围。</p><p><strong>,</strong> ：表示列出枚举值。例如：在 Minutes 子表达式中，“5,20” 表示在 5 分钟和 20 分钟触发。</p><p><strong>/</strong> ：被用于指定增量。例如：在 Minutes 子表达式中，“0/15” 表示从0分钟开始，每 15 分钟执行一次。“3/20” 表示从第三分钟开始，每 20 分钟执行一次。和 “3,23,43” （表示第 3,23,43 分钟触发）的含义一样。</p><p><strong>?</strong> ：用在 Day-of-Month 和 Day-of-Week 中，指 “没有具体的值”。当两个字表达式其中一个指定了值以后，为了避免冲突，需要将另一个值设为 “?”。例如：想在每月 20 日触发调度，不管 20 号是星期几，只能用如下写法：0 0 0 20 * ?，其中最后只能用 “？”，而不能用 “*”。</p><p><strong>L</strong>：用在 day-of-month 和 day-of-week 子串中。它是单词 “last” 的缩写。它在两个子表达式中的含义是不同的。</p><p>​      在 day-of-week 中，“L” 表示一个月的最后一天，如：1月31号，3月30号。</p><p>​      在 day-of-week 中，“L” 表示一个星期的最后一天，也就是 “7” 或 ”SAT“</p><p>​      如果 ”L“ 前有具体内容，他就有其他的含义了。例如：”6L“ 表示这个月的倒数第六天。”FRIL“ 表示这个月的最后一个星期五。</p><p>​     注意：在使用 “L” 参数时，不要指定列表或者范围，这样会出现问题。</p><p><strong>W</strong>：“Weekday” 的缩写。只能用在 day-of-month 字段。用来描述最接近指定天的工作日（周一到周五）。例如：在 day-of-month 字段用 “15W”  指 “最接近这个月第 15 天的工作日”，即如果这个月第 15 天是周六，那么触发器将会在这个月第 14 天即周五触发；如果这个月第 15 天是周日，那么触发器将会在这个月第 16 天即周一触发；如果这个月第 15 天是周二，那么久在触发器这天触发。<strong>注意一点：</strong>这个用法只会在当前月计算值，不会越过当前月。“W” 字符仅能在 day-of-month 指明一天，不能是一个范围或列表。也可以用 “LW” 来指定这个月的最后一个工作日，即最后一个星期五。</p><p>**#**：只能用在 day-of-week 字段。用来描述最接近指定天的工作日（周一到周五）。例如：在 day-of-month 字段用 “6#3” or “FRI#3” 指定这个月第三个周五（6指周五，3指第三个）。如果指定的日期不存在，触发器就不会触发。</p><p><strong>表达式例子：</strong></p><p>0 * * * * ?    每 1 分钟触发一次</p><p>0 0 * * * ?    每天每 1 小时触发一次</p><p>0 0 10 * * ?    每天 10 点触发一次</p><p>0 * 14 * * ?    在每天下午2点到下午2:59期间的每1分钟触发 </p><p>0 30 9 1 * ?    每月1号上午9点半</p><p>0 15 10 15 * ?    每月15日上午10:15触发</p><p>*/5 * * * * ?    每隔5秒执行一次</p><p>0 */1 * * * ?    每隔1分钟执行一次</p><p>0 0 5-15 * * ?    每天5-15点整点触发</p><p>0 0/3 * * * ?    每三分钟触发一次</p><p>0 0-5 14 * * ?    在每天下午2点到下午2:05期间的每1分钟触发 </p><p>0 0/5 14 * * ?    在每天下午2点到下午2:55期间的每5分钟触发</p><p>0 0/5 14,18 * * ?    在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发</p><p>0 0/30 9-17 * * ?    朝九晚五工作时间内每半小时</p><p>0 0 10,14,16 * * ?    每天上午10点，下午2点，4点 </p><p>0 0 12 ? * WED    表示每个星期三中午12点</p><p>0 0 17 ? * TUES,THUR,SAT    每周二、四、六下午五点</p><p>0 10,44 14 ? 3 WED    每年三月的星期三的下午2:10和2:44触发 </p><p>0 15 10 ? * MON-FRI    周一至周五的上午10:15触发</p><p>0 0 23 L * ?    每月最后一天23点执行一次</p><p>0 15 10 L * ?    每月最后一日的上午10:15触发 </p><p>0 15 10 ? * 6L    每月的最后一个星期五上午10:15触发</p><p>0 15 10 * * ? 2005    2005年的每天上午10:15触发 </p><p>0 15 10 ? * 6L 2002-2005    2002年至2005年的每月的最后一个星期五上午10:15触发 </p><p>0 15 10 ? * 6#3    每月的第三个星期五上午10:15触发</p>]]></content>
       
       
       <categories>
@@ -29,36 +54,11 @@
     
     
     <entry>
-      <title>Linux df 显示目前文件系统磁盘使用情况</title>
-      <link href="/2021/11/18/Linux-df-%E6%98%BE%E7%A4%BA%E7%9B%AE%E5%89%8D%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5/"/>
-      <url>/2021/11/18/Linux-df-%E6%98%BE%E7%A4%BA%E7%9B%AE%E5%89%8D%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5/</url>
+      <title>Linux 时间格式</title>
+      <link href="/2021/11/18/Linux-%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/"/>
+      <url>/2021/11/18/Linux-%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux-df-显示目前文件系统磁盘使用情况"><a href="#Linux-df-显示目前文件系统磁盘使用情况" class="headerlink" title="Linux df 显示目前文件系统磁盘使用情况"></a>Linux df 显示目前文件系统磁盘使用情况</h1><pre><code class="shell">df [选项]... [FILE]...</code></pre><ul><li>文件-a, –all 包含所有的具有 0 Blocks 的文件系统</li><li>文件–block-size={SIZE} 使用 {SIZE} 大小的 Blocks</li><li>文件-h, –human-readable 使用人类可读的格式(预设值是不加这个选项的…)</li><li>文件-H, –si 很像 -h, 但是用 1000 为单位而不是用 1024</li><li>文件-i, –inodes 列出 inode 资讯，不列出已使用 block</li><li>文件-k, –kilobytes 就像是 –block-size=1024</li><li>文件-l, –local 限制列出的文件结构</li><li>文件-m, –megabytes 就像 –block-size=1048576</li><li>文件–no-sync 取得资讯前不 sync (预设值)</li><li>文件-P, –portability 使用 POSIX 输出格式</li><li>文件–sync 在取得资讯前 sync</li><li>文件-t, –type=TYPE 限制列出文件系统的 TYPE</li><li>文件-T, –print-type 显示文件系统的形式</li><li>文件-x, –exclude-type=TYPE 限制列出文件系统不要显示 TYPE</li><li>文件-v (忽略)</li><li>文件–help 显示这个帮手并且离开</li><li>文件–version 输出版本资讯并且离开</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux &amp;&amp; Shell </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Cron 表达式生成规则</title>
-      <link href="/2021/11/18/Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%94%9F%E6%88%90%E8%A7%84%E5%88%99/"/>
-      <url>/2021/11/18/Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%94%9F%E6%88%90%E8%A7%84%E5%88%99/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Cron-表达式生成规则"><a href="#Cron-表达式生成规则" class="headerlink" title="Cron 表达式生成规则"></a>Cron 表达式生成规则</h1><h2 id="一、明确每个位置代表的含义"><a href="#一、明确每个位置代表的含义" class="headerlink" title="一、明确每个位置代表的含义"></a>一、明确每个位置代表的含义</h2><p>从左至右，依次表示：</p><center> 秒 &emsp; 分 &emsp; 时 &emsp; 日 &emsp; 月 &emsp; 周 &emsp; 年 </center><p>通配符一般使用 <code>*</code>，也可以使用 <code>_</code> 或者 <code>/</code>，周的位置一般用 <code>?</code></p><h2 id="二、生成规则"><a href="#二、生成规则" class="headerlink" title="二、生成规则"></a>二、生成规则</h2><h3 id="2-1-从-x-时间开始，每隔-y-时间执行一次，则在对应的位置上写上：x-y；"><a href="#2-1-从-x-时间开始，每隔-y-时间执行一次，则在对应的位置上写上：x-y；" class="headerlink" title="2.1 从 x 时间开始，每隔 y 时间执行一次，则在对应的位置上写上：x/y；"></a>2.1 从 x 时间开始，每隔 y 时间执行一次，则在对应的位置上写上：x/y；</h3><pre><code class="shell"># 从 0 分钟开始，每 5 分钟执行一次，表达式为：0 0/5 * * * ? *# 从上午 10 点开始，每 3 个小时执行一次，表达式为：0 0 10/3 * * ? *</code></pre><h3 id="2-2-定点执行，在对应的位置上写对应的数值即可"><a href="#2-2-定点执行，在对应的位置上写对应的数值即可" class="headerlink" title="2.2 定点执行，在对应的位置上写对应的数值即可"></a>2.2 定点执行，在对应的位置上写对应的数值即可</h3><pre><code class="shell"># 每天 5 点定时执行一次，表达式为：0 0 5 * * ? *# 在每个小时的 25 执行一次，表达式为：0 25 * * * ? *</code></pre><h3 id="2-3-从-x-时间到-y-时间段执行，在对应的位置上写上：x-y"><a href="#2-3-从-x-时间到-y-时间段执行，在对应的位置上写上：x-y" class="headerlink" title="2.3 从 x 时间到 y 时间段执行，在对应的位置上写上：x-y"></a>2.3 从 x 时间到 y 时间段执行，在对应的位置上写上：x-y</h3><pre><code class="shell"># 每天上午 11 点到下午 2 点执行，表达式为：0 0 11-14 * * ? *# 每个小时的 15 分到 30 分执行，表达式为：0 15-30 * * * ? *</code></pre><h3 id="2-4-关于指定时间执行的表达式，规矩很简单，只需要在对应的时间上写上要指定的时间值就可以了，中间有英文的逗号-隔开即可，这里不再举例。可根据实际情况进行组合。"><a href="#2-4-关于指定时间执行的表达式，规矩很简单，只需要在对应的时间上写上要指定的时间值就可以了，中间有英文的逗号-隔开即可，这里不再举例。可根据实际情况进行组合。" class="headerlink" title="2.4 关于指定时间执行的表达式，规矩很简单，只需要在对应的时间上写上要指定的时间值就可以了，中间有英文的逗号 , 隔开即可，这里不再举例。可根据实际情况进行组合。"></a>2.4 关于指定时间执行的表达式，规矩很简单，只需要在对应的时间上写上要指定的时间值就可以了，中间有英文的逗号 <code>,</code> 隔开即可，这里不再举例。可根据实际情况进行组合。</h3><pre><code class="shell"># 每天上午 11 点 15-11 点 45 分执行，表达式为：0 15-45 11 * * ? *# 每天上午 10 点到下午 3 点，从 15 分钟开始，每 30 分钟执行一次，表达式为：0 15/30 10-15 * * ? *</code></pre><p> 住：</p><p>1、在没有指定的位置上，前面的位置以 0 代替，后面的位置以通配符代替。</p><pre><code class="shell"># 反例：从 15 分开始，没 30 分钟执行一次。* 15/30 * * * ? *# 此时因为秒的位置是通配符，会理解为任意秒都可以执行，与预期的不符合</code></pre><p>2、针对生成规则 <strong>2.1</strong>，执行的时间是<strong>以后面的我基准</strong>的。</p><pre><code class="shell"># 例：* 15/25 10-23 * * ? *# 当前时间设为 16:20，则前 5 次的执行时间为：16:40:0017:15:0017:40:0018:15:0018:40:00# 表达式的含义为：每天 10 点 到 23 点，从每点的 15 分开始，每 25 分钟执行一次。</code></pre><p>因为当前时间为 16:20，所以第一次执行时间会从 16 点 15 分开始算起，每 25 分钟执行一次。</p><p>因为当前时间为 16:20，所以第一次执行时间回仓 16 点 15 分开始算起，由于已经过了 16:15，所以往后推算 25 分钟，是 16:40，所以，第一次执行时间是 16:40。</p><p>有人可能会以为第二次执行的时间会是 17:05。这样算是不对的。因为 16:40 往后推算 25 分钟超过了 17 点，所以下一次的应该是以 17 点算起，从 17 点 15 开始执行第二次。一次类推。这就是 “以后面的为基准” 的意思。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux-时间格式"><a href="#Linux-时间格式" class="headerlink" title="Linux 时间格式"></a>Linux 时间格式</h1><pre><code class="shell">date +%Y-%m-%d-%H-%M-%S</code></pre><p>结果：</p><pre><code class="shell">2021-02-03-04-00-01年-月-日-时-分-秒</code></pre>]]></content>
       
       
       <categories>
@@ -304,31 +304,6 @@
     
     
     <entry>
-      <title>Linux：file命令详解</title>
-      <link href="/2021/11/18/Linux%EF%BC%9Afile%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
-      <url>/2021/11/18/Linux%EF%BC%9Afile%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Linux：file命令详解"><a href="#Linux：file命令详解" class="headerlink" title="Linux：file命令详解"></a>Linux：file命令详解</h1><blockquote><p>file：用于辨识文件类型，通过<code>file</code>命令，我们可以识别该文件的类型</p></blockquote><p><strong>语法：</strong></p><pre><code class="shell">file [-bcLvz] [-f &lt;名称文件&gt;] [-m &lt;魔法数字文件&gt;...][文件或目录...]</code></pre><p><strong>参数：</strong></p><pre><code class="shell">-b 　列出辨识结果时，不显示文件名称。-c 　详细显示指令执行过程，便于排错或分析程序执行的情形。-f&lt;名称文件&gt; 　指定名称文件，其内容有一个或多个文件名称时，让file依序辨识这些文件，格式为每列一个文件名称。-L 　直接显示符号连接所指向的文件的类别。-m&lt;魔法数字文件&gt; 　指定魔法数字文件。-v 　显示版本信息。-z 　尝试去解读压缩文件的内容。[文件或目录...] 要确定类型的文件列表，多个文件之间使用空格分开，可以使用shell通配符匹配多个文件。</code></pre><p><strong>实例：</strong></p><pre><code class="shell">file $SHELL    #查看处理器是X86还是ARM架构的</code></pre><pre><code class="shell">file /test/file -b /test/  # 不显示文件名称file -i /test/  # 显示MIME类别file -b -i /test/</code></pre><pre><code class="shell">touch file.txt  # 创建测试文件ln -s file.txt file_soft_link  # 设置软连接文件file file_soft_linkll file -L file_soft_link  # empty是空的意思，内面没有内容file file.txt file -L file.txt echo &quot;I Love Linux&quot;  &gt; file.txt  # 添加内容，再次查看cat file.txt file file.txt file -L file.txt </code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux &amp;&amp; Shell </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Linux：awk 命令详解</title>
       <link href="/2021/11/18/Linux%EF%BC%9Aawk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
       <url>/2021/11/18/Linux%EF%BC%9Aawk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
@@ -354,11 +329,11 @@
     
     
     <entry>
-      <title>Linux：ldd命令详解</title>
-      <link href="/2021/11/18/Linux%EF%BC%9Aldd%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
-      <url>/2021/11/18/Linux%EF%BC%9Aldd%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
+      <title>Linux：file命令详解</title>
+      <link href="/2021/11/18/Linux%EF%BC%9Afile%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
+      <url>/2021/11/18/Linux%EF%BC%9Afile%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux：ldd命令详解"><a href="#Linux：ldd命令详解" class="headerlink" title="Linux：ldd命令详解"></a>Linux：ldd命令详解</h1><blockquote><p>ldd：用于打印程序或者库文件所依赖的共享库列表</p></blockquote><p><strong>语法：</strong></p><pre><code class="shell">ldd &lt;选项&gt; &lt;参数&gt;</code></pre><p><strong>选项：</strong></p><pre><code class="shell">--version：打印指令版本号；-v：详细信息模式，打印所有相关信息；-u：打印未使用的直接依赖；-d：执行重定位和报告任何丢失的对象；-r：执行数据对象和函数的重定位，并且报告任何丢失的对象和函数；--help：显示帮助信息。</code></pre><p><strong>参数：</strong></p><pre><code class="shell">文件：指定可执行程序或者文库。</code></pre><p><strong>其他介绍：</strong></p><p>（1）ldd不是一个可执行程序，而只是一个shell脚本 ldd能够显示可执行模块的dependency(所属)(所属)，其原理是通过设置一系列的环境变量，如下：LD_TRACE_LOADED_OBJECTS、LD_WARN、LD_BIND_NOW、LD_LIBRARY_VERSION、LD_VERBOSE等。当LD_TRACE_LOADED_OBJECTS环境变量不为空时，任何可执行程序在运行时，它都会只显示模块的dependency(所属)，而程序并不真正执行。要不你可以在shell终端测试一下，如下： export LD_TRACE_LOADED_OBJECTS=1 再执行任何的程序，如ls等，看看程序的运行结果。</p><p>（2）ldd显示可执行模块的dependency(所属)的工作原理，其实质是通过ld-linux.so（elf动态库的装载器）来实现的。我们知道，ld-linux.so模块会先于executable模块程序工作，并获得控制权，因此当上述的那些环境变量被设置时，ld-linux.so选择了显示可执行模块的dependency(所属)。 实际上可以直接执行ld-linux.so模块，如：/lib/ld-linux.so.2 –list program（这相当于ldd program）。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux：file命令详解"><a href="#Linux：file命令详解" class="headerlink" title="Linux：file命令详解"></a>Linux：file命令详解</h1><blockquote><p>file：用于辨识文件类型，通过<code>file</code>命令，我们可以识别该文件的类型</p></blockquote><p><strong>语法：</strong></p><pre><code class="shell">file [-bcLvz] [-f &lt;名称文件&gt;] [-m &lt;魔法数字文件&gt;...][文件或目录...]</code></pre><p><strong>参数：</strong></p><pre><code class="shell">-b 　列出辨识结果时，不显示文件名称。-c 　详细显示指令执行过程，便于排错或分析程序执行的情形。-f&lt;名称文件&gt; 　指定名称文件，其内容有一个或多个文件名称时，让file依序辨识这些文件，格式为每列一个文件名称。-L 　直接显示符号连接所指向的文件的类别。-m&lt;魔法数字文件&gt; 　指定魔法数字文件。-v 　显示版本信息。-z 　尝试去解读压缩文件的内容。[文件或目录...] 要确定类型的文件列表，多个文件之间使用空格分开，可以使用shell通配符匹配多个文件。</code></pre><p><strong>实例：</strong></p><pre><code class="shell">file $SHELL    #查看处理器是X86还是ARM架构的</code></pre><pre><code class="shell">file /test/file -b /test/  # 不显示文件名称file -i /test/  # 显示MIME类别file -b -i /test/</code></pre><pre><code class="shell">touch file.txt  # 创建测试文件ln -s file.txt file_soft_link  # 设置软连接文件file file_soft_linkll file -L file_soft_link  # empty是空的意思，内面没有内容file file.txt file -L file.txt echo &quot;I Love Linux&quot;  &gt; file.txt  # 添加内容，再次查看cat file.txt file file.txt file -L file.txt </code></pre>]]></content>
       
       
       <categories>
@@ -404,6 +379,31 @@
     
     
     <entry>
+      <title>Linux：ldd命令详解</title>
+      <link href="/2021/11/18/Linux%EF%BC%9Aldd%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
+      <url>/2021/11/18/Linux%EF%BC%9Aldd%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Linux：ldd命令详解"><a href="#Linux：ldd命令详解" class="headerlink" title="Linux：ldd命令详解"></a>Linux：ldd命令详解</h1><blockquote><p>ldd：用于打印程序或者库文件所依赖的共享库列表</p></blockquote><p><strong>语法：</strong></p><pre><code class="shell">ldd &lt;选项&gt; &lt;参数&gt;</code></pre><p><strong>选项：</strong></p><pre><code class="shell">--version：打印指令版本号；-v：详细信息模式，打印所有相关信息；-u：打印未使用的直接依赖；-d：执行重定位和报告任何丢失的对象；-r：执行数据对象和函数的重定位，并且报告任何丢失的对象和函数；--help：显示帮助信息。</code></pre><p><strong>参数：</strong></p><pre><code class="shell">文件：指定可执行程序或者文库。</code></pre><p><strong>其他介绍：</strong></p><p>（1）ldd不是一个可执行程序，而只是一个shell脚本 ldd能够显示可执行模块的dependency(所属)(所属)，其原理是通过设置一系列的环境变量，如下：LD_TRACE_LOADED_OBJECTS、LD_WARN、LD_BIND_NOW、LD_LIBRARY_VERSION、LD_VERBOSE等。当LD_TRACE_LOADED_OBJECTS环境变量不为空时，任何可执行程序在运行时，它都会只显示模块的dependency(所属)，而程序并不真正执行。要不你可以在shell终端测试一下，如下： export LD_TRACE_LOADED_OBJECTS=1 再执行任何的程序，如ls等，看看程序的运行结果。</p><p>（2）ldd显示可执行模块的dependency(所属)的工作原理，其实质是通过ld-linux.so（elf动态库的装载器）来实现的。我们知道，ld-linux.so模块会先于executable模块程序工作，并获得控制权，因此当上述的那些环境变量被设置时，ld-linux.so选择了显示可执行模块的dependency(所属)。 实际上可以直接执行ld-linux.so模块，如：/lib/ld-linux.so.2 –list program（这相当于ldd program）。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux &amp;&amp; Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux：lsof 命令（神器）详解</title>
       <link href="/2021/11/18/Linux%EF%BC%9Alsof%E5%91%BD%E4%BB%A4%EF%BC%88%E7%A5%9E%E5%99%A8%EF%BC%89%E8%AF%A6%E8%A7%A3/"/>
       <url>/2021/11/18/Linux%EF%BC%9Alsof%E5%91%BD%E4%BB%A4%EF%BC%88%E7%A5%9E%E5%99%A8%EF%BC%89%E8%AF%A6%E8%A7%A3/</url>
@@ -429,11 +429,11 @@
     
     
     <entry>
-      <title>Linux：sed命令详解</title>
-      <link href="/2021/11/18/Linux%EF%BC%9Ased%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
-      <url>/2021/11/18/Linux%EF%BC%9Ased%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
+      <title>Linux：修改用户名密码</title>
+      <link href="/2021/11/18/Linux%EF%BC%9A%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/"/>
+      <url>/2021/11/18/Linux%EF%BC%9A%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux：sed命令详解"><a href="#Linux：sed命令详解" class="headerlink" title="Linux：sed命令详解"></a>Linux：sed命令详解</h1><blockquote><p><strong>特点：</strong>替换，修改文件内容，取行</p><p><strong>场景：</strong>如果要进行替换 / 修改文件内容，取出某个范围的内容（比如日志中从早上8点到下午12点）</p></blockquote><h2 id="特点及格式"><a href="#特点及格式" class="headerlink" title="特点及格式"></a>特点及格式</h2><ul><li><p>sed（stream editor：流编辑器），sed 把处理的内容（文件）当做是水，源源不断的进行处理，直到文件末尾</p></li><li><p>sed 格式：</p><pre><code class="shell"># 命令    选项    （s）sed命令功能（g）修饰符    参数（文件）  sed     -r        &#39;s#oldboy#oldgirl#g&#39;      oldboy.txt</code></pre><table><thead><tr><th>命令</th><th>选项</th><th>（s）sed命令功能（g）修饰符</th><th>参数（文件）</th></tr></thead><tbody><tr><td>sed</td><td>-r</td><td>‘s#oldboy#oldgirl#g’</td><td>oldboy.txt</td></tr></tbody></table></li><li><p>sed 命令核心功能：增删改查</p><pre><code class="shell">s    # 替换 substitute sub    [核心]p    # 显示 print    [核心]d    # 删除 delete，以行为单位    [核心]cai    # 增加 c/a/i</code></pre></li></ul><h2 id="sed-命令执行过程"><a href="#sed-命令执行过程" class="headerlink" title="sed 命令执行过程"></a>sed 命令执行过程</h2><ul><li><p>四字描述：“找谁干啥”</p></li><li><p>找谁：你要哪一行</p></li><li><p>干啥：增删改查</p>  <img src="https://malloc-img.oss-cn-hangzhou.aliyuncs.com/img/sed%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B1.png" alt="sed命令执行过程"  /></li></ul><h2 id="sed-核心应用"><a href="#sed-核心应用" class="headerlink" title="sed 核心应用"></a>sed 核心应用</h2><h3 id="sed-查找-过滤-p（一般遇到-p-会加-n）"><a href="#sed-查找-过滤-p（一般遇到-p-会加-n）" class="headerlink" title="sed - 查找 / 过滤 p（一般遇到 p 会加 -n）"></a>sed - 查找 / 过滤 p（一般遇到 p 会加 -n）</h3><table><thead><tr><th>查找格式</th><th>功能</th></tr></thead><tbody><tr><td>‘1p’  ‘2p’</td><td>指定行号进行查找</td></tr><tr><td>‘1,5p’</td><td>指定行号范围进行查找（最后一行为 $）</td></tr><tr><td>‘//p’ （//中写需要找的单词）</td><td>类似于 grep 过滤，// 里面可以写正则</td></tr><tr><td>‘//,//p’</td><td>表示范围的过滤，常用于找日志，如 ‘/10:00/,/11:00/p’；如果结尾不存在，则直接到文件的最后一行</td></tr></tbody></table><h3 id="sed-整行-删除-d-（delete）"><a href="#sed-整行-删除-d-（delete）" class="headerlink" title="sed - [整行]删除 d    （delete）"></a>sed - [整行]删除 d    （delete）</h3><table><thead><tr><th>查找格式</th><th>功能</th></tr></thead><tbody><tr><td>‘1d’  ‘2d’</td><td>指定行号进行查找</td></tr><tr><td>‘1,5d’</td><td>指定行号范围进行查找（最后一行为 $）</td></tr><tr><td>‘//d’ （//中写需要找的单词）</td><td>类似于 grep 过滤，// 里面可以写正则</td></tr><tr><td>‘//,//d’</td><td>表示范围的过滤，常用于找日志，如 ‘/10:00/,/11:00/p’；如果结尾不存在，则直接到文件的最后一行</td></tr></tbody></table><p>eg：删除文件中的空行和包含 # 号的行</p><pre><code class="shell"># 方法一：egrepegrep -v &#39;^$|#&#39; test.log# 方法二：sedsed -r &#39;/^$|#/d&#39; test.log# 方法三：! 妙用 （取反，排除）sed -nr &#39;/^$|#/!p&#39; test.log</code></pre><h3 id="sed-增加-cai"><a href="#sed-增加-cai" class="headerlink" title="sed - 增加 cai"></a>sed - 增加 cai</h3><table><thead><tr><th>命令</th><th></th></tr></thead><tbody><tr><td>c</td><td>replace 替代，替代这行内容</td></tr><tr><td><strong>a</strong></td><td>append 追加，向指定行或每一行追加的内容（行后面） &gt;&gt;</td></tr><tr><td>i</td><td>insert 插入，向指定的行或每一行插入内容（行前面）</td></tr></tbody></table><p>eg：</p><pre><code class="shell">sed &#39;3a 996,lindao,CTO&#39; test.txt</code></pre><pre><code class="shell">:&lt;&lt;!    向文件中追加多行内容    向 config 里面追加    useDNS    no    GSSAPIAUTCATION    no    PermitROOTLogin    no!# 方法一：推荐cat &gt;&gt;config&lt;&lt;&#39;EOF&#39;useDNS    noGSSAPIAUTCATION    noPermitROOTLogin    noEOF# 方法二：sedsed &#39;$a useDNS    no\nGSSAPIAUTCATION    no\nPermitROOTLogin    no&#39; config</code></pre><h3 id="sed-替换-s"><a href="#sed-替换-s" class="headerlink" title="sed - 替换 s"></a>sed - 替换 s</h3><ul><li>s（替换，sub，substitute）</li><li>g（全局替换，global；sed 替换每行所有匹配的内容，sed 默认只替换每一行匹配的内容）</li></ul><table><thead><tr><th>替换格式(第一个 # 后跟正则表达式)</th></tr></thead><tbody><tr><td>s###g</td></tr><tr><td>s///g</td></tr><tr><td>s@@@g</td></tr></tbody></table><h3 id="sed-后向引用-方向引用"><a href="#sed-后向引用-方向引用" class="headerlink" title="sed - 后向引用 / 方向引用"></a>sed - 后向引用 / 方向引用</h3><ul><li>口诀：先保护，再引用（使用在后两个 # 里使用）</li></ul><p>eg：想将 123456 改为 &lt;123456&gt;</p><pre><code class="shell">echo 123456 | sed -r &#39;s#(.*)#&lt;\1&gt;#g&#39;    # 其中 \1 表示第一组</code></pre><p>eg：oldboy_lidao 两个单词颠倒</p><pre><code class="shell">echo oldboy_lidao | sed -r &#39;s#(^.*)_(.*$)#\2\1#g&#39;</code></pre><p>eg：找到指定网卡的 ip</p><pre><code class="shell">ip a s eth0 | sed -n &#39;3p&#39; | sed -r &#39;s#(^.*t )(.*)(/.*$)#\2#g&#39;或ip a s eth0 | sed -n &#39;3p&#39; | sed -r &#39;s#^.*t (.*)/.*$#\1#g&#39;## 精简ip a s eth0 | sed -rn &#39;3s#^.*t (.*)/.*$#\1#&#39;</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux：修改用户名密码"><a href="#Linux：修改用户名密码" class="headerlink" title="Linux：修改用户名密码"></a>Linux：修改用户名密码</h1><h2 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h2><pre><code class="shell">passwd 用户名id toptea</code></pre><h2 id="方法二：用-echo-命令修改用户密码"><a href="#方法二：用-echo-命令修改用户密码" class="headerlink" title="方法二：用 echo 命令修改用户密码"></a>方法二：用 echo 命令修改用户密码</h2><p>Linux 通常用passwd修改密码 都要重复确认，现在告诉你一个一句话修改账户密码的命令</p><pre><code class="shell">echo &quot;新密码&quot;|passwd --stdin 用户名</code></pre>]]></content>
       
       
       <categories>
@@ -454,11 +454,11 @@
     
     
     <entry>
-      <title>Linux：修改用户名密码</title>
-      <link href="/2021/11/18/Linux%EF%BC%9A%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/"/>
-      <url>/2021/11/18/Linux%EF%BC%9A%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/</url>
+      <title>Linux：sed命令详解</title>
+      <link href="/2021/11/18/Linux%EF%BC%9Ased%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
+      <url>/2021/11/18/Linux%EF%BC%9Ased%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux：修改用户名密码"><a href="#Linux：修改用户名密码" class="headerlink" title="Linux：修改用户名密码"></a>Linux：修改用户名密码</h1><h2 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h2><pre><code class="shell">passwd 用户名id toptea</code></pre><h2 id="方法二：用-echo-命令修改用户密码"><a href="#方法二：用-echo-命令修改用户密码" class="headerlink" title="方法二：用 echo 命令修改用户密码"></a>方法二：用 echo 命令修改用户密码</h2><p>Linux 通常用passwd修改密码 都要重复确认，现在告诉你一个一句话修改账户密码的命令</p><pre><code class="shell">echo &quot;新密码&quot;|passwd --stdin 用户名</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux：sed命令详解"><a href="#Linux：sed命令详解" class="headerlink" title="Linux：sed命令详解"></a>Linux：sed命令详解</h1><blockquote><p><strong>特点：</strong>替换，修改文件内容，取行</p><p><strong>场景：</strong>如果要进行替换 / 修改文件内容，取出某个范围的内容（比如日志中从早上8点到下午12点）</p></blockquote><h2 id="特点及格式"><a href="#特点及格式" class="headerlink" title="特点及格式"></a>特点及格式</h2><ul><li><p>sed（stream editor：流编辑器），sed 把处理的内容（文件）当做是水，源源不断的进行处理，直到文件末尾</p></li><li><p>sed 格式：</p><pre><code class="shell"># 命令    选项    （s）sed命令功能（g）修饰符    参数（文件）  sed     -r        &#39;s#oldboy#oldgirl#g&#39;      oldboy.txt</code></pre><table><thead><tr><th>命令</th><th>选项</th><th>（s）sed命令功能（g）修饰符</th><th>参数（文件）</th></tr></thead><tbody><tr><td>sed</td><td>-r</td><td>‘s#oldboy#oldgirl#g’</td><td>oldboy.txt</td></tr></tbody></table></li><li><p>sed 命令核心功能：增删改查</p><pre><code class="shell">s    # 替换 substitute sub    [核心]p    # 显示 print    [核心]d    # 删除 delete，以行为单位    [核心]cai    # 增加 c/a/i</code></pre></li></ul><h2 id="sed-命令执行过程"><a href="#sed-命令执行过程" class="headerlink" title="sed 命令执行过程"></a>sed 命令执行过程</h2><ul><li><p>四字描述：“找谁干啥”</p></li><li><p>找谁：你要哪一行</p></li><li><p>干啥：增删改查</p>  <img src="https://malloc-img.oss-cn-hangzhou.aliyuncs.com/img/sed%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B1.png" alt="sed命令执行过程"  /></li></ul><h2 id="sed-核心应用"><a href="#sed-核心应用" class="headerlink" title="sed 核心应用"></a>sed 核心应用</h2><h3 id="sed-查找-过滤-p（一般遇到-p-会加-n）"><a href="#sed-查找-过滤-p（一般遇到-p-会加-n）" class="headerlink" title="sed - 查找 / 过滤 p（一般遇到 p 会加 -n）"></a>sed - 查找 / 过滤 p（一般遇到 p 会加 -n）</h3><table><thead><tr><th>查找格式</th><th>功能</th></tr></thead><tbody><tr><td>‘1p’  ‘2p’</td><td>指定行号进行查找</td></tr><tr><td>‘1,5p’</td><td>指定行号范围进行查找（最后一行为 $）</td></tr><tr><td>‘//p’ （//中写需要找的单词）</td><td>类似于 grep 过滤，// 里面可以写正则</td></tr><tr><td>‘//,//p’</td><td>表示范围的过滤，常用于找日志，如 ‘/10:00/,/11:00/p’；如果结尾不存在，则直接到文件的最后一行</td></tr></tbody></table><h3 id="sed-整行-删除-d-（delete）"><a href="#sed-整行-删除-d-（delete）" class="headerlink" title="sed - [整行]删除 d    （delete）"></a>sed - [整行]删除 d    （delete）</h3><table><thead><tr><th>查找格式</th><th>功能</th></tr></thead><tbody><tr><td>‘1d’  ‘2d’</td><td>指定行号进行查找</td></tr><tr><td>‘1,5d’</td><td>指定行号范围进行查找（最后一行为 $）</td></tr><tr><td>‘//d’ （//中写需要找的单词）</td><td>类似于 grep 过滤，// 里面可以写正则</td></tr><tr><td>‘//,//d’</td><td>表示范围的过滤，常用于找日志，如 ‘/10:00/,/11:00/p’；如果结尾不存在，则直接到文件的最后一行</td></tr></tbody></table><p>eg：删除文件中的空行和包含 # 号的行</p><pre><code class="shell"># 方法一：egrepegrep -v &#39;^$|#&#39; test.log# 方法二：sedsed -r &#39;/^$|#/d&#39; test.log# 方法三：! 妙用 （取反，排除）sed -nr &#39;/^$|#/!p&#39; test.log</code></pre><h3 id="sed-增加-cai"><a href="#sed-增加-cai" class="headerlink" title="sed - 增加 cai"></a>sed - 增加 cai</h3><table><thead><tr><th>命令</th><th></th></tr></thead><tbody><tr><td>c</td><td>replace 替代，替代这行内容</td></tr><tr><td><strong>a</strong></td><td>append 追加，向指定行或每一行追加的内容（行后面） &gt;&gt;</td></tr><tr><td>i</td><td>insert 插入，向指定的行或每一行插入内容（行前面）</td></tr></tbody></table><p>eg：</p><pre><code class="shell">sed &#39;3a 996,lindao,CTO&#39; test.txt</code></pre><pre><code class="shell">:&lt;&lt;!    向文件中追加多行内容    向 config 里面追加    useDNS    no    GSSAPIAUTCATION    no    PermitROOTLogin    no!# 方法一：推荐cat &gt;&gt;config&lt;&lt;&#39;EOF&#39;useDNS    noGSSAPIAUTCATION    noPermitROOTLogin    noEOF# 方法二：sedsed &#39;$a useDNS    no\nGSSAPIAUTCATION    no\nPermitROOTLogin    no&#39; config</code></pre><h3 id="sed-替换-s"><a href="#sed-替换-s" class="headerlink" title="sed - 替换 s"></a>sed - 替换 s</h3><ul><li>s（替换，sub，substitute）</li><li>g（全局替换，global；sed 替换每行所有匹配的内容，sed 默认只替换每一行匹配的内容）</li></ul><table><thead><tr><th>替换格式(第一个 # 后跟正则表达式)</th></tr></thead><tbody><tr><td>s###g</td></tr><tr><td>s///g</td></tr><tr><td>s@@@g</td></tr></tbody></table><h3 id="sed-后向引用-方向引用"><a href="#sed-后向引用-方向引用" class="headerlink" title="sed - 后向引用 / 方向引用"></a>sed - 后向引用 / 方向引用</h3><ul><li>口诀：先保护，再引用（使用在后两个 # 里使用）</li></ul><p>eg：想将 123456 改为 &lt;123456&gt;</p><pre><code class="shell">echo 123456 | sed -r &#39;s#(.*)#&lt;\1&gt;#g&#39;    # 其中 \1 表示第一组</code></pre><p>eg：oldboy_lidao 两个单词颠倒</p><pre><code class="shell">echo oldboy_lidao | sed -r &#39;s#(^.*)_(.*$)#\2\1#g&#39;</code></pre><p>eg：找到指定网卡的 ip</p><pre><code class="shell">ip a s eth0 | sed -n &#39;3p&#39; | sed -r &#39;s#(^.*t )(.*)(/.*$)#\2#g&#39;或ip a s eth0 | sed -n &#39;3p&#39; | sed -r &#39;s#^.*t (.*)/.*$#\1#g&#39;## 精简ip a s eth0 | sed -rn &#39;3s#^.*t (.*)/.*$#\1#&#39;</code></pre>]]></content>
       
       
       <categories>
@@ -554,6 +554,31 @@
     
     
     <entry>
+      <title>Linux：查看进程使用内存</title>
+      <link href="/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98/"/>
+      <url>/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Linux：查看进程使用内存"><a href="#Linux：查看进程使用内存" class="headerlink" title="Linux：查看进程使用内存"></a>Linux：查看进程使用内存</h1><pre><code class="shell"># 方法一：使用 smaps，单位 KBcat /proc/73375/smaps | grep &#39;^Rss:&#39; | awk &#39;&#123;sum +=$2&#125; END&#123;print sum&#125;&#39;# 方法二：单位 G，输出时会显示单位top -bn 1 -p 73375|sed /^[[:space:]]*$/d|tail -1|awk -F &#39; &#39; &#39;&#123;print $6&#125;&#39;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux &amp;&amp; Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux：目录结构</title>
       <link href="/2021/11/18/Linux%EF%BC%9A%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/"/>
       <url>/2021/11/18/Linux%EF%BC%9A%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/</url>
@@ -604,36 +629,11 @@
     
     
     <entry>
-      <title>Linux：查看进程使用内存</title>
-      <link href="/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98/"/>
-      <url>/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98/</url>
+      <title>Linux：重定向符号</title>
+      <link href="/2021/11/18/Linux%EF%BC%9A%E9%87%8D%E5%AE%9A%E5%90%91%E7%AC%A6%E5%8F%B7/"/>
+      <url>/2021/11/18/Linux%EF%BC%9A%E9%87%8D%E5%AE%9A%E5%90%91%E7%AC%A6%E5%8F%B7/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux：查看进程使用内存"><a href="#Linux：查看进程使用内存" class="headerlink" title="Linux：查看进程使用内存"></a>Linux：查看进程使用内存</h1><pre><code class="shell"># 方法一：使用 smaps，单位 KBcat /proc/73375/smaps | grep &#39;^Rss:&#39; | awk &#39;&#123;sum +=$2&#125; END&#123;print sum&#125;&#39;# 方法二：单位 G，输出时会显示单位top -bn 1 -p 73375|sed /^[[:space:]]*$/d|tail -1|awk -F &#39; &#39; &#39;&#123;print $6&#125;&#39;</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux &amp;&amp; Shell </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Linux 时间格式</title>
-      <link href="/2021/11/18/Linux-%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/"/>
-      <url>/2021/11/18/Linux-%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Linux-时间格式"><a href="#Linux-时间格式" class="headerlink" title="Linux 时间格式"></a>Linux 时间格式</h1><pre><code class="shell">date +%Y-%m-%d-%H-%M-%S</code></pre><p>结果：</p><pre><code class="shell">2021-02-03-04-00-01年-月-日-时-分-秒</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux：重定向符号"><a href="#Linux：重定向符号" class="headerlink" title="Linux：重定向符号"></a>Linux：重定向符号</h1><pre><code class="shell">&lt; :输入重定向&gt; :输出重定向&gt;&gt; :输出重定向,追加,不覆盖之前内容&lt;&lt; :标准输入来自命令行的一对分隔号的中间内容</code></pre>]]></content>
       
       
       <categories>
@@ -654,11 +654,11 @@
     
     
     <entry>
-      <title>QuartZ Cron表达式 / QuartZ定时任务</title>
-      <link href="/2021/11/18/QuartZ-Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F-QuartZ%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/"/>
-      <url>/2021/11/18/QuartZ-Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F-QuartZ%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</url>
+      <title>Linux df 显示目前文件系统磁盘使用情况</title>
+      <link href="/2021/11/18/Linux-df-%E6%98%BE%E7%A4%BA%E7%9B%AE%E5%89%8D%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5/"/>
+      <url>/2021/11/18/Linux-df-%E6%98%BE%E7%A4%BA%E7%9B%AE%E5%89%8D%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5/</url>
       
-        <content type="html"><![CDATA[<h1 id="QuartZ-Cron表达式-QuartZ定时任务（Spring-实现）"><a href="#QuartZ-Cron表达式-QuartZ定时任务（Spring-实现）" class="headerlink" title="QuartZ Cron表达式 / QuartZ定时任务（Spring 实现）"></a>QuartZ Cron表达式 / QuartZ定时任务（Spring 实现）</h1><h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>[TOC]</p><p>cron 表达式用于配置 cronTrigger 的实例。cron 表达式实际上是由七个子表达式组成。这些表达式之间用空格分隔。</p><ol><li>Seconds（秒）</li><li>Minutes（分）</li><li>Hours（小时）</li><li>Day-of-Month（天）</li><li>Month（月）</li><li>Day-of-Week（周）</li><li>Year（年）</li></ol><p>例：”0 0 12 ? * WED” 意思是：每个星期三的中午12点执行。</p><p>个别子表达式可以包含范围或者列表。例如：上面例子中的WED可以换成 “MON-FRI”，”MON,WED,FRI”，甚至 “MON-WED,SAT”。</p><p><strong>子表达式范围：</strong></p><ol><li>Seconds  (0~59)</li><li>Minutes  (0~59)</li><li>Hours  (0~23)</li><li>Day-of-Month (1~31，但是要注意有些月份没有31天)</li><li>Month  (0~11，或者 “ JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV,DEC “)</li><li>Day-of-Week  (1~7,1=SUN 或者 “ SUN, MON, TUE, WED, THU, FRI, SAT “)</li><li>Year  (1970~2099)</li></ol><p>Cron 表达式的格式：秒 分 时 日 月 周 年(可选)。</p><table><thead><tr><th>字段名</th><th>允许的值</th><th>允许的特殊字符</th></tr></thead><tbody><tr><td>秒</td><td>0 - 59</td><td>, - * /</td></tr><tr><td>分</td><td>0 - 59</td><td>, - * /</td></tr><tr><td>小时</td><td>0 - 23</td><td>, - * /</td></tr><tr><td>日</td><td>1 - 31</td><td>, - * ? / L W C</td></tr><tr><td>月</td><td>1 - 12 or JAN - DEC</td><td>, - * /</td></tr><tr><td>周几</td><td>1 - 7 or SUN - SAT</td><td>, - * ? / L C #</td></tr><tr><td>年（可选字段）</td><td>empty</td><td>1970 - 2099 , - * /</td></tr></tbody></table><p><strong>字符含义：</strong></p><p>***** ：代表所有可能的值。因此，“*” 在 Month 中表示每个月，在 Day-of-Month 中表示每天，在 Hours 表示每小时</p><p><strong>-</strong> ：表示指定范围。</p><p><strong>,</strong> ：表示列出枚举值。例如：在 Minutes 子表达式中，“5,20” 表示在 5 分钟和 20 分钟触发。</p><p><strong>/</strong> ：被用于指定增量。例如：在 Minutes 子表达式中，“0/15” 表示从0分钟开始，每 15 分钟执行一次。“3/20” 表示从第三分钟开始，每 20 分钟执行一次。和 “3,23,43” （表示第 3,23,43 分钟触发）的含义一样。</p><p><strong>?</strong> ：用在 Day-of-Month 和 Day-of-Week 中，指 “没有具体的值”。当两个字表达式其中一个指定了值以后，为了避免冲突，需要将另一个值设为 “?”。例如：想在每月 20 日触发调度，不管 20 号是星期几，只能用如下写法：0 0 0 20 * ?，其中最后只能用 “？”，而不能用 “*”。</p><p><strong>L</strong>：用在 day-of-month 和 day-of-week 子串中。它是单词 “last” 的缩写。它在两个子表达式中的含义是不同的。</p><p>​      在 day-of-week 中，“L” 表示一个月的最后一天，如：1月31号，3月30号。</p><p>​      在 day-of-week 中，“L” 表示一个星期的最后一天，也就是 “7” 或 ”SAT“</p><p>​      如果 ”L“ 前有具体内容，他就有其他的含义了。例如：”6L“ 表示这个月的倒数第六天。”FRIL“ 表示这个月的最后一个星期五。</p><p>​     注意：在使用 “L” 参数时，不要指定列表或者范围，这样会出现问题。</p><p><strong>W</strong>：“Weekday” 的缩写。只能用在 day-of-month 字段。用来描述最接近指定天的工作日（周一到周五）。例如：在 day-of-month 字段用 “15W”  指 “最接近这个月第 15 天的工作日”，即如果这个月第 15 天是周六，那么触发器将会在这个月第 14 天即周五触发；如果这个月第 15 天是周日，那么触发器将会在这个月第 16 天即周一触发；如果这个月第 15 天是周二，那么久在触发器这天触发。<strong>注意一点：</strong>这个用法只会在当前月计算值，不会越过当前月。“W” 字符仅能在 day-of-month 指明一天，不能是一个范围或列表。也可以用 “LW” 来指定这个月的最后一个工作日，即最后一个星期五。</p><p>**#**：只能用在 day-of-week 字段。用来描述最接近指定天的工作日（周一到周五）。例如：在 day-of-month 字段用 “6#3” or “FRI#3” 指定这个月第三个周五（6指周五，3指第三个）。如果指定的日期不存在，触发器就不会触发。</p><p><strong>表达式例子：</strong></p><p>0 * * * * ?    每 1 分钟触发一次</p><p>0 0 * * * ?    每天每 1 小时触发一次</p><p>0 0 10 * * ?    每天 10 点触发一次</p><p>0 * 14 * * ?    在每天下午2点到下午2:59期间的每1分钟触发 </p><p>0 30 9 1 * ?    每月1号上午9点半</p><p>0 15 10 15 * ?    每月15日上午10:15触发</p><p>*/5 * * * * ?    每隔5秒执行一次</p><p>0 */1 * * * ?    每隔1分钟执行一次</p><p>0 0 5-15 * * ?    每天5-15点整点触发</p><p>0 0/3 * * * ?    每三分钟触发一次</p><p>0 0-5 14 * * ?    在每天下午2点到下午2:05期间的每1分钟触发 </p><p>0 0/5 14 * * ?    在每天下午2点到下午2:55期间的每5分钟触发</p><p>0 0/5 14,18 * * ?    在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发</p><p>0 0/30 9-17 * * ?    朝九晚五工作时间内每半小时</p><p>0 0 10,14,16 * * ?    每天上午10点，下午2点，4点 </p><p>0 0 12 ? * WED    表示每个星期三中午12点</p><p>0 0 17 ? * TUES,THUR,SAT    每周二、四、六下午五点</p><p>0 10,44 14 ? 3 WED    每年三月的星期三的下午2:10和2:44触发 </p><p>0 15 10 ? * MON-FRI    周一至周五的上午10:15触发</p><p>0 0 23 L * ?    每月最后一天23点执行一次</p><p>0 15 10 L * ?    每月最后一日的上午10:15触发 </p><p>0 15 10 ? * 6L    每月的最后一个星期五上午10:15触发</p><p>0 15 10 * * ? 2005    2005年的每天上午10:15触发 </p><p>0 15 10 ? * 6L 2002-2005    2002年至2005年的每月的最后一个星期五上午10:15触发 </p><p>0 15 10 ? * 6#3    每月的第三个星期五上午10:15触发</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux-df-显示目前文件系统磁盘使用情况"><a href="#Linux-df-显示目前文件系统磁盘使用情况" class="headerlink" title="Linux df 显示目前文件系统磁盘使用情况"></a>Linux df 显示目前文件系统磁盘使用情况</h1><pre><code class="shell">df [选项]... [FILE]...</code></pre><ul><li>文件-a, –all 包含所有的具有 0 Blocks 的文件系统</li><li>文件–block-size={SIZE} 使用 {SIZE} 大小的 Blocks</li><li>文件-h, –human-readable 使用人类可读的格式(预设值是不加这个选项的…)</li><li>文件-H, –si 很像 -h, 但是用 1000 为单位而不是用 1024</li><li>文件-i, –inodes 列出 inode 资讯，不列出已使用 block</li><li>文件-k, –kilobytes 就像是 –block-size=1024</li><li>文件-l, –local 限制列出的文件结构</li><li>文件-m, –megabytes 就像 –block-size=1048576</li><li>文件–no-sync 取得资讯前不 sync (预设值)</li><li>文件-P, –portability 使用 POSIX 输出格式</li><li>文件–sync 在取得资讯前 sync</li><li>文件-t, –type=TYPE 限制列出文件系统的 TYPE</li><li>文件-T, –print-type 显示文件系统的形式</li><li>文件-x, –exclude-type=TYPE 限制列出文件系统不要显示 TYPE</li><li>文件-v (忽略)</li><li>文件–help 显示这个帮手并且离开</li><li>文件–version 输出版本资讯并且离开</li></ul>]]></content>
       
       
       <categories>
@@ -1054,6 +1054,31 @@
     
     
     <entry>
+      <title>vi、vim学习</title>
+      <link href="/2021/11/18/vi%E3%80%81vim%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2021/11/18/vi%E3%80%81vim%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="vi、vim学习"><a href="#vi、vim学习" class="headerlink" title="vi、vim学习"></a>vi、vim学习</h1><h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><h3 id="一般模式下："><a href="#一般模式下：" class="headerlink" title="一般模式下："></a>一般模式下：</h3><ol><li>拷贝当前行：<code>yy</code>，拷贝当前行下的5行：<code>5yy</code>，粘贴：<code>p</code></li><li>删除当前行：<code>dd</code>，删除当前行下的5行：<code>5dd</code></li><li>定位到文档的最末行：<code>G</code>、定位首行：<code>gg</code></li><li>撤销上一步操作：<code>u </code></li><li>恢复上一步被撤销的操作：<code>ctrl + r</code></li><li>快速定位到第 n 行：<code>n+shift+g</code></li></ol><h3 id="命令行模式"><a href="#命令行模式" class="headerlink" title="命令行模式"></a>命令行模式</h3><ol><li>查找单词：命令行下 <code>/</code> 关键字，回车 查找，输入 <code>n</code> 就是查找下一个</li><li>设置文件的行号：命令行下 <code>:set nu</code> 和 <code>:set nonu</code></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux &amp;&amp; Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>以非 root 用户编辑 crontab 提示 You are not allowed to use this program(crontab)</title>
       <link href="/2021/11/18/%E4%BB%A5%E9%9D%9Eroot%E7%94%A8%E6%88%B7%E7%BC%96%E8%BE%91crontab%E6%8F%90%E7%A4%BA%20You%20are%20not%20allowed%20to%20use%20this%20program(crontab)/"/>
       <url>/2021/11/18/%E4%BB%A5%E9%9D%9Eroot%E7%94%A8%E6%88%B7%E7%BC%96%E8%BE%91crontab%E6%8F%90%E7%A4%BA%20You%20are%20not%20allowed%20to%20use%20this%20program(crontab)/</url>
@@ -1104,11 +1129,11 @@
     
     
     <entry>
-      <title>vi、vim学习</title>
-      <link href="/2021/11/18/vi%E3%80%81vim%E5%AD%A6%E4%B9%A0/"/>
-      <url>/2021/11/18/vi%E3%80%81vim%E5%AD%A6%E4%B9%A0/</url>
+      <title>在Ubuntu 20.04上安装GCC（build-essential）</title>
+      <link href="/2021/11/18/%E5%9C%A8Ubuntu%2020.04%E4%B8%8A%E5%AE%89%E8%A3%85GCC%EF%BC%88build-essential%EF%BC%89/"/>
+      <url>/2021/11/18/%E5%9C%A8Ubuntu%2020.04%E4%B8%8A%E5%AE%89%E8%A3%85GCC%EF%BC%88build-essential%EF%BC%89/</url>
       
-        <content type="html"><![CDATA[<h1 id="vi、vim学习"><a href="#vi、vim学习" class="headerlink" title="vi、vim学习"></a>vi、vim学习</h1><h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><h3 id="一般模式下："><a href="#一般模式下：" class="headerlink" title="一般模式下："></a>一般模式下：</h3><ol><li>拷贝当前行：<code>yy</code>，拷贝当前行下的5行：<code>5yy</code>，粘贴：<code>p</code></li><li>删除当前行：<code>dd</code>，删除当前行下的5行：<code>5dd</code></li><li>定位到文档的最末行：<code>G</code>、定位首行：<code>gg</code></li><li>撤销上一步操作：<code>u </code></li><li>恢复上一步被撤销的操作：<code>ctrl + r</code></li><li>快速定位到第 n 行：<code>n+shift+g</code></li></ol><h3 id="命令行模式"><a href="#命令行模式" class="headerlink" title="命令行模式"></a>命令行模式</h3><ol><li>查找单词：命令行下 <code>/</code> 关键字，回车 查找，输入 <code>n</code> 就是查找下一个</li><li>设置文件的行号：命令行下 <code>:set nu</code> 和 <code>:set nonu</code></li></ol>]]></content>
+        <content type="html"><![CDATA[<h1 id="在Ubuntu-20-04上安装GCC（build-essential）"><a href="#在Ubuntu-20-04上安装GCC（build-essential）" class="headerlink" title="在Ubuntu 20.04上安装GCC（build-essential）"></a>在Ubuntu 20.04上安装GCC（build-essential）</h1><blockquote><p><strong>简介：</strong> GNU 编译器集合是一系列用于语言开发的编译器和库的集合，包括: C, C++, Objective-C, Fortran, Ada, Go, and D等编程语言。很多开源项目，包括 Linux kernel 和 GNU 工具，都是使用 GCC 进行编译的。本文主要为大家讲解如何在 Ubuntu 20.04 上安装 GCC。</p></blockquote><p>GNU 编译器集合是一系列用于语言开发的编译器和库的集合，包括: C, C++, Objective-C, Fortran, Ada, Go, and D等编程语言。很多开源项目，包括 Linux kernel 和 GNU 工具，都是使用 GCC 进行编译的。<br>本文描述如何在 Ubuntu 20.04 上安装 GCC。</p><h2 id="在-Ubuntu-20-04-上安装-GCC"><a href="#在-Ubuntu-20-04-上安装-GCC" class="headerlink" title="在 Ubuntu 20.04 上安装 GCC"></a>在 Ubuntu 20.04 上安装 GCC</h2><p>默认的 Ubuntu 软件源包含了一个软件包组，名称为 “build-essential”,它包含了 GNU 编辑器集合，GNU 调试器，和其他编译软件所必需的开发库和工具。</p><p>想要安装开发工具软件包，以 拥有 sudo 权限用户身份或者 root 身份运行下面的命令：</p><pre><code class="shell">sudo apt updatesudo apt install build-essential</code></pre><p>这个命令将会安装一系列软件包，包括<code>gcc</code>,<code>g++</code>,和<code>make</code>。<br>你可能还想安装关于如何使用 GNU/Linux开发的手册。</p><pre><code class="shell">sudo apt-get install manpages-dev</code></pre><p>通过运行下面的命令，打印 GCC 版本，来验证 GCC 编译器是否被成功地安装。</p><pre><code class="shell">gcc --version</code></pre><p>在 Ubuntu 20.04 软件源中 GCC 的默认可用版本号为<code>9.3.0</code>:</p><pre><code class="shell">gcc (Ubuntu 9.3.0-10ubuntu2) 9.3.0Copyright (C) 2019 Free Software Foundation, Inc.This is free software; see the source for copying conditions.  There is NOwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</code></pre><p>就这些。GCC 已经在你的 Ubuntu 系统上安装好了，你可以开始使用它了。</p>]]></content>
       
       
       <categories>
@@ -1129,11 +1154,11 @@
     
     
     <entry>
-      <title>在Ubuntu 20.04上安装GCC（build-essential）</title>
-      <link href="/2021/11/18/%E5%9C%A8Ubuntu%2020.04%E4%B8%8A%E5%AE%89%E8%A3%85GCC%EF%BC%88build-essential%EF%BC%89/"/>
-      <url>/2021/11/18/%E5%9C%A8Ubuntu%2020.04%E4%B8%8A%E5%AE%89%E8%A3%85GCC%EF%BC%88build-essential%EF%BC%89/</url>
+      <title>Cron 表达式生成规则</title>
+      <link href="/2021/11/18/Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%94%9F%E6%88%90%E8%A7%84%E5%88%99/"/>
+      <url>/2021/11/18/Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%94%9F%E6%88%90%E8%A7%84%E5%88%99/</url>
       
-        <content type="html"><![CDATA[<h1 id="在Ubuntu-20-04上安装GCC（build-essential）"><a href="#在Ubuntu-20-04上安装GCC（build-essential）" class="headerlink" title="在Ubuntu 20.04上安装GCC（build-essential）"></a>在Ubuntu 20.04上安装GCC（build-essential）</h1><blockquote><p><strong>简介：</strong> GNU 编译器集合是一系列用于语言开发的编译器和库的集合，包括: C, C++, Objective-C, Fortran, Ada, Go, and D等编程语言。很多开源项目，包括 Linux kernel 和 GNU 工具，都是使用 GCC 进行编译的。本文主要为大家讲解如何在 Ubuntu 20.04 上安装 GCC。</p></blockquote><p>GNU 编译器集合是一系列用于语言开发的编译器和库的集合，包括: C, C++, Objective-C, Fortran, Ada, Go, and D等编程语言。很多开源项目，包括 Linux kernel 和 GNU 工具，都是使用 GCC 进行编译的。<br>本文描述如何在 Ubuntu 20.04 上安装 GCC。</p><h2 id="在-Ubuntu-20-04-上安装-GCC"><a href="#在-Ubuntu-20-04-上安装-GCC" class="headerlink" title="在 Ubuntu 20.04 上安装 GCC"></a>在 Ubuntu 20.04 上安装 GCC</h2><p>默认的 Ubuntu 软件源包含了一个软件包组，名称为 “build-essential”,它包含了 GNU 编辑器集合，GNU 调试器，和其他编译软件所必需的开发库和工具。</p><p>想要安装开发工具软件包，以 拥有 sudo 权限用户身份或者 root 身份运行下面的命令：</p><pre><code class="shell">sudo apt updatesudo apt install build-essential</code></pre><p>这个命令将会安装一系列软件包，包括<code>gcc</code>,<code>g++</code>,和<code>make</code>。<br>你可能还想安装关于如何使用 GNU/Linux开发的手册。</p><pre><code class="shell">sudo apt-get install manpages-dev</code></pre><p>通过运行下面的命令，打印 GCC 版本，来验证 GCC 编译器是否被成功地安装。</p><pre><code class="shell">gcc --version</code></pre><p>在 Ubuntu 20.04 软件源中 GCC 的默认可用版本号为<code>9.3.0</code>:</p><pre><code class="shell">gcc (Ubuntu 9.3.0-10ubuntu2) 9.3.0Copyright (C) 2019 Free Software Foundation, Inc.This is free software; see the source for copying conditions.  There is NOwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</code></pre><p>就这些。GCC 已经在你的 Ubuntu 系统上安装好了，你可以开始使用它了。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="Cron-表达式生成规则"><a href="#Cron-表达式生成规则" class="headerlink" title="Cron 表达式生成规则"></a>Cron 表达式生成规则</h1><h2 id="一、明确每个位置代表的含义"><a href="#一、明确每个位置代表的含义" class="headerlink" title="一、明确每个位置代表的含义"></a>一、明确每个位置代表的含义</h2><p>从左至右，依次表示：</p><center> 秒 &emsp; 分 &emsp; 时 &emsp; 日 &emsp; 月 &emsp; 周 &emsp; 年 </center><p>通配符一般使用 <code>*</code>，也可以使用 <code>_</code> 或者 <code>/</code>，周的位置一般用 <code>?</code></p><h2 id="二、生成规则"><a href="#二、生成规则" class="headerlink" title="二、生成规则"></a>二、生成规则</h2><h3 id="2-1-从-x-时间开始，每隔-y-时间执行一次，则在对应的位置上写上：x-y；"><a href="#2-1-从-x-时间开始，每隔-y-时间执行一次，则在对应的位置上写上：x-y；" class="headerlink" title="2.1 从 x 时间开始，每隔 y 时间执行一次，则在对应的位置上写上：x/y；"></a>2.1 从 x 时间开始，每隔 y 时间执行一次，则在对应的位置上写上：x/y；</h3><pre><code class="shell"># 从 0 分钟开始，每 5 分钟执行一次，表达式为：0 0/5 * * * ? *# 从上午 10 点开始，每 3 个小时执行一次，表达式为：0 0 10/3 * * ? *</code></pre><h3 id="2-2-定点执行，在对应的位置上写对应的数值即可"><a href="#2-2-定点执行，在对应的位置上写对应的数值即可" class="headerlink" title="2.2 定点执行，在对应的位置上写对应的数值即可"></a>2.2 定点执行，在对应的位置上写对应的数值即可</h3><pre><code class="shell"># 每天 5 点定时执行一次，表达式为：0 0 5 * * ? *# 在每个小时的 25 执行一次，表达式为：0 25 * * * ? *</code></pre><h3 id="2-3-从-x-时间到-y-时间段执行，在对应的位置上写上：x-y"><a href="#2-3-从-x-时间到-y-时间段执行，在对应的位置上写上：x-y" class="headerlink" title="2.3 从 x 时间到 y 时间段执行，在对应的位置上写上：x-y"></a>2.3 从 x 时间到 y 时间段执行，在对应的位置上写上：x-y</h3><pre><code class="shell"># 每天上午 11 点到下午 2 点执行，表达式为：0 0 11-14 * * ? *# 每个小时的 15 分到 30 分执行，表达式为：0 15-30 * * * ? *</code></pre><h3 id="2-4-关于指定时间执行的表达式，规矩很简单，只需要在对应的时间上写上要指定的时间值就可以了，中间有英文的逗号-隔开即可，这里不再举例。可根据实际情况进行组合。"><a href="#2-4-关于指定时间执行的表达式，规矩很简单，只需要在对应的时间上写上要指定的时间值就可以了，中间有英文的逗号-隔开即可，这里不再举例。可根据实际情况进行组合。" class="headerlink" title="2.4 关于指定时间执行的表达式，规矩很简单，只需要在对应的时间上写上要指定的时间值就可以了，中间有英文的逗号 , 隔开即可，这里不再举例。可根据实际情况进行组合。"></a>2.4 关于指定时间执行的表达式，规矩很简单，只需要在对应的时间上写上要指定的时间值就可以了，中间有英文的逗号 <code>,</code> 隔开即可，这里不再举例。可根据实际情况进行组合。</h3><pre><code class="shell"># 每天上午 11 点 15-11 点 45 分执行，表达式为：0 15-45 11 * * ? *# 每天上午 10 点到下午 3 点，从 15 分钟开始，每 30 分钟执行一次，表达式为：0 15/30 10-15 * * ? *</code></pre><p> 住：</p><p>1、在没有指定的位置上，前面的位置以 0 代替，后面的位置以通配符代替。</p><pre><code class="shell"># 反例：从 15 分开始，没 30 分钟执行一次。* 15/30 * * * ? *# 此时因为秒的位置是通配符，会理解为任意秒都可以执行，与预期的不符合</code></pre><p>2、针对生成规则 <strong>2.1</strong>，执行的时间是<strong>以后面的我基准</strong>的。</p><pre><code class="shell"># 例：* 15/25 10-23 * * ? *# 当前时间设为 16:20，则前 5 次的执行时间为：16:40:0017:15:0017:40:0018:15:0018:40:00# 表达式的含义为：每天 10 点 到 23 点，从每点的 15 分开始，每 25 分钟执行一次。</code></pre><p>因为当前时间为 16:20，所以第一次执行时间会从 16 点 15 分开始算起，每 25 分钟执行一次。</p><p>因为当前时间为 16:20，所以第一次执行时间回仓 16 点 15 分开始算起，由于已经过了 16:15，所以往后推算 25 分钟，是 16:40，所以，第一次执行时间是 16:40。</p><p>有人可能会以为第二次执行的时间会是 17:05。这样算是不对的。因为 16:40 往后推算 25 分钟超过了 17 点，所以下一次的应该是以 17 点算起，从 17 点 15 开始执行第二次。一次类推。这就是 “以后面的为基准” 的意思。</p>]]></content>
       
       
       <categories>
