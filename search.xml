@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title>基本操作命令</title>
+      <title>Kafka 基本操作命令</title>
       <link href="/2021/11/21/%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/"/>
       <url>/2021/11/21/%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</url>
       
@@ -29,11 +29,36 @@
     
     
     <entry>
-      <title>QuartZ Cron表达式 / QuartZ定时任务</title>
-      <link href="/2021/11/18/QuartZ-Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F-QuartZ%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/"/>
-      <url>/2021/11/18/QuartZ-Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F-QuartZ%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</url>
+      <title>Linux：重定向符号</title>
+      <link href="/2021/11/18/Linux%EF%BC%9A%E9%87%8D%E5%AE%9A%E5%90%91%E7%AC%A6%E5%8F%B7/"/>
+      <url>/2021/11/18/Linux%EF%BC%9A%E9%87%8D%E5%AE%9A%E5%90%91%E7%AC%A6%E5%8F%B7/</url>
       
-        <content type="html"><![CDATA[<h1 id="QuartZ-Cron表达式-QuartZ定时任务（Spring-实现）"><a href="#QuartZ-Cron表达式-QuartZ定时任务（Spring-实现）" class="headerlink" title="QuartZ Cron表达式 / QuartZ定时任务（Spring 实现）"></a>QuartZ Cron表达式 / QuartZ定时任务（Spring 实现）</h1><h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>[TOC]</p><p>cron 表达式用于配置 cronTrigger 的实例。cron 表达式实际上是由七个子表达式组成。这些表达式之间用空格分隔。</p><ol><li>Seconds（秒）</li><li>Minutes（分）</li><li>Hours（小时）</li><li>Day-of-Month（天）</li><li>Month（月）</li><li>Day-of-Week（周）</li><li>Year（年）</li></ol><p>例：”0 0 12 ? * WED” 意思是：每个星期三的中午12点执行。</p><p>个别子表达式可以包含范围或者列表。例如：上面例子中的WED可以换成 “MON-FRI”，”MON,WED,FRI”，甚至 “MON-WED,SAT”。</p><p><strong>子表达式范围：</strong></p><ol><li>Seconds  (0~59)</li><li>Minutes  (0~59)</li><li>Hours  (0~23)</li><li>Day-of-Month (1~31，但是要注意有些月份没有31天)</li><li>Month  (0~11，或者 “ JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV,DEC “)</li><li>Day-of-Week  (1~7,1=SUN 或者 “ SUN, MON, TUE, WED, THU, FRI, SAT “)</li><li>Year  (1970~2099)</li></ol><p>Cron 表达式的格式：秒 分 时 日 月 周 年(可选)。</p><table><thead><tr><th>字段名</th><th>允许的值</th><th>允许的特殊字符</th></tr></thead><tbody><tr><td>秒</td><td>0 - 59</td><td>, - * /</td></tr><tr><td>分</td><td>0 - 59</td><td>, - * /</td></tr><tr><td>小时</td><td>0 - 23</td><td>, - * /</td></tr><tr><td>日</td><td>1 - 31</td><td>, - * ? / L W C</td></tr><tr><td>月</td><td>1 - 12 or JAN - DEC</td><td>, - * /</td></tr><tr><td>周几</td><td>1 - 7 or SUN - SAT</td><td>, - * ? / L C #</td></tr><tr><td>年（可选字段）</td><td>empty</td><td>1970 - 2099 , - * /</td></tr></tbody></table><p><strong>字符含义：</strong></p><p>***** ：代表所有可能的值。因此，“*” 在 Month 中表示每个月，在 Day-of-Month 中表示每天，在 Hours 表示每小时</p><p><strong>-</strong> ：表示指定范围。</p><p><strong>,</strong> ：表示列出枚举值。例如：在 Minutes 子表达式中，“5,20” 表示在 5 分钟和 20 分钟触发。</p><p><strong>/</strong> ：被用于指定增量。例如：在 Minutes 子表达式中，“0/15” 表示从0分钟开始，每 15 分钟执行一次。“3/20” 表示从第三分钟开始，每 20 分钟执行一次。和 “3,23,43” （表示第 3,23,43 分钟触发）的含义一样。</p><p><strong>?</strong> ：用在 Day-of-Month 和 Day-of-Week 中，指 “没有具体的值”。当两个字表达式其中一个指定了值以后，为了避免冲突，需要将另一个值设为 “?”。例如：想在每月 20 日触发调度，不管 20 号是星期几，只能用如下写法：0 0 0 20 * ?，其中最后只能用 “？”，而不能用 “*”。</p><p><strong>L</strong>：用在 day-of-month 和 day-of-week 子串中。它是单词 “last” 的缩写。它在两个子表达式中的含义是不同的。</p><p>​      在 day-of-week 中，“L” 表示一个月的最后一天，如：1月31号，3月30号。</p><p>​      在 day-of-week 中，“L” 表示一个星期的最后一天，也就是 “7” 或 ”SAT“</p><p>​      如果 ”L“ 前有具体内容，他就有其他的含义了。例如：”6L“ 表示这个月的倒数第六天。”FRIL“ 表示这个月的最后一个星期五。</p><p>​     注意：在使用 “L” 参数时，不要指定列表或者范围，这样会出现问题。</p><p><strong>W</strong>：“Weekday” 的缩写。只能用在 day-of-month 字段。用来描述最接近指定天的工作日（周一到周五）。例如：在 day-of-month 字段用 “15W”  指 “最接近这个月第 15 天的工作日”，即如果这个月第 15 天是周六，那么触发器将会在这个月第 14 天即周五触发；如果这个月第 15 天是周日，那么触发器将会在这个月第 16 天即周一触发；如果这个月第 15 天是周二，那么久在触发器这天触发。<strong>注意一点：</strong>这个用法只会在当前月计算值，不会越过当前月。“W” 字符仅能在 day-of-month 指明一天，不能是一个范围或列表。也可以用 “LW” 来指定这个月的最后一个工作日，即最后一个星期五。</p><p>**#**：只能用在 day-of-week 字段。用来描述最接近指定天的工作日（周一到周五）。例如：在 day-of-month 字段用 “6#3” or “FRI#3” 指定这个月第三个周五（6指周五，3指第三个）。如果指定的日期不存在，触发器就不会触发。</p><p><strong>表达式例子：</strong></p><p>0 * * * * ?    每 1 分钟触发一次</p><p>0 0 * * * ?    每天每 1 小时触发一次</p><p>0 0 10 * * ?    每天 10 点触发一次</p><p>0 * 14 * * ?    在每天下午2点到下午2:59期间的每1分钟触发 </p><p>0 30 9 1 * ?    每月1号上午9点半</p><p>0 15 10 15 * ?    每月15日上午10:15触发</p><p>*/5 * * * * ?    每隔5秒执行一次</p><p>0 */1 * * * ?    每隔1分钟执行一次</p><p>0 0 5-15 * * ?    每天5-15点整点触发</p><p>0 0/3 * * * ?    每三分钟触发一次</p><p>0 0-5 14 * * ?    在每天下午2点到下午2:05期间的每1分钟触发 </p><p>0 0/5 14 * * ?    在每天下午2点到下午2:55期间的每5分钟触发</p><p>0 0/5 14,18 * * ?    在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发</p><p>0 0/30 9-17 * * ?    朝九晚五工作时间内每半小时</p><p>0 0 10,14,16 * * ?    每天上午10点，下午2点，4点 </p><p>0 0 12 ? * WED    表示每个星期三中午12点</p><p>0 0 17 ? * TUES,THUR,SAT    每周二、四、六下午五点</p><p>0 10,44 14 ? 3 WED    每年三月的星期三的下午2:10和2:44触发 </p><p>0 15 10 ? * MON-FRI    周一至周五的上午10:15触发</p><p>0 0 23 L * ?    每月最后一天23点执行一次</p><p>0 15 10 L * ?    每月最后一日的上午10:15触发 </p><p>0 15 10 ? * 6L    每月的最后一个星期五上午10:15触发</p><p>0 15 10 * * ? 2005    2005年的每天上午10:15触发 </p><p>0 15 10 ? * 6L 2002-2005    2002年至2005年的每月的最后一个星期五上午10:15触发 </p><p>0 15 10 ? * 6#3    每月的第三个星期五上午10:15触发</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux：重定向符号"><a href="#Linux：重定向符号" class="headerlink" title="Linux：重定向符号"></a>Linux：重定向符号</h1><pre><code class="shell">&lt; :输入重定向&gt; :输出重定向&gt;&gt; :输出重定向,追加,不覆盖之前内容&lt;&lt; :标准输入来自命令行的一对分隔号的中间内容</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux &amp;&amp; Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux 时间格式</title>
+      <link href="/2021/11/18/Linux-%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/"/>
+      <url>/2021/11/18/Linux-%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Linux-时间格式"><a href="#Linux-时间格式" class="headerlink" title="Linux 时间格式"></a>Linux 时间格式</h1><pre><code class="shell">date +%Y-%m-%d-%H-%M-%S</code></pre><p>结果：</p><pre><code class="shell">2021-02-03-04-00-01年-月-日-时-分-秒</code></pre>]]></content>
       
       
       <categories>
@@ -109,31 +134,6 @@
       <url>/2021/11/18/Linux%E5%90%AF%E5%8A%A8%E7%A8%8B%E5%BA%8F%E6%8A%A5%E9%94%99%EF%BC%9A$&#39;r&#39;%E6%9C%AA%E6%89%BE%E5%88%B0%E5%91%BD%E4%BB%A4/</url>
       
         <content type="html"><![CDATA[<h1 id="linux启动程序报错：-’r’未找到命令"><a href="#linux启动程序报错：-’r’未找到命令" class="headerlink" title="linux启动程序报错：$’r’未找到命令"></a>linux启动程序报错：$’r’未找到命令</h1><p>因为在dos/window下按一次回车键实际上输入的是“回车（CR)”和“换行（LF）”，而Linux/unix下按一次回车键只输入“换行（LF）”，所以文件在每行都会多了一个CR，所以Linux下运行时就会报错找不到命令，所以，解决问题之道，就是把dos文件格式转换为unix格式</p><p><strong>方法1：使用dos2unix命令转换</strong></p><p>第一步：安装dos2unix命令，如果已经安装，跳过该步骤</p><pre><code class="shell"># centosyum install dos2unix# ubuntusudo apt-get install dos2unix</code></pre><p>第二步：转换格式</p><pre><code class="shell"> dos2unix /usr/apache-tomcat/bin/restart.sh #  dos2unix /usr/apache-tomcat/bin/restart.sh</code></pre><p><strong>方法2：使用notepad++</strong></p><p>在windows系统下使用notepad++编辑该sh文件，双击文件右下角编码区域选择”转换为UNIX格式”，如下图： </p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux &amp;&amp; Shell </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Linux 时间格式</title>
-      <link href="/2021/11/18/Linux-%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/"/>
-      <url>/2021/11/18/Linux-%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Linux-时间格式"><a href="#Linux-时间格式" class="headerlink" title="Linux 时间格式"></a>Linux 时间格式</h1><pre><code class="shell">date +%Y-%m-%d-%H-%M-%S</code></pre><p>结果：</p><pre><code class="shell">2021-02-03-04-00-01年-月-日-时-分-秒</code></pre>]]></content>
       
       
       <categories>
@@ -254,11 +254,11 @@
     
     
     <entry>
-      <title>awk入门教程</title>
-      <link href="/2021/11/18/Linux%EF%BC%9Aawk%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/"/>
-      <url>/2021/11/18/Linux%EF%BC%9Aawk%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+      <title>Linux：EOF （自定义终止符）用法</title>
+      <link href="/2021/11/18/Linux%EF%BC%9AEOF%E7%94%A8%E6%B3%95/"/>
+      <url>/2021/11/18/Linux%EF%BC%9AEOF%E7%94%A8%E6%B3%95/</url>
       
-        <content type="html"><![CDATA[<h1 id="awk入门教程"><a href="#awk入门教程" class="headerlink" title="awk入门教程"></a>awk入门教程</h1><p>awk 是处理文本文件的一个应用程序，几乎所有 Linux 系统都自带这个程序。</p><p>它依次处理文件的每一行，并读取里面的每一个字段。对于<strong>日志</strong>、<strong>csv</strong> 这样的每行格式相同的文本文件，awk 可能是最方便的工具。</p><p>awk 其实不仅仅是工具软件，还是一种编程语言。不过，本文只介绍它的命令用法，对于大多数场合，应该足够了。</p><h2 id="一、基本用法"><a href="#一、基本用法" class="headerlink" title="一、基本用法"></a>一、基本用法</h2><p>awk的基本用法如下：</p><pre><code class="shell"># 格式awk 动作 文件名# 实例awk &#39;&#123;print $0&#125;&#39; demo.txt</code></pre><p>上面示例中，demo.txt是awk要处理的文本文件。前面单引号内部有一个大括号，里面就是每一行的处理动作<code>print $0</code>。其中，print是打印命令，<code>$0</code>代表当前行，因此上面命令的执行结果，就是把每一行原样打印出来。</p><p>下面，我们先用标准输入（stdin）演示上面这个例子。</p><pre><code class="shell">echo &#39;this is a test&#39; | awk &#39;&#123;print $0&#125;&#39;# 结果this is a test</code></pre><p>上面代码中，print $0就是把标准输入this is a test，重新打印了一遍。</p><p>awk会根据空格和制表符，将每一行分成若干段，一次用<code>$1</code>、<code>$2</code>、<code>$3</code>代表第一个字段、第二个字段、第三个字段等等。</p><pre><code class="shell">echo &#39;this is a test&#39; | awk &#39;&#123;print $3&#125;&#39;# 结果a</code></pre><p>上面代码中，<code>$3</code>代表this is a test的第三个字段a。</p><p>下面，为了便于举例，我们把/etc/passwd文件保存成demo.txt。</p><pre><code class="txt">root:x:0:0:root:/root:/usr/bin/zshdaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologinbin:x:2:2:bin:/bin:/usr/sbin/nologinsys:x:3:3:sys:/dev:/usr/sbin/nologinsync:x:4:65534:sync:/bin:/bin/sync</code></pre><p>这个文件的字段分隔符号是（：），所以要用-F参数指定分隔符为冒号。然后，才能提取到它的第一个字段。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123; print $1 &#125;&#39; demo.txt# 结果rootdaemonbinsyssync</code></pre><h2 id="二、变量"><a href="#二、变量" class="headerlink" title="二、变量"></a>二、变量</h2><p>除了<code>$</code>、<code>+</code>、<code>数字</code>表示某个字段，<code>awk</code>还提供其他一些变量。</p><p>变量NF表示当前有多少个字段，因此<code>$NF</code>就代表最后一个字段。</p><pre><code class="shell">echo &#39;this is a test&#39; | awk &#39;&#123;print $NF&#125;&#39;# 结果test</code></pre><p>$(NF-1)代表倒数第二个字段。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123;print $1, $(NF-1)&#125;&#39; demo.txt# 结果root /rootdaemon /usr/sbinbin /binsys /devsync /bin</code></pre><p>上面代码中，<code>print</code>命令里面的逗号，表示输出的时候，两个部分之间使用空格分隔。</p><p>变量<code>NR</code>表示当前处理的是第几行。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123;print NR &quot;) &quot; $1&#125;&#39; demo.txt# 结果1) root2) daemon3) bin4) sys5) sync</code></pre><p>上面代码中，<code>print</code>命令里面，如果原样输出字符，要放在双引号里面。</p><p>awk的其他内置变量如下。</p><ul><li><code>FILENAME</code>：当前文件名</li><li><code>FS</code>：字段分隔符，默认是空格和制表符。</li><li><code>RS</code>：行分隔符，用于分割每一行，默认是换行符。</li><li><code>OFS</code>：输出字段的分隔符，用于打印时分隔字段，默认为空格。</li><li><code>ORS</code>：输出记录的分隔符，用于打印时分隔记录，默认为换行符。</li><li><code>OFMT</code>：数字输出的格式，默认为<code>％.6g</code>。</li></ul><h2 id="三、函数"><a href="#三、函数" class="headerlink" title="三、函数"></a>三、函数</h2><p><code>awk</code>还提供了一些内置函数，方便对原始数据的处理。</p><p>函数<code>toupper()</code>用于将字符转换为大写。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123; print toupper($1) &#125;&#39; demo.txt# 结果ROOTDAEMONBINSYSSYNC</code></pre><p>上面代码中，第一个字段输出时都变成了大写。</p><p>其他常用函数如下：</p><ul><li><code>tolower()</code>：字符转为小写。</li><li><code>length()</code>：返回字符串长度。</li><li><code>substr()</code>：返回子字符串。</li><li><code>sin()</code>：正弦。</li><li><code>cos()</code>：余弦。</li><li><code>sqrt()</code>：平方根。</li><li><code>rand()</code>：随机数。</li></ul><p><code>awk</code>内置函数的完整列表，可以查看<a href="https://www.gnu.org/software/gawk/manual/html_node/Built_002din.html#Built_002din">手册</a>。</p><h2 id="四、条件"><a href="#四、条件" class="headerlink" title="四、条件"></a>四、条件</h2><p><code>awk</code>允许指定输出条件，只输出符合条件的行。</p><p>输出条件要写在动作的前面。</p><pre><code class="shell">awk &#39;条件 动作&#39; 文件名</code></pre><p>请看下面的例子。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;/usr/ &#123;print $1&#125;&#39; demo.txt# 结果rootdaemonbinsys</code></pre><p>上面代码中，<code>print</code>命令前面是一个正则表达式，只输出包含<code>usr</code>的行。</p><p>下面的例子只输出奇数行，以及输出第三行以后的行。</p><pre><code class="shell"># 输出奇数行$ awk -F &#39;:&#39; &#39;NR % 2 == 1 &#123;print $1&#125;&#39; demo.txt# 结果rootbinsync# 输出第三行以后的行$ awk -F &#39;:&#39; &#39;NR &gt;3 &#123;print $1&#125;&#39; demo.txt# 结果syssync</code></pre><p>下面的例子输出的第一个字段等于指定的行。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;$1 == &quot;root&quot; &#123;print $1&#125;&#39; demo.txt# 结果rootawk -F &#39;:&#39; &#39;$1 == &quot;root&quot; || $1 == &quot;bin&quot; &#123;print $1&#125;&#39; demo.txt# 结果rootbin</code></pre><h2 id="五、if语句"><a href="#五、if语句" class="headerlink" title="五、if语句"></a>五、if语句</h2><p><code>awk</code>提供了<code>if</code>结构，用于编写复杂的条件。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123;if ($1 &gt; &quot;m&quot;) print $1&#125;&#39; demo.txt# 结果rootsyssync</code></pre><p>上面代码输出第一个字段的第一个字符大于m的行。</p><p><code>if</code>结构还可以指定<code>else</code>部分。</p><pre><code class="shell">$ awk -F &#39;:&#39; &#39;&#123;if ($1 &gt; &quot;m&quot;) print $1; else print &quot;---&quot;&#125;&#39; demo.txt# 结果root------syssync</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux：EOF-（自定义终止符）用法"><a href="#Linux：EOF-（自定义终止符）用法" class="headerlink" title="Linux：EOF （自定义终止符）用法"></a>Linux：EOF （自定义终止符）用法</h1><blockquote><p>在平时的运维工作中，我们经常会碰到这样一个场景：执行脚本的时候，需要往一个文件里自动输入N行内容。如果是少数的几行内容，还可以用echo追加方式，但如果是很多行，那么单纯用echo追加的方式就显得愚蠢之极了！<strong>这个时候，就可以使用EOF结合cat命令进行行内容的追加了。</strong></p></blockquote><p>EOF 是 END Of File 的缩写，表示自定义终止符。既然自定义,那么 EOF 就不是固定的,可以随意设置别名。在 Linux 按 ctrl+d 就代表 EOF。</p><p>EOF 一般会配合 cat 能够多行文本输出。其用法如下：</p><pre><code class="shell">&lt;&lt; EOF    # 开始...EOF    # 结束</code></pre><p>还可以自定义，比如自定义：</p><pre><code class="shell">&lt;&lt; BBB    # 开始...BBB    # 结束</code></pre><p>注：EOF 不是固定的，可以自定义其他，但需注意，结束符和起始符要保持一致</p><p><strong>重定向符号</strong></p><pre><code class="shell">&lt; :输入重定向&gt; :输出重定向&gt;&gt; :输出重定向,追加,不覆盖之前内容&lt;&lt; :标准输入来自命令行的一对分隔号的中间内容</code></pre><p><strong>下面是 cat 结合 EOF 使用示例：</strong></p><pre><code class="shell"># 向文件 test.sh 里输入内容cat &lt;&lt; EOF &gt;test.sh 1231231233452354345asdfasdfsEOF# 向文件 test.sh 里追加内容cat &lt;&lt; EOF &gt;&gt;test.sh 77778888EOF# 覆盖 test.sh 文件cat &lt;&lt; EOF &gt;test.sh55555EOF# 编写脚本，向一个文件输出多行内容touch /usr/local/mysql/my.cnfvim test.shcat &gt; /usr/local/mysql/my.cnf &lt;&lt; EOF    # 或者cat &lt;&lt; EOF &gt; /usr/local/mysql/my.cnf[client]port = 3306socket = /usr/local/mysql/var/mysql.sock[mysqld]port = 3306socket = /usr/local/mysql/var/mysql.sockbasedir = /usr/local/mysql/datadir = /data/mysql/datapid-file = /data/mysql/data/mysql.piduser = mysqlbind-address = 0.0.0.0server-id = 1sync_binlog=1log_bin = mysql-bin[myisamchk]key_buffer_size = 8Msort_buffer_size = 8Mread_buffer = 4Mwrite_buffer = 4Msql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES port = 3306EOF</code></pre><p><strong>思考：</strong><br>我们可以从cat命令的说明中知道，cat的操作对象是文件，但是例1中cat的操作对象不是文件，而是用户输入。</p><p>那么我们可以这样理解例1：先在文件file中输入“Hello”，再用cat file输出其中的内容。<br>也就是说我们可以用一个文件来替代”&lt;&lt; EOF EOF”。<br>反过来说，如果操作命令中的文件是输入对象，也可以用”&lt;&lt; EOF EOF”来替代的。</p>]]></content>
       
       
       <categories>
@@ -279,11 +279,11 @@
     
     
     <entry>
-      <title>Linux：EOF （自定义终止符）用法</title>
-      <link href="/2021/11/18/Linux%EF%BC%9AEOF%E7%94%A8%E6%B3%95/"/>
-      <url>/2021/11/18/Linux%EF%BC%9AEOF%E7%94%A8%E6%B3%95/</url>
+      <title>awk入门教程</title>
+      <link href="/2021/11/18/Linux%EF%BC%9Aawk%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/"/>
+      <url>/2021/11/18/Linux%EF%BC%9Aawk%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux：EOF-（自定义终止符）用法"><a href="#Linux：EOF-（自定义终止符）用法" class="headerlink" title="Linux：EOF （自定义终止符）用法"></a>Linux：EOF （自定义终止符）用法</h1><blockquote><p>在平时的运维工作中，我们经常会碰到这样一个场景：执行脚本的时候，需要往一个文件里自动输入N行内容。如果是少数的几行内容，还可以用echo追加方式，但如果是很多行，那么单纯用echo追加的方式就显得愚蠢之极了！<strong>这个时候，就可以使用EOF结合cat命令进行行内容的追加了。</strong></p></blockquote><p>EOF 是 END Of File 的缩写，表示自定义终止符。既然自定义,那么 EOF 就不是固定的,可以随意设置别名。在 Linux 按 ctrl+d 就代表 EOF。</p><p>EOF 一般会配合 cat 能够多行文本输出。其用法如下：</p><pre><code class="shell">&lt;&lt; EOF    # 开始...EOF    # 结束</code></pre><p>还可以自定义，比如自定义：</p><pre><code class="shell">&lt;&lt; BBB    # 开始...BBB    # 结束</code></pre><p>注：EOF 不是固定的，可以自定义其他，但需注意，结束符和起始符要保持一致</p><p><strong>重定向符号</strong></p><pre><code class="shell">&lt; :输入重定向&gt; :输出重定向&gt;&gt; :输出重定向,追加,不覆盖之前内容&lt;&lt; :标准输入来自命令行的一对分隔号的中间内容</code></pre><p><strong>下面是 cat 结合 EOF 使用示例：</strong></p><pre><code class="shell"># 向文件 test.sh 里输入内容cat &lt;&lt; EOF &gt;test.sh 1231231233452354345asdfasdfsEOF# 向文件 test.sh 里追加内容cat &lt;&lt; EOF &gt;&gt;test.sh 77778888EOF# 覆盖 test.sh 文件cat &lt;&lt; EOF &gt;test.sh55555EOF# 编写脚本，向一个文件输出多行内容touch /usr/local/mysql/my.cnfvim test.shcat &gt; /usr/local/mysql/my.cnf &lt;&lt; EOF    # 或者cat &lt;&lt; EOF &gt; /usr/local/mysql/my.cnf[client]port = 3306socket = /usr/local/mysql/var/mysql.sock[mysqld]port = 3306socket = /usr/local/mysql/var/mysql.sockbasedir = /usr/local/mysql/datadir = /data/mysql/datapid-file = /data/mysql/data/mysql.piduser = mysqlbind-address = 0.0.0.0server-id = 1sync_binlog=1log_bin = mysql-bin[myisamchk]key_buffer_size = 8Msort_buffer_size = 8Mread_buffer = 4Mwrite_buffer = 4Msql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES port = 3306EOF</code></pre><p><strong>思考：</strong><br>我们可以从cat命令的说明中知道，cat的操作对象是文件，但是例1中cat的操作对象不是文件，而是用户输入。</p><p>那么我们可以这样理解例1：先在文件file中输入“Hello”，再用cat file输出其中的内容。<br>也就是说我们可以用一个文件来替代”&lt;&lt; EOF EOF”。<br>反过来说，如果操作命令中的文件是输入对象，也可以用”&lt;&lt; EOF EOF”来替代的。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="awk入门教程"><a href="#awk入门教程" class="headerlink" title="awk入门教程"></a>awk入门教程</h1><p>awk 是处理文本文件的一个应用程序，几乎所有 Linux 系统都自带这个程序。</p><p>它依次处理文件的每一行，并读取里面的每一个字段。对于<strong>日志</strong>、<strong>csv</strong> 这样的每行格式相同的文本文件，awk 可能是最方便的工具。</p><p>awk 其实不仅仅是工具软件，还是一种编程语言。不过，本文只介绍它的命令用法，对于大多数场合，应该足够了。</p><h2 id="一、基本用法"><a href="#一、基本用法" class="headerlink" title="一、基本用法"></a>一、基本用法</h2><p>awk的基本用法如下：</p><pre><code class="shell"># 格式awk 动作 文件名# 实例awk &#39;&#123;print $0&#125;&#39; demo.txt</code></pre><p>上面示例中，demo.txt是awk要处理的文本文件。前面单引号内部有一个大括号，里面就是每一行的处理动作<code>print $0</code>。其中，print是打印命令，<code>$0</code>代表当前行，因此上面命令的执行结果，就是把每一行原样打印出来。</p><p>下面，我们先用标准输入（stdin）演示上面这个例子。</p><pre><code class="shell">echo &#39;this is a test&#39; | awk &#39;&#123;print $0&#125;&#39;# 结果this is a test</code></pre><p>上面代码中，print $0就是把标准输入this is a test，重新打印了一遍。</p><p>awk会根据空格和制表符，将每一行分成若干段，一次用<code>$1</code>、<code>$2</code>、<code>$3</code>代表第一个字段、第二个字段、第三个字段等等。</p><pre><code class="shell">echo &#39;this is a test&#39; | awk &#39;&#123;print $3&#125;&#39;# 结果a</code></pre><p>上面代码中，<code>$3</code>代表this is a test的第三个字段a。</p><p>下面，为了便于举例，我们把/etc/passwd文件保存成demo.txt。</p><pre><code class="txt">root:x:0:0:root:/root:/usr/bin/zshdaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologinbin:x:2:2:bin:/bin:/usr/sbin/nologinsys:x:3:3:sys:/dev:/usr/sbin/nologinsync:x:4:65534:sync:/bin:/bin/sync</code></pre><p>这个文件的字段分隔符号是（：），所以要用-F参数指定分隔符为冒号。然后，才能提取到它的第一个字段。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123; print $1 &#125;&#39; demo.txt# 结果rootdaemonbinsyssync</code></pre><h2 id="二、变量"><a href="#二、变量" class="headerlink" title="二、变量"></a>二、变量</h2><p>除了<code>$</code>、<code>+</code>、<code>数字</code>表示某个字段，<code>awk</code>还提供其他一些变量。</p><p>变量NF表示当前有多少个字段，因此<code>$NF</code>就代表最后一个字段。</p><pre><code class="shell">echo &#39;this is a test&#39; | awk &#39;&#123;print $NF&#125;&#39;# 结果test</code></pre><p>$(NF-1)代表倒数第二个字段。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123;print $1, $(NF-1)&#125;&#39; demo.txt# 结果root /rootdaemon /usr/sbinbin /binsys /devsync /bin</code></pre><p>上面代码中，<code>print</code>命令里面的逗号，表示输出的时候，两个部分之间使用空格分隔。</p><p>变量<code>NR</code>表示当前处理的是第几行。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123;print NR &quot;) &quot; $1&#125;&#39; demo.txt# 结果1) root2) daemon3) bin4) sys5) sync</code></pre><p>上面代码中，<code>print</code>命令里面，如果原样输出字符，要放在双引号里面。</p><p>awk的其他内置变量如下。</p><ul><li><code>FILENAME</code>：当前文件名</li><li><code>FS</code>：字段分隔符，默认是空格和制表符。</li><li><code>RS</code>：行分隔符，用于分割每一行，默认是换行符。</li><li><code>OFS</code>：输出字段的分隔符，用于打印时分隔字段，默认为空格。</li><li><code>ORS</code>：输出记录的分隔符，用于打印时分隔记录，默认为换行符。</li><li><code>OFMT</code>：数字输出的格式，默认为<code>％.6g</code>。</li></ul><h2 id="三、函数"><a href="#三、函数" class="headerlink" title="三、函数"></a>三、函数</h2><p><code>awk</code>还提供了一些内置函数，方便对原始数据的处理。</p><p>函数<code>toupper()</code>用于将字符转换为大写。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123; print toupper($1) &#125;&#39; demo.txt# 结果ROOTDAEMONBINSYSSYNC</code></pre><p>上面代码中，第一个字段输出时都变成了大写。</p><p>其他常用函数如下：</p><ul><li><code>tolower()</code>：字符转为小写。</li><li><code>length()</code>：返回字符串长度。</li><li><code>substr()</code>：返回子字符串。</li><li><code>sin()</code>：正弦。</li><li><code>cos()</code>：余弦。</li><li><code>sqrt()</code>：平方根。</li><li><code>rand()</code>：随机数。</li></ul><p><code>awk</code>内置函数的完整列表，可以查看<a href="https://www.gnu.org/software/gawk/manual/html_node/Built_002din.html#Built_002din">手册</a>。</p><h2 id="四、条件"><a href="#四、条件" class="headerlink" title="四、条件"></a>四、条件</h2><p><code>awk</code>允许指定输出条件，只输出符合条件的行。</p><p>输出条件要写在动作的前面。</p><pre><code class="shell">awk &#39;条件 动作&#39; 文件名</code></pre><p>请看下面的例子。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;/usr/ &#123;print $1&#125;&#39; demo.txt# 结果rootdaemonbinsys</code></pre><p>上面代码中，<code>print</code>命令前面是一个正则表达式，只输出包含<code>usr</code>的行。</p><p>下面的例子只输出奇数行，以及输出第三行以后的行。</p><pre><code class="shell"># 输出奇数行$ awk -F &#39;:&#39; &#39;NR % 2 == 1 &#123;print $1&#125;&#39; demo.txt# 结果rootbinsync# 输出第三行以后的行$ awk -F &#39;:&#39; &#39;NR &gt;3 &#123;print $1&#125;&#39; demo.txt# 结果syssync</code></pre><p>下面的例子输出的第一个字段等于指定的行。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;$1 == &quot;root&quot; &#123;print $1&#125;&#39; demo.txt# 结果rootawk -F &#39;:&#39; &#39;$1 == &quot;root&quot; || $1 == &quot;bin&quot; &#123;print $1&#125;&#39; demo.txt# 结果rootbin</code></pre><h2 id="五、if语句"><a href="#五、if语句" class="headerlink" title="五、if语句"></a>五、if语句</h2><p><code>awk</code>提供了<code>if</code>结构，用于编写复杂的条件。</p><pre><code class="shell">awk -F &#39;:&#39; &#39;&#123;if ($1 &gt; &quot;m&quot;) print $1&#125;&#39; demo.txt# 结果rootsyssync</code></pre><p>上面代码输出第一个字段的第一个字符大于m的行。</p><p><code>if</code>结构还可以指定<code>else</code>部分。</p><pre><code class="shell">$ awk -F &#39;:&#39; &#39;&#123;if ($1 &gt; &quot;m&quot;) print $1; else print &quot;---&quot;&#125;&#39; demo.txt# 结果root------syssync</code></pre>]]></content>
       
       
       <categories>
@@ -529,11 +529,11 @@
     
     
     <entry>
-      <title>Linux：查看进程使用内存</title>
-      <link href="/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98/"/>
-      <url>/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98/</url>
+      <title>Linux：查看网</title>
+      <link href="/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%8D%A1/"/>
+      <url>/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%8D%A1/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux：查看进程使用内存"><a href="#Linux：查看进程使用内存" class="headerlink" title="Linux：查看进程使用内存"></a>Linux：查看进程使用内存</h1><pre><code class="shell"># 方法一：使用 smaps，单位 KBcat /proc/73375/smaps | grep &#39;^Rss:&#39; | awk &#39;&#123;sum +=$2&#125; END&#123;print sum&#125;&#39;# 方法二：单位 G，输出时会显示单位top -bn 1 -p 73375|sed /^[[:space:]]*$/d|tail -1|awk -F &#39; &#39; &#39;&#123;print $6&#125;&#39;</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux：查看网卡"><a href="#Linux：查看网卡" class="headerlink" title="Linux：查看网卡"></a>Linux：查看网卡</h1><pre><code class="shell"># 查看所有网卡ip a# 指定显示模块网卡的信息ip addr show eth0# 简写ip a s eth0    </code></pre>]]></content>
       
       
       <categories>
@@ -554,11 +554,11 @@
     
     
     <entry>
-      <title>Linux：查看网</title>
-      <link href="/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%8D%A1/"/>
-      <url>/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%8D%A1/</url>
+      <title>Linux：查看进程使用内存</title>
+      <link href="/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98/"/>
+      <url>/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux：查看网卡"><a href="#Linux：查看网卡" class="headerlink" title="Linux：查看网卡"></a>Linux：查看网卡</h1><pre><code class="shell"># 查看所有网卡ip a# 指定显示模块网卡的信息ip addr show eth0# 简写ip a s eth0    </code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux：查看进程使用内存"><a href="#Linux：查看进程使用内存" class="headerlink" title="Linux：查看进程使用内存"></a>Linux：查看进程使用内存</h1><pre><code class="shell"># 方法一：使用 smaps，单位 KBcat /proc/73375/smaps | grep &#39;^Rss:&#39; | awk &#39;&#123;sum +=$2&#125; END&#123;print sum&#125;&#39;# 方法二：单位 G，输出时会显示单位top -bn 1 -p 73375|sed /^[[:space:]]*$/d|tail -1|awk -F &#39; &#39; &#39;&#123;print $6&#125;&#39;</code></pre>]]></content>
       
       
       <categories>
@@ -604,11 +604,11 @@
     
     
     <entry>
-      <title>Linux：重定向符号</title>
-      <link href="/2021/11/18/Linux%EF%BC%9A%E9%87%8D%E5%AE%9A%E5%90%91%E7%AC%A6%E5%8F%B7/"/>
-      <url>/2021/11/18/Linux%EF%BC%9A%E9%87%8D%E5%AE%9A%E5%90%91%E7%AC%A6%E5%8F%B7/</url>
+      <title>tar 命令</title>
+      <link href="/2021/11/18/Linux%EF%BC%9A%E8%A7%A3%E5%8E%8B%E5%91%BD%E4%BB%A4/"/>
+      <url>/2021/11/18/Linux%EF%BC%9A%E8%A7%A3%E5%8E%8B%E5%91%BD%E4%BB%A4/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux：重定向符号"><a href="#Linux：重定向符号" class="headerlink" title="Linux：重定向符号"></a>Linux：重定向符号</h1><pre><code class="shell">&lt; :输入重定向&gt; :输出重定向&gt;&gt; :输出重定向,追加,不覆盖之前内容&lt;&lt; :标准输入来自命令行的一对分隔号的中间内容</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="tar-命令"><a href="#tar-命令" class="headerlink" title="tar 命令"></a>tar 命令</h1><pre><code class="shell">tar-c: 建立压缩档案 -x：解压 -t：查看内容 -r：向压缩归档文件末尾追加文件 -u：更新原压缩包中的文件这五个是独立的命令，压缩解压都要用到其中一个，可以和别的命令连用但只能用其中一个。下面的参数是根据需要在压缩或解压档案时可选的。-z：有gzip属性的 -j：有bz2属性的 -Z：有compress属性的 -v：显示所有过程 -O：将文件解开到标准输出 下面的参数 -f 是必须的:-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名。-C&lt;目的目录&gt; 或 --directory=&lt;目的目录&gt; 切换到指定的目录。</code></pre><ul><li>gzip 是 GNU 组织开发的一个压缩程序，.gz 结尾的文件就是 gzip 压缩的结果。</li><li>与 gzip 相对的解压程序是 gunzip。</li><li>tar 中使用 -z 这个参数来调用gzip。</li></ul><p><strong>下面来举例说明一下：</strong></p><pre><code class="shell"># tar -czf all.tar.gz *.jpg这条命令是将所有 .jpg 的文件打成一个 tar 包，并且将其用 gzip 压缩，生成一个 gzip 压缩过的包，包名为 all.tar.gz。# tar -xzf all.tar.gz这条命令是将上面产生的包解开。</code></pre>]]></content>
       
       
       <categories>
@@ -629,11 +629,11 @@
     
     
     <entry>
-      <title>tar 命令</title>
-      <link href="/2021/11/18/Linux%EF%BC%9A%E8%A7%A3%E5%8E%8B%E5%91%BD%E4%BB%A4/"/>
-      <url>/2021/11/18/Linux%EF%BC%9A%E8%A7%A3%E5%8E%8B%E5%91%BD%E4%BB%A4/</url>
+      <title>QuartZ Cron表达式 / QuartZ定时任务</title>
+      <link href="/2021/11/18/QuartZ-Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F-QuartZ%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/"/>
+      <url>/2021/11/18/QuartZ-Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F-QuartZ%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</url>
       
-        <content type="html"><![CDATA[<h1 id="tar-命令"><a href="#tar-命令" class="headerlink" title="tar 命令"></a>tar 命令</h1><pre><code class="shell">tar-c: 建立压缩档案 -x：解压 -t：查看内容 -r：向压缩归档文件末尾追加文件 -u：更新原压缩包中的文件这五个是独立的命令，压缩解压都要用到其中一个，可以和别的命令连用但只能用其中一个。下面的参数是根据需要在压缩或解压档案时可选的。-z：有gzip属性的 -j：有bz2属性的 -Z：有compress属性的 -v：显示所有过程 -O：将文件解开到标准输出 下面的参数 -f 是必须的:-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名。-C&lt;目的目录&gt; 或 --directory=&lt;目的目录&gt; 切换到指定的目录。</code></pre><ul><li>gzip 是 GNU 组织开发的一个压缩程序，.gz 结尾的文件就是 gzip 压缩的结果。</li><li>与 gzip 相对的解压程序是 gunzip。</li><li>tar 中使用 -z 这个参数来调用gzip。</li></ul><p><strong>下面来举例说明一下：</strong></p><pre><code class="shell"># tar -czf all.tar.gz *.jpg这条命令是将所有 .jpg 的文件打成一个 tar 包，并且将其用 gzip 压缩，生成一个 gzip 压缩过的包，包名为 all.tar.gz。# tar -xzf all.tar.gz这条命令是将上面产生的包解开。</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="QuartZ-Cron表达式-QuartZ定时任务（Spring-实现）"><a href="#QuartZ-Cron表达式-QuartZ定时任务（Spring-实现）" class="headerlink" title="QuartZ Cron表达式 / QuartZ定时任务（Spring 实现）"></a>QuartZ Cron表达式 / QuartZ定时任务（Spring 实现）</h1><h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>[TOC]</p><p>cron 表达式用于配置 cronTrigger 的实例。cron 表达式实际上是由七个子表达式组成。这些表达式之间用空格分隔。</p><ol><li>Seconds（秒）</li><li>Minutes（分）</li><li>Hours（小时）</li><li>Day-of-Month（天）</li><li>Month（月）</li><li>Day-of-Week（周）</li><li>Year（年）</li></ol><p>例：”0 0 12 ? * WED” 意思是：每个星期三的中午12点执行。</p><p>个别子表达式可以包含范围或者列表。例如：上面例子中的WED可以换成 “MON-FRI”，”MON,WED,FRI”，甚至 “MON-WED,SAT”。</p><p><strong>子表达式范围：</strong></p><ol><li>Seconds  (0~59)</li><li>Minutes  (0~59)</li><li>Hours  (0~23)</li><li>Day-of-Month (1~31，但是要注意有些月份没有31天)</li><li>Month  (0~11，或者 “ JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV,DEC “)</li><li>Day-of-Week  (1~7,1=SUN 或者 “ SUN, MON, TUE, WED, THU, FRI, SAT “)</li><li>Year  (1970~2099)</li></ol><p>Cron 表达式的格式：秒 分 时 日 月 周 年(可选)。</p><table><thead><tr><th>字段名</th><th>允许的值</th><th>允许的特殊字符</th></tr></thead><tbody><tr><td>秒</td><td>0 - 59</td><td>, - * /</td></tr><tr><td>分</td><td>0 - 59</td><td>, - * /</td></tr><tr><td>小时</td><td>0 - 23</td><td>, - * /</td></tr><tr><td>日</td><td>1 - 31</td><td>, - * ? / L W C</td></tr><tr><td>月</td><td>1 - 12 or JAN - DEC</td><td>, - * /</td></tr><tr><td>周几</td><td>1 - 7 or SUN - SAT</td><td>, - * ? / L C #</td></tr><tr><td>年（可选字段）</td><td>empty</td><td>1970 - 2099 , - * /</td></tr></tbody></table><p><strong>字符含义：</strong></p><p>***** ：代表所有可能的值。因此，“*” 在 Month 中表示每个月，在 Day-of-Month 中表示每天，在 Hours 表示每小时</p><p><strong>-</strong> ：表示指定范围。</p><p><strong>,</strong> ：表示列出枚举值。例如：在 Minutes 子表达式中，“5,20” 表示在 5 分钟和 20 分钟触发。</p><p><strong>/</strong> ：被用于指定增量。例如：在 Minutes 子表达式中，“0/15” 表示从0分钟开始，每 15 分钟执行一次。“3/20” 表示从第三分钟开始，每 20 分钟执行一次。和 “3,23,43” （表示第 3,23,43 分钟触发）的含义一样。</p><p><strong>?</strong> ：用在 Day-of-Month 和 Day-of-Week 中，指 “没有具体的值”。当两个字表达式其中一个指定了值以后，为了避免冲突，需要将另一个值设为 “?”。例如：想在每月 20 日触发调度，不管 20 号是星期几，只能用如下写法：0 0 0 20 * ?，其中最后只能用 “？”，而不能用 “*”。</p><p><strong>L</strong>：用在 day-of-month 和 day-of-week 子串中。它是单词 “last” 的缩写。它在两个子表达式中的含义是不同的。</p><p>​      在 day-of-week 中，“L” 表示一个月的最后一天，如：1月31号，3月30号。</p><p>​      在 day-of-week 中，“L” 表示一个星期的最后一天，也就是 “7” 或 ”SAT“</p><p>​      如果 ”L“ 前有具体内容，他就有其他的含义了。例如：”6L“ 表示这个月的倒数第六天。”FRIL“ 表示这个月的最后一个星期五。</p><p>​     注意：在使用 “L” 参数时，不要指定列表或者范围，这样会出现问题。</p><p><strong>W</strong>：“Weekday” 的缩写。只能用在 day-of-month 字段。用来描述最接近指定天的工作日（周一到周五）。例如：在 day-of-month 字段用 “15W”  指 “最接近这个月第 15 天的工作日”，即如果这个月第 15 天是周六，那么触发器将会在这个月第 14 天即周五触发；如果这个月第 15 天是周日，那么触发器将会在这个月第 16 天即周一触发；如果这个月第 15 天是周二，那么久在触发器这天触发。<strong>注意一点：</strong>这个用法只会在当前月计算值，不会越过当前月。“W” 字符仅能在 day-of-month 指明一天，不能是一个范围或列表。也可以用 “LW” 来指定这个月的最后一个工作日，即最后一个星期五。</p><p>**#**：只能用在 day-of-week 字段。用来描述最接近指定天的工作日（周一到周五）。例如：在 day-of-month 字段用 “6#3” or “FRI#3” 指定这个月第三个周五（6指周五，3指第三个）。如果指定的日期不存在，触发器就不会触发。</p><p><strong>表达式例子：</strong></p><p>0 * * * * ?    每 1 分钟触发一次</p><p>0 0 * * * ?    每天每 1 小时触发一次</p><p>0 0 10 * * ?    每天 10 点触发一次</p><p>0 * 14 * * ?    在每天下午2点到下午2:59期间的每1分钟触发 </p><p>0 30 9 1 * ?    每月1号上午9点半</p><p>0 15 10 15 * ?    每月15日上午10:15触发</p><p>*/5 * * * * ?    每隔5秒执行一次</p><p>0 */1 * * * ?    每隔1分钟执行一次</p><p>0 0 5-15 * * ?    每天5-15点整点触发</p><p>0 0/3 * * * ?    每三分钟触发一次</p><p>0 0-5 14 * * ?    在每天下午2点到下午2:05期间的每1分钟触发 </p><p>0 0/5 14 * * ?    在每天下午2点到下午2:55期间的每5分钟触发</p><p>0 0/5 14,18 * * ?    在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发</p><p>0 0/30 9-17 * * ?    朝九晚五工作时间内每半小时</p><p>0 0 10,14,16 * * ?    每天上午10点，下午2点，4点 </p><p>0 0 12 ? * WED    表示每个星期三中午12点</p><p>0 0 17 ? * TUES,THUR,SAT    每周二、四、六下午五点</p><p>0 10,44 14 ? 3 WED    每年三月的星期三的下午2:10和2:44触发 </p><p>0 15 10 ? * MON-FRI    周一至周五的上午10:15触发</p><p>0 0 23 L * ?    每月最后一天23点执行一次</p><p>0 15 10 L * ?    每月最后一日的上午10:15触发 </p><p>0 15 10 ? * 6L    每月的最后一个星期五上午10:15触发</p><p>0 15 10 * * ? 2005    2005年的每天上午10:15触发 </p><p>0 15 10 ? * 6L 2002-2005    2002年至2005年的每月的最后一个星期五上午10:15触发 </p><p>0 15 10 ? * 6#3    每月的第三个星期五上午10:15触发</p>]]></content>
       
       
       <categories>
@@ -679,11 +679,11 @@
     
     
     <entry>
-      <title>Shell 多行注释</title>
-      <link href="/2021/11/18/Shell%E5%A4%9A%E8%A1%8C%E6%B3%A8%E9%87%8A/"/>
-      <url>/2021/11/18/Shell%E5%A4%9A%E8%A1%8C%E6%B3%A8%E9%87%8A/</url>
+      <title>Shell 字符串比较</title>
+      <link href="/2021/11/18/Shell%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%94%E8%BE%83/"/>
+      <url>/2021/11/18/Shell%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%94%E8%BE%83/</url>
       
-        <content type="html"><![CDATA[<h1 id="Shell-多行注释"><a href="#Shell-多行注释" class="headerlink" title="Shell 多行注释"></a>Shell 多行注释</h1><ul><li><p><strong>方法一</strong></p><pre><code class="shell">:&lt;&lt;!#被注释的内容   !</code></pre></li><li><p><strong>方法二</strong></p><pre><code class="shell">：&#39;#被注释的内容&#39;</code></pre></li><li><p><strong>方法三</strong></p><pre><code class="shell">if false;then#被注释的内容fi</code></pre></li><li><p><strong>方法四</strong></p><pre><code class="shell">:&lt;&lt;任意字符或者数字#被煮熟的内容任意字符或者数字</code></pre></li><li><p><strong>方法五</strong></p><pre><code class="shell">((0)) &amp;&amp; &#123;#被注释的内容&#125;</code></pre></li></ul>]]></content>
+        <content type="html"><![CDATA[<h1 id="Shell-字符串比较"><a href="#Shell-字符串比较" class="headerlink" title="Shell 字符串比较"></a>Shell 字符串比较</h1><p><strong>字符串相等</strong></p><pre><code class="shell">[[ $str1 == $str2 ]]</code></pre><p><strong>字符串不相等</strong></p><pre><code class="shell">[[ $str1 != $str2 ]]</code></pre><p><strong>字符串大小比较</strong></p><pre><code class="shell">[[ $str1 &gt; $str2 ]]</code></pre><p><strong>字符串等于空</strong></p><pre><code class="shell">[[  -z $str2 ]]</code></pre><p><strong>字符串不等于空</strong></p><pre><code class="shell">[[  -n $str2 ]]</code></pre><p><strong>用test代替[]</strong></p><pre><code class="shell">if test $str1 == $str2</code></pre>]]></content>
       
       
       <categories>
@@ -704,11 +704,11 @@
     
     
     <entry>
-      <title>Shell 字符串比较</title>
-      <link href="/2021/11/18/Shell%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%94%E8%BE%83/"/>
-      <url>/2021/11/18/Shell%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%94%E8%BE%83/</url>
+      <title>Shell 多行注释</title>
+      <link href="/2021/11/18/Shell%E5%A4%9A%E8%A1%8C%E6%B3%A8%E9%87%8A/"/>
+      <url>/2021/11/18/Shell%E5%A4%9A%E8%A1%8C%E6%B3%A8%E9%87%8A/</url>
       
-        <content type="html"><![CDATA[<h1 id="Shell-字符串比较"><a href="#Shell-字符串比较" class="headerlink" title="Shell 字符串比较"></a>Shell 字符串比较</h1><p><strong>字符串相等</strong></p><pre><code class="shell">[[ $str1 == $str2 ]]</code></pre><p><strong>字符串不相等</strong></p><pre><code class="shell">[[ $str1 != $str2 ]]</code></pre><p><strong>字符串大小比较</strong></p><pre><code class="shell">[[ $str1 &gt; $str2 ]]</code></pre><p><strong>字符串等于空</strong></p><pre><code class="shell">[[  -z $str2 ]]</code></pre><p><strong>字符串不等于空</strong></p><pre><code class="shell">[[  -n $str2 ]]</code></pre><p><strong>用test代替[]</strong></p><pre><code class="shell">if test $str1 == $str2</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="Shell-多行注释"><a href="#Shell-多行注释" class="headerlink" title="Shell 多行注释"></a>Shell 多行注释</h1><ul><li><p><strong>方法一</strong></p><pre><code class="shell">:&lt;&lt;!#被注释的内容   !</code></pre></li><li><p><strong>方法二</strong></p><pre><code class="shell">：&#39;#被注释的内容&#39;</code></pre></li><li><p><strong>方法三</strong></p><pre><code class="shell">if false;then#被注释的内容fi</code></pre></li><li><p><strong>方法四</strong></p><pre><code class="shell">:&lt;&lt;任意字符或者数字#被煮熟的内容任意字符或者数字</code></pre></li><li><p><strong>方法五</strong></p><pre><code class="shell">((0)) &amp;&amp; &#123;#被注释的内容&#125;</code></pre></li></ul>]]></content>
       
       
       <categories>
@@ -1079,11 +1079,11 @@
     
     
     <entry>
-      <title>修改 ssh 登录后默认显示的路径</title>
-      <link href="/2021/11/18/%E4%BF%AE%E6%94%B9ssh%E7%99%BB%E5%BD%95%E5%90%8E%E9%BB%98%E8%AE%A4%E6%98%BE%E7%A4%BA%E7%9A%84%E8%B7%AF%E5%BE%84/"/>
-      <url>/2021/11/18/%E4%BF%AE%E6%94%B9ssh%E7%99%BB%E5%BD%95%E5%90%8E%E9%BB%98%E8%AE%A4%E6%98%BE%E7%A4%BA%E7%9A%84%E8%B7%AF%E5%BE%84/</url>
+      <title>以非 root 用户编辑 crontab 提示 You are not allowed to use this program(crontab)</title>
+      <link href="/2021/11/18/%E4%BB%A5%E9%9D%9Eroot%E7%94%A8%E6%88%B7%E7%BC%96%E8%BE%91crontab%E6%8F%90%E7%A4%BA%20You%20are%20not%20allowed%20to%20use%20this%20program(crontab)/"/>
+      <url>/2021/11/18/%E4%BB%A5%E9%9D%9Eroot%E7%94%A8%E6%88%B7%E7%BC%96%E8%BE%91crontab%E6%8F%90%E7%A4%BA%20You%20are%20not%20allowed%20to%20use%20this%20program(crontab)/</url>
       
-        <content type="html"><![CDATA[<h1 id="修改-ssh-登录后默认显示的路径"><a href="#修改-ssh-登录后默认显示的路径" class="headerlink" title="修改 ssh 登录后默认显示的路径"></a>修改 ssh 登录后默认显示的路径</h1><p>1、登录到 ssh 服务器</p><p>2、<code>vim ~/.bashrc </code></p><p>3、添加一行：例如：<code>cd /home/prod</code></p><img src="https://malloc-img.oss-cn-hangzhou.aliyuncs.com/img/image-20210902113950402.png" alt="image-20210902113950402" style="zoom:50%;" /><p>4、再次 ssh 服务器，默认目录显示为 <code>/home/prod</code></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="以非-root-用户编辑-crontab-提示-You-are-not-allowed-to-use-this-program-crontab"><a href="#以非-root-用户编辑-crontab-提示-You-are-not-allowed-to-use-this-program-crontab" class="headerlink" title="以非 root 用户编辑 crontab 提示 You are not allowed to use this program(crontab)"></a>以非 root 用户编辑 crontab 提示 You are not allowed to use this program(crontab)</h1><p>问题原因：<code>/etc/cron.allow</code> 中没有添加对应的用户</p><p>解决办法：在 <code>/etc/cron.allow</code> 中添加对应的用户</p>]]></content>
       
       
       <categories>
@@ -1104,11 +1104,11 @@
     
     
     <entry>
-      <title>以非 root 用户编辑 crontab 提示 You are not allowed to use this program(crontab)</title>
-      <link href="/2021/11/18/%E4%BB%A5%E9%9D%9Eroot%E7%94%A8%E6%88%B7%E7%BC%96%E8%BE%91crontab%E6%8F%90%E7%A4%BA%20You%20are%20not%20allowed%20to%20use%20this%20program(crontab)/"/>
-      <url>/2021/11/18/%E4%BB%A5%E9%9D%9Eroot%E7%94%A8%E6%88%B7%E7%BC%96%E8%BE%91crontab%E6%8F%90%E7%A4%BA%20You%20are%20not%20allowed%20to%20use%20this%20program(crontab)/</url>
+      <title>修改 ssh 登录后默认显示的路径</title>
+      <link href="/2021/11/18/%E4%BF%AE%E6%94%B9ssh%E7%99%BB%E5%BD%95%E5%90%8E%E9%BB%98%E8%AE%A4%E6%98%BE%E7%A4%BA%E7%9A%84%E8%B7%AF%E5%BE%84/"/>
+      <url>/2021/11/18/%E4%BF%AE%E6%94%B9ssh%E7%99%BB%E5%BD%95%E5%90%8E%E9%BB%98%E8%AE%A4%E6%98%BE%E7%A4%BA%E7%9A%84%E8%B7%AF%E5%BE%84/</url>
       
-        <content type="html"><![CDATA[<h1 id="以非-root-用户编辑-crontab-提示-You-are-not-allowed-to-use-this-program-crontab"><a href="#以非-root-用户编辑-crontab-提示-You-are-not-allowed-to-use-this-program-crontab" class="headerlink" title="以非 root 用户编辑 crontab 提示 You are not allowed to use this program(crontab)"></a>以非 root 用户编辑 crontab 提示 You are not allowed to use this program(crontab)</h1><p>问题原因：<code>/etc/cron.allow</code> 中没有添加对应的用户</p><p>解决办法：在 <code>/etc/cron.allow</code> 中添加对应的用户</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="修改-ssh-登录后默认显示的路径"><a href="#修改-ssh-登录后默认显示的路径" class="headerlink" title="修改 ssh 登录后默认显示的路径"></a>修改 ssh 登录后默认显示的路径</h1><p>1、登录到 ssh 服务器</p><p>2、<code>vim ~/.bashrc </code></p><p>3、添加一行：例如：<code>cd /home/prod</code></p><img src="https://malloc-img.oss-cn-hangzhou.aliyuncs.com/img/image-20210902113950402.png" alt="image-20210902113950402" style="zoom:50%;" /><p>4、再次 ssh 服务器，默认目录显示为 <code>/home/prod</code></p>]]></content>
       
       
       <categories>
@@ -1179,11 +1179,11 @@
     
     
     <entry>
-      <title>查看处理器是X86还是ARM架构的</title>
-      <link href="/2021/11/18/%E6%9F%A5%E7%9C%8B%E5%A4%84%E7%90%86%E5%99%A8%E6%98%AFX86%E8%BF%98%E6%98%AFARM%E6%9E%B6%E6%9E%84%E7%9A%84/"/>
-      <url>/2021/11/18/%E6%9F%A5%E7%9C%8B%E5%A4%84%E7%90%86%E5%99%A8%E6%98%AFX86%E8%BF%98%E6%98%AFARM%E6%9E%B6%E6%9E%84%E7%9A%84/</url>
+      <title>查看Linux发行版本信息</title>
+      <link href="/2021/11/18/%E6%9F%A5%E7%9C%8BLinux%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF/"/>
+      <url>/2021/11/18/%E6%9F%A5%E7%9C%8BLinux%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF/</url>
       
-        <content type="html"><![CDATA[<h1 id="查看处理器是X86还是ARM架构的"><a href="#查看处理器是X86还是ARM架构的" class="headerlink" title="查看处理器是X86还是ARM架构的"></a>查看处理器是X86还是ARM架构的</h1><pre><code class="shell">file $SHELL或arch</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="查看Linux发行版本信息"><a href="#查看Linux发行版本信息" class="headerlink" title="查看Linux发行版本信息"></a>查看Linux发行版本信息</h1><p><strong>linux下如何查看已安装的centos版本信息：</strong></p><p><strong>CentOS</strong></p><pre><code class="shell"># 方法一cat /etc/centos-release# 示例结果CentOS Linux release 7.6.1810 (AltArch)</code></pre><p><strong>Ubuntu</strong></p><pre><code class="shell">cat /etc/issue# 示例结果Ubuntu 20.04.2 LTS \n \l</code></pre><p><strong>其他所有</strong></p><pre><code class="shell">lsb_release -a# 示例结果LSB Version:    n/aDistributor ID: SUSEDescription:    SUSE Linux Enterprise Server 12 SP4Release:        12.4Codename:       n/a</code></pre>]]></content>
       
       
       <categories>
@@ -1204,11 +1204,11 @@
     
     
     <entry>
-      <title>查看Linux发行版本信息</title>
-      <link href="/2021/11/18/%E6%9F%A5%E7%9C%8BLinux%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF/"/>
-      <url>/2021/11/18/%E6%9F%A5%E7%9C%8BLinux%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF/</url>
+      <title>查看处理器是X86还是ARM架构的</title>
+      <link href="/2021/11/18/%E6%9F%A5%E7%9C%8B%E5%A4%84%E7%90%86%E5%99%A8%E6%98%AFX86%E8%BF%98%E6%98%AFARM%E6%9E%B6%E6%9E%84%E7%9A%84/"/>
+      <url>/2021/11/18/%E6%9F%A5%E7%9C%8B%E5%A4%84%E7%90%86%E5%99%A8%E6%98%AFX86%E8%BF%98%E6%98%AFARM%E6%9E%B6%E6%9E%84%E7%9A%84/</url>
       
-        <content type="html"><![CDATA[<h1 id="查看Linux发行版本信息"><a href="#查看Linux发行版本信息" class="headerlink" title="查看Linux发行版本信息"></a>查看Linux发行版本信息</h1><p><strong>linux下如何查看已安装的centos版本信息：</strong></p><p><strong>CentOS</strong></p><pre><code class="shell"># 方法一cat /etc/centos-release# 示例结果CentOS Linux release 7.6.1810 (AltArch)</code></pre><p><strong>Ubuntu</strong></p><pre><code class="shell">cat /etc/issue# 示例结果Ubuntu 20.04.2 LTS \n \l</code></pre><p><strong>其他所有</strong></p><pre><code class="shell">lsb_release -a# 示例结果LSB Version:    n/aDistributor ID: SUSEDescription:    SUSE Linux Enterprise Server 12 SP4Release:        12.4Codename:       n/a</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="查看处理器是X86还是ARM架构的"><a href="#查看处理器是X86还是ARM架构的" class="headerlink" title="查看处理器是X86还是ARM架构的"></a>查看处理器是X86还是ARM架构的</h1><pre><code class="shell">file $SHELL或arch</code></pre>]]></content>
       
       
       <categories>
