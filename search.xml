@@ -29,6 +29,31 @@
     
     
     <entry>
+      <title>Linux df 显示目前文件系统磁盘使用情况</title>
+      <link href="/2021/11/18/Linux-df-%E6%98%BE%E7%A4%BA%E7%9B%AE%E5%89%8D%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5/"/>
+      <url>/2021/11/18/Linux-df-%E6%98%BE%E7%A4%BA%E7%9B%AE%E5%89%8D%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Linux-df-显示目前文件系统磁盘使用情况"><a href="#Linux-df-显示目前文件系统磁盘使用情况" class="headerlink" title="Linux df 显示目前文件系统磁盘使用情况"></a>Linux df 显示目前文件系统磁盘使用情况</h1><pre><code class="shell">df [选项]... [FILE]...</code></pre><ul><li>文件-a, –all 包含所有的具有 0 Blocks 的文件系统</li><li>文件–block-size={SIZE} 使用 {SIZE} 大小的 Blocks</li><li>文件-h, –human-readable 使用人类可读的格式(预设值是不加这个选项的…)</li><li>文件-H, –si 很像 -h, 但是用 1000 为单位而不是用 1024</li><li>文件-i, –inodes 列出 inode 资讯，不列出已使用 block</li><li>文件-k, –kilobytes 就像是 –block-size=1024</li><li>文件-l, –local 限制列出的文件结构</li><li>文件-m, –megabytes 就像 –block-size=1048576</li><li>文件–no-sync 取得资讯前不 sync (预设值)</li><li>文件-P, –portability 使用 POSIX 输出格式</li><li>文件–sync 在取得资讯前 sync</li><li>文件-t, –type=TYPE 限制列出文件系统的 TYPE</li><li>文件-T, –print-type 显示文件系统的形式</li><li>文件-x, –exclude-type=TYPE 限制列出文件系统不要显示 TYPE</li><li>文件-v (忽略)</li><li>文件–help 显示这个帮手并且离开</li><li>文件–version 输出版本资讯并且离开</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux &amp;&amp; Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Cron 表达式生成规则</title>
       <link href="/2021/11/18/Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%94%9F%E6%88%90%E8%A7%84%E5%88%99/"/>
       <url>/2021/11/18/Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%94%9F%E6%88%90%E8%A7%84%E5%88%99/</url>
@@ -84,31 +109,6 @@
       <url>/2021/11/18/Linux%E4%B8%8B%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E4%B8%ADfeff%E4%B9%B1%E7%A0%81/</url>
       
         <content type="html"><![CDATA[<h1 id="Linux-下删除文件中-lt-feff-gt-​-乱码"><a href="#Linux-下删除文件中-lt-feff-gt-​-乱码" class="headerlink" title="Linux 下删除文件中 $&lt;$feff$&gt;$​ 乱码"></a>Linux 下删除文件中 $&lt;$feff$&gt;$​ 乱码</h1><blockquote><p>linux下处理windows utf8文件，发现vim头会多一个 <feff></p></blockquote><h2 id="linux-vim-中的-lt-​feff-gt"><a href="#linux-vim-中的-lt-​feff-gt" class="headerlink" title="linux  vim 中的 $&lt;$​feff$&gt;$"></a>linux  vim 中的 $&lt;$​feff$&gt;$</h2><p>$&lt;$​feff$&gt;$​​ 称作 BOM（Byte Order Mark）的不可见字符，是 Unicode 用来标识内部编码的排列方式的，在 UTF-16、UTF-32 编码里它是必需的，而在 UTF-8 里是可选的。</p><p><strong>删除方法：</strong></p><pre><code class="shell">grep -I -r -l $&#39;\xEF\xBB\xBF&#39;  文件 | xargs sed  -i  &#39;s/\xEF\xBB\xBF//’</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux &amp;&amp; Shell </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Linux 时间格式</title>
-      <link href="/2021/11/18/Linux-%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/"/>
-      <url>/2021/11/18/Linux-%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Linux-时间格式"><a href="#Linux-时间格式" class="headerlink" title="Linux 时间格式"></a>Linux 时间格式</h1><pre><code class="shell">date +%Y-%m-%d-%H-%M-%S</code></pre><p>结果：</p><pre><code class="shell">2021-02-03-04-00-01年-月-日-时-分-秒</code></pre>]]></content>
       
       
       <categories>
@@ -204,6 +204,31 @@
     
     
     <entry>
+      <title>Linux 查看操作防火墙方法</title>
+      <link href="/2021/11/18/Linux%E6%9F%A5%E7%9C%8B%E6%93%8D%E4%BD%9C%E9%98%B2%E7%81%AB%E5%A2%99%E6%96%B9%E6%B3%95/"/>
+      <url>/2021/11/18/Linux%E6%9F%A5%E7%9C%8B%E6%93%8D%E4%BD%9C%E9%98%B2%E7%81%AB%E5%A2%99%E6%96%B9%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Linux-查看操作防火墙方法"><a href="#Linux-查看操作防火墙方法" class="headerlink" title="Linux 查看操作防火墙方法"></a>Linux 查看操作防火墙方法</h1><h3 id="具体操作步骤"><a href="#具体操作步骤" class="headerlink" title="具体操作步骤"></a>具体操作步骤</h3><p>1、在 centos 系统桌面中使用快捷键【Ctrl+Alt+T】打开终端命令行模式。</p><p>2、在 centos 终端命令行中输入以下命令查看防火墙状态即可。</p><pre><code class="shell"># 查看 iptables 防火墙状态service iptables status#查看 firewall 防火墙服务状态systemctl status firewalld</code></pre><h3 id="相关操作命令"><a href="#相关操作命令" class="headerlink" title="相关操作命令"></a>相关操作命令</h3><h4 id="iptables防火墙"><a href="#iptables防火墙" class="headerlink" title="iptables防火墙"></a>iptables防火墙</h4><pre><code class="shell"># 启动防火墙service iptables start# 停止防火墙service iptables stop# 重启防火墙service iptables restart</code></pre><h4 id="firewall-防火墙"><a href="#firewall-防火墙" class="headerlink" title="firewall 防火墙"></a>firewall 防火墙</h4><pre><code class="shell"># 开启service firewalld start# 关闭 service firewalld stop # 重启service firewalld restart </code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux &amp;&amp; Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux磁盘情况查询</title>
       <link href="/2021/11/18/Linux%E7%A3%81%E7%9B%98%E6%83%85%E5%86%B5%E6%9F%A5%E8%AF%A2/"/>
       <url>/2021/11/18/Linux%E7%A3%81%E7%9B%98%E6%83%85%E5%86%B5%E6%9F%A5%E8%AF%A2/</url>
@@ -279,31 +304,6 @@
     
     
     <entry>
-      <title>Linux：awk 命令详解</title>
-      <link href="/2021/11/18/Linux%EF%BC%9Aawk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
-      <url>/2021/11/18/Linux%EF%BC%9Aawk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Linux：awk-命令详解"><a href="#Linux：awk-命令详解" class="headerlink" title="Linux：awk 命令详解"></a>Linux：awk 命令详解</h1><p>特点：取列，统计计算</p><p>场景：主要用来取列；对比，比较；统计，计算（awk 数组）</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux &amp;&amp; Shell </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Linux：file命令详解</title>
       <link href="/2021/11/18/Linux%EF%BC%9Afile%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
       <url>/2021/11/18/Linux%EF%BC%9Afile%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
@@ -329,36 +329,11 @@
     
     
     <entry>
-      <title>Linux 查看操作防火墙方法</title>
-      <link href="/2021/11/18/Linux%E6%9F%A5%E7%9C%8B%E6%93%8D%E4%BD%9C%E9%98%B2%E7%81%AB%E5%A2%99%E6%96%B9%E6%B3%95/"/>
-      <url>/2021/11/18/Linux%E6%9F%A5%E7%9C%8B%E6%93%8D%E4%BD%9C%E9%98%B2%E7%81%AB%E5%A2%99%E6%96%B9%E6%B3%95/</url>
+      <title>Linux：awk 命令详解</title>
+      <link href="/2021/11/18/Linux%EF%BC%9Aawk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
+      <url>/2021/11/18/Linux%EF%BC%9Aawk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux-查看操作防火墙方法"><a href="#Linux-查看操作防火墙方法" class="headerlink" title="Linux 查看操作防火墙方法"></a>Linux 查看操作防火墙方法</h1><h3 id="具体操作步骤"><a href="#具体操作步骤" class="headerlink" title="具体操作步骤"></a>具体操作步骤</h3><p>1、在 centos 系统桌面中使用快捷键【Ctrl+Alt+T】打开终端命令行模式。</p><p>2、在 centos 终端命令行中输入以下命令查看防火墙状态即可。</p><pre><code class="shell"># 查看 iptables 防火墙状态service iptables status#查看 firewall 防火墙服务状态systemctl status firewalld</code></pre><h3 id="相关操作命令"><a href="#相关操作命令" class="headerlink" title="相关操作命令"></a>相关操作命令</h3><h4 id="iptables防火墙"><a href="#iptables防火墙" class="headerlink" title="iptables防火墙"></a>iptables防火墙</h4><pre><code class="shell"># 启动防火墙service iptables start# 停止防火墙service iptables stop# 重启防火墙service iptables restart</code></pre><h4 id="firewall-防火墙"><a href="#firewall-防火墙" class="headerlink" title="firewall 防火墙"></a>firewall 防火墙</h4><pre><code class="shell"># 开启service firewalld start# 关闭 service firewalld stop # 重启service firewalld restart </code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux &amp;&amp; Shell </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Linux：grep 命令详解</title>
-      <link href="/2021/11/18/Linux%EF%BC%9Agrep%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
-      <url>/2021/11/18/Linux%EF%BC%9Agrep%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Linux：grep-命令详解"><a href="#Linux：grep-命令详解" class="headerlink" title="Linux：grep 命令详解"></a>Linux：grep 命令详解</h1><blockquote><p><strong>特点：</strong>过滤</p><p><strong>场景：</strong>grep 命令过滤速度是最快的</p></blockquote><h2 id="常用参数-选项"><a href="#常用参数-选项" class="headerlink" title="常用参数[选项]"></a>常用参数[选项]</h2><pre><code class="shell">-E    # 相当于egrep，支持扩展正则-c    # 统计出现了多少行，类似于 wc -l-v        :&lt;&lt;!          取反，排除（一般与 -c 一起用）；         因为ps + grep的时候容易把自己也过滤出来，容易导致 判断进程状态失误；             [注：常用写法如：ps -ef | grep crond | grep -v grep          或 ps -ef | grep crond | grep -v grep | wc -l]         另一种精简方法：ps -ef | grep &#39;[c]rond&#39;    [注：在要排除的单词中任意一个字母上加中括号]         原因：grep 执行的时候，进程名字 grep &#39;[c]rond&#39;，         但是 grep 实际匹配的时候，进程名字 grep &#39;crond&#39;，         通过这样的特点，巧妙的排除了 grep 命令的进程    !-n    # 显示行号-i    # 过滤的时候忽略大小写-w    # 精确匹配，多用于过滤进程    :&lt;&lt;!        精确匹配的几种写法举例：        echo alibaba ali alihaha alimama | grep -w ali    # 主要用        echo alibaba ali alihaha alimama | grep &#39;\bali\b&#39;        echo alibaba ali alihaha alimama | grep &#39;\&lt;ali\&gt;&#39;    !</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux：awk-命令详解"><a href="#Linux：awk-命令详解" class="headerlink" title="Linux：awk 命令详解"></a>Linux：awk 命令详解</h1><p>特点：取列，统计计算</p><p>场景：主要用来取列；对比，比较；统计，计算（awk 数组）</p>]]></content>
       
       
       <categories>
@@ -384,6 +359,31 @@
       <url>/2021/11/18/Linux%EF%BC%9Aldd%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
       
         <content type="html"><![CDATA[<h1 id="Linux：ldd命令详解"><a href="#Linux：ldd命令详解" class="headerlink" title="Linux：ldd命令详解"></a>Linux：ldd命令详解</h1><blockquote><p>ldd：用于打印程序或者库文件所依赖的共享库列表</p></blockquote><p><strong>语法：</strong></p><pre><code class="shell">ldd &lt;选项&gt; &lt;参数&gt;</code></pre><p><strong>选项：</strong></p><pre><code class="shell">--version：打印指令版本号；-v：详细信息模式，打印所有相关信息；-u：打印未使用的直接依赖；-d：执行重定位和报告任何丢失的对象；-r：执行数据对象和函数的重定位，并且报告任何丢失的对象和函数；--help：显示帮助信息。</code></pre><p><strong>参数：</strong></p><pre><code class="shell">文件：指定可执行程序或者文库。</code></pre><p><strong>其他介绍：</strong></p><p>（1）ldd不是一个可执行程序，而只是一个shell脚本 ldd能够显示可执行模块的dependency(所属)(所属)，其原理是通过设置一系列的环境变量，如下：LD_TRACE_LOADED_OBJECTS、LD_WARN、LD_BIND_NOW、LD_LIBRARY_VERSION、LD_VERBOSE等。当LD_TRACE_LOADED_OBJECTS环境变量不为空时，任何可执行程序在运行时，它都会只显示模块的dependency(所属)，而程序并不真正执行。要不你可以在shell终端测试一下，如下： export LD_TRACE_LOADED_OBJECTS=1 再执行任何的程序，如ls等，看看程序的运行结果。</p><p>（2）ldd显示可执行模块的dependency(所属)的工作原理，其实质是通过ld-linux.so（elf动态库的装载器）来实现的。我们知道，ld-linux.so模块会先于executable模块程序工作，并获得控制权，因此当上述的那些环境变量被设置时，ld-linux.so选择了显示可执行模块的dependency(所属)。 实际上可以直接执行ld-linux.so模块，如：/lib/ld-linux.so.2 –list program（这相当于ldd program）。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux &amp;&amp; Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux：grep 命令详解</title>
+      <link href="/2021/11/18/Linux%EF%BC%9Agrep%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
+      <url>/2021/11/18/Linux%EF%BC%9Agrep%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Linux：grep-命令详解"><a href="#Linux：grep-命令详解" class="headerlink" title="Linux：grep 命令详解"></a>Linux：grep 命令详解</h1><blockquote><p><strong>特点：</strong>过滤</p><p><strong>场景：</strong>grep 命令过滤速度是最快的</p></blockquote><h2 id="常用参数-选项"><a href="#常用参数-选项" class="headerlink" title="常用参数[选项]"></a>常用参数[选项]</h2><pre><code class="shell">-E    # 相当于egrep，支持扩展正则-c    # 统计出现了多少行，类似于 wc -l-v        :&lt;&lt;!          取反，排除（一般与 -c 一起用）；         因为ps + grep的时候容易把自己也过滤出来，容易导致 判断进程状态失误；             [注：常用写法如：ps -ef | grep crond | grep -v grep          或 ps -ef | grep crond | grep -v grep | wc -l]         另一种精简方法：ps -ef | grep &#39;[c]rond&#39;    [注：在要排除的单词中任意一个字母上加中括号]         原因：grep 执行的时候，进程名字 grep &#39;[c]rond&#39;，         但是 grep 实际匹配的时候，进程名字 grep &#39;crond&#39;，         通过这样的特点，巧妙的排除了 grep 命令的进程    !-n    # 显示行号-i    # 过滤的时候忽略大小写-w    # 精确匹配，多用于过滤进程    :&lt;&lt;!        精确匹配的几种写法举例：        echo alibaba ali alihaha alimama | grep -w ali    # 主要用        echo alibaba ali alihaha alimama | grep &#39;\bali\b&#39;        echo alibaba ali alihaha alimama | grep &#39;\&lt;ali\&gt;&#39;    !</code></pre>]]></content>
       
       
       <categories>
@@ -504,31 +504,6 @@
     
     
     <entry>
-      <title>Linux：查看网</title>
-      <link href="/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%8D%A1/"/>
-      <url>/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%8D%A1/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Linux：查看网卡"><a href="#Linux：查看网卡" class="headerlink" title="Linux：查看网卡"></a>Linux：查看网卡</h1><pre><code class="shell"># 查看所有网卡ip a# 指定显示模块网卡的信息ip addr show eth0# 简写ip a s eth0    </code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux &amp;&amp; Shell </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Linux：改变用户所属用户组</title>
       <link href="/2021/11/18/Linux%EF%BC%9A%E6%94%B9%E5%8F%98%E6%96%87%E4%BB%B6%E6%89%80%E5%B1%9E%E7%94%A8%E6%88%B7%E7%BB%84/"/>
       <url>/2021/11/18/Linux%EF%BC%9A%E6%94%B9%E5%8F%98%E6%96%87%E4%BB%B6%E6%89%80%E5%B1%9E%E7%94%A8%E6%88%B7%E7%BB%84/</url>
@@ -554,11 +529,11 @@
     
     
     <entry>
-      <title>Linux：查看进程使用内存</title>
-      <link href="/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98/"/>
-      <url>/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98/</url>
+      <title>Linux：查看网</title>
+      <link href="/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%8D%A1/"/>
+      <url>/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%8D%A1/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux：查看进程使用内存"><a href="#Linux：查看进程使用内存" class="headerlink" title="Linux：查看进程使用内存"></a>Linux：查看进程使用内存</h1><pre><code class="shell"># 方法一：使用 smaps，单位 KBcat /proc/73375/smaps | grep &#39;^Rss:&#39; | awk &#39;&#123;sum +=$2&#125; END&#123;print sum&#125;&#39;# 方法二：单位 G，输出时会显示单位top -bn 1 -p 73375|sed /^[[:space:]]*$/d|tail -1|awk -F &#39; &#39; &#39;&#123;print $6&#125;&#39;</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux：查看网卡"><a href="#Linux：查看网卡" class="headerlink" title="Linux：查看网卡"></a>Linux：查看网卡</h1><pre><code class="shell"># 查看所有网卡ip a# 指定显示模块网卡的信息ip addr show eth0# 简写ip a s eth0    </code></pre>]]></content>
       
       
       <categories>
@@ -629,11 +604,36 @@
     
     
     <entry>
-      <title>Linux df 显示目前文件系统磁盘使用情况</title>
-      <link href="/2021/11/18/Linux-df-%E6%98%BE%E7%A4%BA%E7%9B%AE%E5%89%8D%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5/"/>
-      <url>/2021/11/18/Linux-df-%E6%98%BE%E7%A4%BA%E7%9B%AE%E5%89%8D%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5/</url>
+      <title>Linux：查看进程使用内存</title>
+      <link href="/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98/"/>
+      <url>/2021/11/18/Linux%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux-df-显示目前文件系统磁盘使用情况"><a href="#Linux-df-显示目前文件系统磁盘使用情况" class="headerlink" title="Linux df 显示目前文件系统磁盘使用情况"></a>Linux df 显示目前文件系统磁盘使用情况</h1><pre><code class="shell">df [选项]... [FILE]...</code></pre><ul><li>文件-a, –all 包含所有的具有 0 Blocks 的文件系统</li><li>文件–block-size={SIZE} 使用 {SIZE} 大小的 Blocks</li><li>文件-h, –human-readable 使用人类可读的格式(预设值是不加这个选项的…)</li><li>文件-H, –si 很像 -h, 但是用 1000 为单位而不是用 1024</li><li>文件-i, –inodes 列出 inode 资讯，不列出已使用 block</li><li>文件-k, –kilobytes 就像是 –block-size=1024</li><li>文件-l, –local 限制列出的文件结构</li><li>文件-m, –megabytes 就像 –block-size=1048576</li><li>文件–no-sync 取得资讯前不 sync (预设值)</li><li>文件-P, –portability 使用 POSIX 输出格式</li><li>文件–sync 在取得资讯前 sync</li><li>文件-t, –type=TYPE 限制列出文件系统的 TYPE</li><li>文件-T, –print-type 显示文件系统的形式</li><li>文件-x, –exclude-type=TYPE 限制列出文件系统不要显示 TYPE</li><li>文件-v (忽略)</li><li>文件–help 显示这个帮手并且离开</li><li>文件–version 输出版本资讯并且离开</li></ul>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux：查看进程使用内存"><a href="#Linux：查看进程使用内存" class="headerlink" title="Linux：查看进程使用内存"></a>Linux：查看进程使用内存</h1><pre><code class="shell"># 方法一：使用 smaps，单位 KBcat /proc/73375/smaps | grep &#39;^Rss:&#39; | awk &#39;&#123;sum +=$2&#125; END&#123;print sum&#125;&#39;# 方法二：单位 G，输出时会显示单位top -bn 1 -p 73375|sed /^[[:space:]]*$/d|tail -1|awk -F &#39; &#39; &#39;&#123;print $6&#125;&#39;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux &amp;&amp; Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux 时间格式</title>
+      <link href="/2021/11/18/Linux-%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/"/>
+      <url>/2021/11/18/Linux-%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Linux-时间格式"><a href="#Linux-时间格式" class="headerlink" title="Linux 时间格式"></a>Linux 时间格式</h1><pre><code class="shell">date +%Y-%m-%d-%H-%M-%S</code></pre><p>结果：</p><pre><code class="shell">2021-02-03-04-00-01年-月-日-时-分-秒</code></pre>]]></content>
       
       
       <categories>
@@ -854,11 +854,11 @@
     
     
     <entry>
-      <title>scp传输文件命令</title>
-      <link href="/2021/11/18/scp%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6%E5%91%BD%E4%BB%A4/"/>
-      <url>/2021/11/18/scp%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6%E5%91%BD%E4%BB%A4/</url>
+      <title>make 2&gt;&amp;1 | tee log.txt 命令解析</title>
+      <link href="/2021/11/18/make%202&amp;1%20%20tee%20log.txt%20%E5%91%BD%E4%BB%A4%E8%A7%A3%E6%9E%90/"/>
+      <url>/2021/11/18/make%202&amp;1%20%20tee%20log.txt%20%E5%91%BD%E4%BB%A4%E8%A7%A3%E6%9E%90/</url>
       
-        <content type="html"><![CDATA[<h1 id="scp-传输文件命令"><a href="#scp-传输文件命令" class="headerlink" title="scp 传输文件命令"></a>scp 传输文件命令</h1><pre><code class="shell">scp 文件名 用户名@ip:目标地址</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="make-2-gt-amp-1-tee-log-txt-命令解析"><a href="#make-2-gt-amp-1-tee-log-txt-命令解析" class="headerlink" title="make 2&gt;&amp;1 | tee log.txt 命令解析"></a>make 2&gt;&amp;1 | tee log.txt 命令解析</h1><p>1、<code>make</code>是什么？</p><p>make是linux下一个非常强大的命令，简单点就是你要编译你的源代码就得靠他了。</p><p>2、<code>2&gt;&amp;1</code>是什么意思？</p><p><strong>0 stdin，1 stdout，2 stderr</strong></p><p>2&gt;&amp;1应该分成两个部分来看，一个是2&gt;以及另一个是&amp;1；</p><p>其中<code>2&gt;</code>就是将标准出错重定向到某个特定的地方；<code>&amp;1</code>是指无论标准输出在哪里。</p><p><strong>所以<code>2&gt;&amp;1</code>的意思就是说无论标准出错在哪里，都将标准出错重定向到标准输出中。</strong></p><p>有时候希望将错误的信息重新定向到输出，就是将2的结果重定向至1中就有了”2&gt;1”这样的思路，如果按照上面的写法，系统会默认将错误的信息（STDERR）2重定向到一个名字为1的文件中，而非所想的（STDOUT）中。因此需要加&amp;进行区分。就有了 2&gt;&amp;1 这样的用法</p><p>3、<code>|</code>管道</p><p>管道的作用是提供一个通道，将上一个程序的标准输出重定向到下一个程序作为下一个程序的标准输入。</p><p>通常使用管道的好处是一方面形式上简单，另一方面其执行效率要远高于使用临时文件。</p><p>这里使用管道的目的是将make程序的输出重定向到下一个程序，其最终目的是用来将输出log存入文件中。</p><p>4、<code>tee</code>是用来干什么的？</p><p><code>tee</code>从标准输入中读取，并将读入的内容写到标准输出及文件中。</p><p>所以这里<code>tee</code>命令的作用是将数据读入并写到标准输出以及log.txt中。</p>]]></content>
       
       
       <categories>
@@ -870,7 +870,7 @@
       
         <tags>
             
-            <tag> Linux </tag>
+            <tag> Shell </tag>
             
         </tags>
       
@@ -896,6 +896,56 @@
         <tags>
             
             <tag> Shell </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>redis安装zmalloc.h: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录</title>
+      <link href="/2021/11/18/redis%E5%AE%89%E8%A3%85zmalloc.h5031%20%E8%87%B4%E5%91%BD%E9%94%99%E8%AF%AF%EF%BC%9Ajemallocjemalloc.h%EF%BC%9A%E6%B2%A1%E6%9C%89%E9%82%A3%E4%B8%AA%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95/"/>
+      <url>/2021/11/18/redis%E5%AE%89%E8%A3%85zmalloc.h5031%20%E8%87%B4%E5%91%BD%E9%94%99%E8%AF%AF%EF%BC%9Ajemallocjemalloc.h%EF%BC%9A%E6%B2%A1%E6%9C%89%E9%82%A3%E4%B8%AA%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="redis安装zmalloc-h-50-31-致命错误：jemalloc-jemalloc-h：没有那个文件或目录"><a href="#redis安装zmalloc-h-50-31-致命错误：jemalloc-jemalloc-h：没有那个文件或目录" class="headerlink" title="redis安装zmalloc.h:50:31: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录"></a>redis安装zmalloc.h:50:31: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录</h1><p><strong>问题：</strong>zmalloc.h:50:31: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录</p><p><img src="https://malloc-img.oss-cn-hangzhou.aliyuncs.com/img/image-20210714231342266.png" alt="image-20210714231342266"></p><p><strong>解决方案：</strong></p><p>执行命令：make MALLOC=libc</p><pre><code class="shell">make MALLOC=libc</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Redis </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Reids </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>scp传输文件命令</title>
+      <link href="/2021/11/18/scp%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6%E5%91%BD%E4%BB%A4/"/>
+      <url>/2021/11/18/scp%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6%E5%91%BD%E4%BB%A4/</url>
+      
+        <content type="html"><![CDATA[<h1 id="scp-传输文件命令"><a href="#scp-传输文件命令" class="headerlink" title="scp 传输文件命令"></a>scp 传输文件命令</h1><pre><code class="shell">scp 文件名 用户名@ip:目标地址</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux &amp;&amp; Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
             
         </tags>
       
@@ -934,31 +984,6 @@
       <url>/2021/11/18/shell%E5%9F%BA%E7%A1%80%20-%20$(cd%20%60dirname%20$0%60;pwd)/</url>
       
         <content type="html"><![CDATA[<h1 id="shell基础-dirname-0-用法"><a href="#shell基础-dirname-0-用法" class="headerlink" title="shell基础 - dirname $0 用法"></a>shell基础 - dirname $0 用法</h1><pre><code class="shell">dirname $0 :取得当前执行脚本文件的运行目录cd `dirname $0` :进入这个目录</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux &amp;&amp; Shell </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Shell </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>make 2&gt;&amp;1 | tee log.txt 命令解析</title>
-      <link href="/2021/11/18/make%202&amp;1%20%20tee%20log.txt%20%E5%91%BD%E4%BB%A4%E8%A7%A3%E6%9E%90/"/>
-      <url>/2021/11/18/make%202&amp;1%20%20tee%20log.txt%20%E5%91%BD%E4%BB%A4%E8%A7%A3%E6%9E%90/</url>
-      
-        <content type="html"><![CDATA[<h1 id="make-2-gt-amp-1-tee-log-txt-命令解析"><a href="#make-2-gt-amp-1-tee-log-txt-命令解析" class="headerlink" title="make 2&gt;&amp;1 | tee log.txt 命令解析"></a>make 2&gt;&amp;1 | tee log.txt 命令解析</h1><p>1、<code>make</code>是什么？</p><p>make是linux下一个非常强大的命令，简单点就是你要编译你的源代码就得靠他了。</p><p>2、<code>2&gt;&amp;1</code>是什么意思？</p><p><strong>0 stdin，1 stdout，2 stderr</strong></p><p>2&gt;&amp;1应该分成两个部分来看，一个是2&gt;以及另一个是&amp;1；</p><p>其中<code>2&gt;</code>就是将标准出错重定向到某个特定的地方；<code>&amp;1</code>是指无论标准输出在哪里。</p><p><strong>所以<code>2&gt;&amp;1</code>的意思就是说无论标准出错在哪里，都将标准出错重定向到标准输出中。</strong></p><p>有时候希望将错误的信息重新定向到输出，就是将2的结果重定向至1中就有了”2&gt;1”这样的思路，如果按照上面的写法，系统会默认将错误的信息（STDERR）2重定向到一个名字为1的文件中，而非所想的（STDOUT）中。因此需要加&amp;进行区分。就有了 2&gt;&amp;1 这样的用法</p><p>3、<code>|</code>管道</p><p>管道的作用是提供一个通道，将上一个程序的标准输出重定向到下一个程序作为下一个程序的标准输入。</p><p>通常使用管道的好处是一方面形式上简单，另一方面其执行效率要远高于使用临时文件。</p><p>这里使用管道的目的是将make程序的输出重定向到下一个程序，其最终目的是用来将输出log存入文件中。</p><p>4、<code>tee</code>是用来干什么的？</p><p><code>tee</code>从标准输入中读取，并将读入的内容写到标准输出及文件中。</p><p>所以这里<code>tee</code>命令的作用是将数据读入并写到标准输出以及log.txt中。</p>]]></content>
       
       
       <categories>
@@ -1029,11 +1054,11 @@
     
     
     <entry>
-      <title>vi、vim学习</title>
-      <link href="/2021/11/18/vi%E3%80%81vim%E5%AD%A6%E4%B9%A0/"/>
-      <url>/2021/11/18/vi%E3%80%81vim%E5%AD%A6%E4%B9%A0/</url>
+      <title>以非 root 用户编辑 crontab 提示 You are not allowed to use this program(crontab)</title>
+      <link href="/2021/11/18/%E4%BB%A5%E9%9D%9Eroot%E7%94%A8%E6%88%B7%E7%BC%96%E8%BE%91crontab%E6%8F%90%E7%A4%BA%20You%20are%20not%20allowed%20to%20use%20this%20program(crontab)/"/>
+      <url>/2021/11/18/%E4%BB%A5%E9%9D%9Eroot%E7%94%A8%E6%88%B7%E7%BC%96%E8%BE%91crontab%E6%8F%90%E7%A4%BA%20You%20are%20not%20allowed%20to%20use%20this%20program(crontab)/</url>
       
-        <content type="html"><![CDATA[<h1 id="vi、vim学习"><a href="#vi、vim学习" class="headerlink" title="vi、vim学习"></a>vi、vim学习</h1><h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><h3 id="一般模式下："><a href="#一般模式下：" class="headerlink" title="一般模式下："></a>一般模式下：</h3><ol><li>拷贝当前行：<code>yy</code>，拷贝当前行下的5行：<code>5yy</code>，粘贴：<code>p</code></li><li>删除当前行：<code>dd</code>，删除当前行下的5行：<code>5dd</code></li><li>定位到文档的最末行：<code>G</code>、定位首行：<code>gg</code></li><li>撤销上一步操作：<code>u </code></li><li>恢复上一步被撤销的操作：<code>ctrl + r</code></li><li>快速定位到第 n 行：<code>n+shift+g</code></li></ol><h3 id="命令行模式"><a href="#命令行模式" class="headerlink" title="命令行模式"></a>命令行模式</h3><ol><li>查找单词：命令行下 <code>/</code> 关键字，回车 查找，输入 <code>n</code> 就是查找下一个</li><li>设置文件的行号：命令行下 <code>:set nu</code> 和 <code>:set nonu</code></li></ol>]]></content>
+        <content type="html"><![CDATA[<h1 id="以非-root-用户编辑-crontab-提示-You-are-not-allowed-to-use-this-program-crontab"><a href="#以非-root-用户编辑-crontab-提示-You-are-not-allowed-to-use-this-program-crontab" class="headerlink" title="以非 root 用户编辑 crontab 提示 You are not allowed to use this program(crontab)"></a>以非 root 用户编辑 crontab 提示 You are not allowed to use this program(crontab)</h1><p>问题原因：<code>/etc/cron.allow</code> 中没有添加对应的用户</p><p>解决办法：在 <code>/etc/cron.allow</code> 中添加对应的用户</p>]]></content>
       
       
       <categories>
@@ -1079,61 +1104,36 @@
     
     
     <entry>
+      <title>vi、vim学习</title>
+      <link href="/2021/11/18/vi%E3%80%81vim%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2021/11/18/vi%E3%80%81vim%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="vi、vim学习"><a href="#vi、vim学习" class="headerlink" title="vi、vim学习"></a>vi、vim学习</h1><h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><h3 id="一般模式下："><a href="#一般模式下：" class="headerlink" title="一般模式下："></a>一般模式下：</h3><ol><li>拷贝当前行：<code>yy</code>，拷贝当前行下的5行：<code>5yy</code>，粘贴：<code>p</code></li><li>删除当前行：<code>dd</code>，删除当前行下的5行：<code>5dd</code></li><li>定位到文档的最末行：<code>G</code>、定位首行：<code>gg</code></li><li>撤销上一步操作：<code>u </code></li><li>恢复上一步被撤销的操作：<code>ctrl + r</code></li><li>快速定位到第 n 行：<code>n+shift+g</code></li></ol><h3 id="命令行模式"><a href="#命令行模式" class="headerlink" title="命令行模式"></a>命令行模式</h3><ol><li>查找单词：命令行下 <code>/</code> 关键字，回车 查找，输入 <code>n</code> 就是查找下一个</li><li>设置文件的行号：命令行下 <code>:set nu</code> 和 <code>:set nonu</code></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux &amp;&amp; Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>在Ubuntu 20.04上安装GCC（build-essential）</title>
       <link href="/2021/11/18/%E5%9C%A8Ubuntu%2020.04%E4%B8%8A%E5%AE%89%E8%A3%85GCC%EF%BC%88build-essential%EF%BC%89/"/>
       <url>/2021/11/18/%E5%9C%A8Ubuntu%2020.04%E4%B8%8A%E5%AE%89%E8%A3%85GCC%EF%BC%88build-essential%EF%BC%89/</url>
       
         <content type="html"><![CDATA[<h1 id="在Ubuntu-20-04上安装GCC（build-essential）"><a href="#在Ubuntu-20-04上安装GCC（build-essential）" class="headerlink" title="在Ubuntu 20.04上安装GCC（build-essential）"></a>在Ubuntu 20.04上安装GCC（build-essential）</h1><blockquote><p><strong>简介：</strong> GNU 编译器集合是一系列用于语言开发的编译器和库的集合，包括: C, C++, Objective-C, Fortran, Ada, Go, and D等编程语言。很多开源项目，包括 Linux kernel 和 GNU 工具，都是使用 GCC 进行编译的。本文主要为大家讲解如何在 Ubuntu 20.04 上安装 GCC。</p></blockquote><p>GNU 编译器集合是一系列用于语言开发的编译器和库的集合，包括: C, C++, Objective-C, Fortran, Ada, Go, and D等编程语言。很多开源项目，包括 Linux kernel 和 GNU 工具，都是使用 GCC 进行编译的。<br>本文描述如何在 Ubuntu 20.04 上安装 GCC。</p><h2 id="在-Ubuntu-20-04-上安装-GCC"><a href="#在-Ubuntu-20-04-上安装-GCC" class="headerlink" title="在 Ubuntu 20.04 上安装 GCC"></a>在 Ubuntu 20.04 上安装 GCC</h2><p>默认的 Ubuntu 软件源包含了一个软件包组，名称为 “build-essential”,它包含了 GNU 编辑器集合，GNU 调试器，和其他编译软件所必需的开发库和工具。</p><p>想要安装开发工具软件包，以 拥有 sudo 权限用户身份或者 root 身份运行下面的命令：</p><pre><code class="shell">sudo apt updatesudo apt install build-essential</code></pre><p>这个命令将会安装一系列软件包，包括<code>gcc</code>,<code>g++</code>,和<code>make</code>。<br>你可能还想安装关于如何使用 GNU/Linux开发的手册。</p><pre><code class="shell">sudo apt-get install manpages-dev</code></pre><p>通过运行下面的命令，打印 GCC 版本，来验证 GCC 编译器是否被成功地安装。</p><pre><code class="shell">gcc --version</code></pre><p>在 Ubuntu 20.04 软件源中 GCC 的默认可用版本号为<code>9.3.0</code>:</p><pre><code class="shell">gcc (Ubuntu 9.3.0-10ubuntu2) 9.3.0Copyright (C) 2019 Free Software Foundation, Inc.This is free software; see the source for copying conditions.  There is NOwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</code></pre><p>就这些。GCC 已经在你的 Ubuntu 系统上安装好了，你可以开始使用它了。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux &amp;&amp; Shell </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>以非 root 用户编辑 crontab 提示 You are not allowed to use this program(crontab)</title>
-      <link href="/2021/11/18/%E4%BB%A5%E9%9D%9Eroot%E7%94%A8%E6%88%B7%E7%BC%96%E8%BE%91crontab%E6%8F%90%E7%A4%BA%20You%20are%20not%20allowed%20to%20use%20this%20program(crontab)/"/>
-      <url>/2021/11/18/%E4%BB%A5%E9%9D%9Eroot%E7%94%A8%E6%88%B7%E7%BC%96%E8%BE%91crontab%E6%8F%90%E7%A4%BA%20You%20are%20not%20allowed%20to%20use%20this%20program(crontab)/</url>
-      
-        <content type="html"><![CDATA[<h1 id="以非-root-用户编辑-crontab-提示-You-are-not-allowed-to-use-this-program-crontab"><a href="#以非-root-用户编辑-crontab-提示-You-are-not-allowed-to-use-this-program-crontab" class="headerlink" title="以非 root 用户编辑 crontab 提示 You are not allowed to use this program(crontab)"></a>以非 root 用户编辑 crontab 提示 You are not allowed to use this program(crontab)</h1><p>问题原因：<code>/etc/cron.allow</code> 中没有添加对应的用户</p><p>解决办法：在 <code>/etc/cron.allow</code> 中添加对应的用户</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux &amp;&amp; Shell </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>根据进程的PID值来查找执行文件及其路径</title>
-      <link href="/2021/11/18/%E6%A0%B9%E6%8D%AE%E8%BF%9B%E7%A8%8B%E7%9A%84PID%E5%80%BC%E6%9D%A5%E6%9F%A5%E6%89%BE%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E5%8F%8A%E5%85%B6%E8%B7%AF%E5%BE%84/"/>
-      <url>/2021/11/18/%E6%A0%B9%E6%8D%AE%E8%BF%9B%E7%A8%8B%E7%9A%84PID%E5%80%BC%E6%9D%A5%E6%9F%A5%E6%89%BE%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E5%8F%8A%E5%85%B6%E8%B7%AF%E5%BE%84/</url>
-      
-        <content type="html"><![CDATA[<h1 id="根据进程的PID值来查找执行文件及其路径"><a href="#根据进程的PID值来查找执行文件及其路径" class="headerlink" title="根据进程的PID值来查找执行文件及其路径"></a>根据进程的PID值来查找执行文件及其路径</h1><pre><code class="shell">lsof -p &lt;PID&gt;pwdx PID</code></pre>]]></content>
       
       
       <categories>
@@ -1179,31 +1179,6 @@
     
     
     <entry>
-      <title>程序自愈脚本</title>
-      <link href="/2021/11/18/%E7%A8%8B%E5%BA%8F%E8%87%AA%E6%84%88%E8%84%9A%E6%9C%AC/"/>
-      <url>/2021/11/18/%E7%A8%8B%E5%BA%8F%E8%87%AA%E6%84%88%E8%84%9A%E6%9C%AC/</url>
-      
-        <content type="html"><![CDATA[<h1 id="程序自愈脚本"><a href="#程序自愈脚本" class="headerlink" title="程序自愈脚本"></a>程序自愈脚本</h1><p><strong>1、编写脚本 ato_start.sh</strong></p><pre><code class="shell"># ! /bin/sh                          procnum=`ps -ef| grep  进程名(如agent70)|grep -v grep| grep -v vi| grep -v cat | wc -l`echo $procnum   if [ $procnum -eq 0 ]   then      cd  /app/toptea/ccp/hub/bin      sh  start.sh      echo `date +%Y-%m-%d` `date +%H:%M:%S`  &quot;auto_start_进程 process!&quot; &gt;&gt;/app/toptea/ccp/hub/log/ato_start_log.logfi</code></pre><p><strong>2、编写 cron 定时任务</strong></p><pre><code class="shell">*/1   * * * *  sh /app/toptea/ccp/hub/ato_start.sh</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux &amp;&amp; Shell </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Shell </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>查看处理器是X86还是ARM架构的</title>
       <link href="/2021/11/18/%E6%9F%A5%E7%9C%8B%E5%A4%84%E7%90%86%E5%99%A8%E6%98%AFX86%E8%BF%98%E6%98%AFARM%E6%9E%B6%E6%9E%84%E7%9A%84/"/>
       <url>/2021/11/18/%E6%9F%A5%E7%9C%8B%E5%A4%84%E7%90%86%E5%99%A8%E6%98%AFX86%E8%BF%98%E6%98%AFARM%E6%9E%B6%E6%9E%84%E7%9A%84/</url>
@@ -1221,6 +1196,56 @@
         <tags>
             
             <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>根据进程的PID值来查找执行文件及其路径</title>
+      <link href="/2021/11/18/%E6%A0%B9%E6%8D%AE%E8%BF%9B%E7%A8%8B%E7%9A%84PID%E5%80%BC%E6%9D%A5%E6%9F%A5%E6%89%BE%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E5%8F%8A%E5%85%B6%E8%B7%AF%E5%BE%84/"/>
+      <url>/2021/11/18/%E6%A0%B9%E6%8D%AE%E8%BF%9B%E7%A8%8B%E7%9A%84PID%E5%80%BC%E6%9D%A5%E6%9F%A5%E6%89%BE%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E5%8F%8A%E5%85%B6%E8%B7%AF%E5%BE%84/</url>
+      
+        <content type="html"><![CDATA[<h1 id="根据进程的PID值来查找执行文件及其路径"><a href="#根据进程的PID值来查找执行文件及其路径" class="headerlink" title="根据进程的PID值来查找执行文件及其路径"></a>根据进程的PID值来查找执行文件及其路径</h1><pre><code class="shell">lsof -p &lt;PID&gt;pwdx PID</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux &amp;&amp; Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>程序自愈脚本</title>
+      <link href="/2021/11/18/%E7%A8%8B%E5%BA%8F%E8%87%AA%E6%84%88%E8%84%9A%E6%9C%AC/"/>
+      <url>/2021/11/18/%E7%A8%8B%E5%BA%8F%E8%87%AA%E6%84%88%E8%84%9A%E6%9C%AC/</url>
+      
+        <content type="html"><![CDATA[<h1 id="程序自愈脚本"><a href="#程序自愈脚本" class="headerlink" title="程序自愈脚本"></a>程序自愈脚本</h1><p><strong>1、编写脚本 ato_start.sh</strong></p><pre><code class="shell"># ! /bin/sh                          procnum=`ps -ef| grep  进程名(如agent70)|grep -v grep| grep -v vi| grep -v cat | wc -l`echo $procnum   if [ $procnum -eq 0 ]   then      cd  /app/toptea/ccp/hub/bin      sh  start.sh      echo `date +%Y-%m-%d` `date +%H:%M:%S`  &quot;auto_start_进程 process!&quot; &gt;&gt;/app/toptea/ccp/hub/log/ato_start_log.logfi</code></pre><p><strong>2、编写 cron 定时任务</strong></p><pre><code class="shell">*/1   * * * *  sh /app/toptea/ccp/hub/ato_start.sh</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux &amp;&amp; Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Shell </tag>
             
         </tags>
       
